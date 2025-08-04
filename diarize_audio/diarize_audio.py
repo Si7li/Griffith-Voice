@@ -3,6 +3,7 @@ from pyannote.audio import Pipeline
 from collections import defaultdict
 import torch
 import os
+import yaml
 from utils import save_cache, read_cache
 
 
@@ -10,7 +11,7 @@ class AudioDiarization:
     def __init__(self, vocal_input):
         self.vocal_input = vocal_input
     
-    def diarize_audio(self, read_from_cache=False, cache_path=None):
+    def diarize_audio(self, read_from_cache=False, cache_path=None, config_path="configs/config.yaml"):
         diarization = read_cache(read_from_cache, cache_path)
         if diarization:
             return diarization
@@ -19,6 +20,18 @@ class AudioDiarization:
             print(f"Error: Audio file '{self.vocal_input}' not found")
             return None
         try:
+            # Load custom parameters from YAML file
+            params = None
+            if config_path and os.path.exists(config_path):
+                try:
+                    with open(config_path, "r") as f:
+                        config = yaml.safe_load(f)
+                        params = config.get("pipeline", {}).get("params")
+                    if params:
+                        print(f"Loaded custom parameters from {config_path}")
+                except yaml.YAMLError as e:
+                    print(f"Error loading YAML file: {e}")
+            
             # Initialize the speaker diarization pipeline
             # Try loading token from cache
             auth_token = load_token()
@@ -32,11 +45,22 @@ class AudioDiarization:
                 "pyannote/speaker-diarization-3.1",
                 use_auth_token=auth_token
             )
+
+            if params:
+                pipeline.instantiate(params)
+                print("Applied custom parameters to the pipeline.")
             
             print(f"Processing audio file: {self.vocal_input}")
-            # Send tensors to the gpu
-            pipeline.to(torch.device("cuda"))
+            
+            # Send tensors to the GPU if available
+            if torch.cuda.is_available():
+                pipeline.to(torch.device("cuda"))
+            else:
+                print("CUDA is not available. Running on CPU.")
+            
+            # Process audio with default parameters
             diarization = pipeline(self.vocal_input)
+            
             diarization_essensials = defaultdict(list)
             print("\nSpeaker Diarization Results:")
             print("-" * 40)

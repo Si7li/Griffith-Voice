@@ -1,0 +1,17 @@
+# Parameters for the speaker diarization pipeline
+# For more details on what each parameter does, refer to the pyannote.audio documentation
+# or the default config.yaml of the models on Hugging Face.
+# https://huggingface.co/pyannote/speaker-diarization-3.1/blob/main/config.yaml
+
+pipeline:
+  params:
+    # Segmentation model parameters
+    segmentation:
+      min_duration_off: 1.0  # Minimum duration of non-speech to split a speaker's turn (in seconds)
+
+    # Clustering parameters
+    clustering:
+      method: "centroid"
+      min_cluster_size: 15
+      threshold: 0.7153814381597874 # Speaker embedding similarity threshold
+

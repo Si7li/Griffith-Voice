@@ -1,7 +1,7 @@
 import os
 import json
 
-CONFIG_FILE = "config.json"
+CONFIG_FILE = "configs/config.json"
 
 def load_token():
     if os.path.exists(CONFIG_FILE):

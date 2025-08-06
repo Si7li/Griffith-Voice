@@ -3,6 +3,7 @@ from separate_audio import SeparateAudio
 from diarize_audio import AudioDiarization
 from extract_segments import SegmentExtractor
 from transcribe_audio_segments import AudioTranscriber
+from translate_segments import SegmentsTranslator
 
 def main():
     print("Starting audio extraction...")
@@ -28,6 +29,8 @@ def main():
     # Initialize audio transcriber
     audio_transcriber = AudioTranscriber("small")
     transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language=None,read_from_cache=True,cache_path="caches/transcribed_segments.pkl")
+    segments_translator = SegmentsTranslator()
+    print(segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=True, cache_path="caches/translation.pkl"))
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,5 @@
 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
-
+AIzaSyAH-frsVM7fItH9kkfHuYLjtX1yNmiemUI
 🧱 Component Breakdown (For Video)
 Step	Function	Tools
 1.	Extract audio from video	moviepy, ffmpeg

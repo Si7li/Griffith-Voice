@@ -7,7 +7,7 @@ pipeline:
   params:
     # Segmentation model parameters
     segmentation:
-      min_duration_off: 1.0  # Minimum duration of non-speech to split a speaker's turn (in seconds)
+      min_duration_off: 0.75 #1.0  # Minimum duration of non-speech to split a speaker's turn (in seconds)
 
     # Clustering parameters
     clustering:

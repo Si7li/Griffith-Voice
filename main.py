@@ -4,6 +4,8 @@ from diarize_audio import AudioDiarization
 from extract_segments import SegmentExtractor
 from transcribe_audio_segments import AudioTranscriber
 from translate_segments import SegmentsTranslator
+from sample_segments import SegmentsSampler
+from synthensize_translations import TranslationsSynthensizer
 
 def main():
     print("Starting audio extraction...")
@@ -28,9 +30,30 @@ def main():
     extracted = segments_extractor.extract_segments("outputs/audio_segments/")
     # Initialize audio transcriber
     audio_transcriber = AudioTranscriber("small")
+    # Transcribe audio segments
     transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language=None,read_from_cache=True,cache_path="caches/transcribed_segments.pkl")
+    # Initialize audio translator
     segments_translator = SegmentsTranslator()
-    print(segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=True, cache_path="caches/translation.pkl"))
-
+    # Translate audio segments
+    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=True, cache_path="caches/translation.pkl")
+    # Initialize segments sampler
+    segments_sampler = SegmentsSampler("outputs/audio_segments", "outputs/voice_samples")
+    # Get a sample per speaker for voice-cloning
+    audio_samples = segments_sampler.merge(transcribed_data=translated_segments, read_from_cache=True, cache_path="caches/voice_samples.pkl")
+    
+    # Initialize translations synthesizer
+    translations_synthesizer = TranslationsSynthensizer()
+    # Synthensize translated texts
+    synthesis_results = translations_synthesizer.synthesize_translations(
+        transcribed_segments=transcribed_segments,
+        translated_segments=translated_segments,
+        voice_samples_dir="outputs/voice_samples",
+        audio_segments_dir="outputs/audio_segments",
+        target_language="英文",  # English
+        read_from_cache=True,
+        cache_path="caches/synthesis_results.pkl")
+    
+    
+    
 if __name__ == "__main__":
     main()

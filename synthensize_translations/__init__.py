@@ -1,0 +1,1 @@
+from .synthensize_translations import TranslationsSynthensizer

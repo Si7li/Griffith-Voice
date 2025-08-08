@@ -49,3 +49,48 @@ Step	Tool	Purpose
 3	pydub or ffmpeg	Slice speaker turns and save per speaker
 4 (optional)	speechbrain.sepformer	Separate overlapping voices
 check_licenses
+
+夢い、いえ?私、男の方とこんな風にお話しするのは初めてです初めてあなたを見かけした時は 貴族のご出草かと思いましたわお若いのに堂々としていらしてでも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで子供のようでしたそして今は哲学者のようなことを 聞かせてくださっている不思議なかったあなたのお友達も、そんなあなたの魅力に惹かれたのでしょうね
+
+git clone https://github.com/RVC-Boss/GPT-SoVITS.git                                                                                                   11:08 
+cd GPT-SoVITS                                                                                                                                          11:08 
+pip install uv                                                                                                                                         11:08 
+source /home/khalils/Desktop/Projects/GPT-Solvit-Testing/.venv/bin/activate      
+ pip install uv      
+ uv pip install -r requirements.txt                                                                                                                     11:56 
+ cd GPT-SoVITS 
+ cd GPT-SoVITS/GPT_SoVITS   
+  cd /home/khalils/Desktop/Projects/GPT-Solvit-Testing/GPT-SoVITS/GPT_SoVITS   
+  git clone https://huggingface.co/lj1995/GPT-SoVITS pretrained_models   
+  cd ..     
+  python webui.py    
+  pip install psutil                                                                                                                                     11:56 
+  pip install torch   
+  pip install yaml  
+
+  pip install pyyaml 
+  pip install ffmpeg  
+  pip install gradio  
+  pip install pypinyin 
+  pip install onnxruntime
+  pip install opencc 
+  pip install torchaudio 
+  pip install jieba 
+  pip install fast_langdetect 
+  pip install split_lang  
+  pip install librosa  
+  pip install transformers                                                                                                                               11:56 
+  pip install X_transformers 
+  pip install pytorch_lightning                                                                                                                          11:56 
+  pip install matplotlib  
+  pip install PEFT  
+  pip install cn2an  
+  pip install jieba_fast   
+  pip install pyopenjtalk   
+  pip install wordsegment   
+   pip install g2p_en 
+   python -c "import nltk; nltk.download('averaged_perceptron_tagger_eng')"  
+   /home/khalils/Desktop/Projects/GPT-Solvit-Testing/.venv/bin/python -c "import nltk; nltk.download('averaged_perceptron_tagger_eng')"  
+   /home/khalils/Desktop/Projects/GPT-Solvit-Testing/.venv/bin/python -c "import nltk; nltk.download('punkt')"   
+   pip install torch    
+   source env/bin/activate && pip install librosa    

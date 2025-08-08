@@ -10,8 +10,8 @@ def save_cache(cache_path, data):
             if cache_dir:
                 os.makedirs(cache_dir, exist_ok=True)
             
-            with open(cache_path, 'w') as f:
-                json.dump(data, f, indent=2)
+            with open(cache_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"Cache saved to: {cache_path}")
         except Exception as e:
             print(f"Failed to save cache: {e}")
@@ -20,7 +20,7 @@ def read_cache(read_from_cache, cache_path):
     """Read data from cache file if it exists and cache is enabled"""
     if read_from_cache and cache_path and os.path.exists(cache_path):
         try:
-            with open(cache_path, 'r') as f:
+            with open(cache_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             print(f"Using cached data from: {cache_path}")
             return data

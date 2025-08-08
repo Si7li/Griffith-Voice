@@ -1,0 +1,117 @@
+{
+  "segments": [
+    {
+      "segment_num": 0,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg0.wav",
+      "translated_text": "a dream.",
+      "original_text": "夢",
+      "start_time": 13.007843750000003,
+      "end_time": 13.547843750000002,
+      "duration": 0.5399999999999991,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 1.02
+    },
+    {
+      "segment_num": 1,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg1.wav",
+      "translated_text": "No, not at all",
+      "original_text": "い、いえ?",
+      "start_time": 72.98159375,
+      "end_time": 74.12909375000001,
+      "duration": 1.147500000000008,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 1.74
+    },
+    {
+      "segment_num": 2,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg2.wav",
+      "translated_text": "This is the first time I've spoken to a man like this.",
+      "original_text": "私、男の方とこんな風にお話しするのは初めてです",
+      "start_time": 76.20471875,
+      "end_time": 80.44034375000001,
+      "duration": 4.235625000000013,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 3.14
+    },
+    {
+      "segment_num": 3,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg3.wav",
+      "translated_text": "When I first saw you, I thought you were some nobleman out for a hunt.",
+      "original_text": "初めてあなたを見かけした時は 貴族のご出草かと思いましたわ",
+      "start_time": 81.53721875000001,
+      "end_time": 86.31284375,
+      "duration": 4.775624999999991,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 4.22
+    },
+    {
+      "segment_num": 4,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg4.wav",
+      "translated_text": "You carry yourself with such poise for someone so young.",
+      "original_text": "お若いのに堂々としていらして",
+      "start_time": 87.19034375000001,
+      "end_time": 89.46846875,
+      "duration": 2.2781249999999886,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 3.3
+    },
+    {
+      "segment_num": 5,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg5.wav",
+      "translated_text": "But the way you taught me to play the Calibadixube...",
+      "original_text": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで",
+      "start_time": 90.58221875000001,
+      "end_time": 96.01596875,
+      "duration": 5.433749999999989,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 3.06
+    },
+    {
+      "segment_num": 6,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg6.wav",
+      "translated_text": "...you were like a child.",
+      "original_text": "子供のようでした",
+      "start_time": 97.50096875000001,
+      "end_time": 98.61471875000001,
+      "duration": 1.113749999999996,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 1.58
+    },
+    {
+      "segment_num": 7,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg7.wav",
+      "translated_text": "And now you're telling me things that sound like a philosopher.",
+      "original_text": "そして今は哲学者のようなことを 聞かせてくださっている",
+      "start_time": 100.58909375,
+      "end_time": 104.80784375,
+      "duration": 4.21875,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 3.22
+    },
+    {
+      "segment_num": 8,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg8.wav",
+      "translated_text": "How strange.",
+      "original_text": "不思議なかった",
+      "start_time": 107.28846875,
+      "end_time": 108.26721875000001,
+      "duration": 0.9787500000000051,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 1.14
+    },
+    {
+      "segment_num": 9,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg9.wav",
+      "translated_text": "Your friends must be drawn to that charm of yours as well.",
+      "original_text": "あなたのお友達も、そんなあなたの魅力に惹かれたのでしょうね",
+      "start_time": 116.19846875,
+      "end_time": 120.43409375,
+      "duration": 4.235624999999999,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 3.46
+    }
+  ],
+  "speaker_id": "SPEAKER_01",
+  "reference_wav": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
+  "reference_text": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで"
+}

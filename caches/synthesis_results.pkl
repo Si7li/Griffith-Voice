@@ -1,0 +1,379 @@
+{
+  "SPEAKER_00": {
+    "segments": [
+      {
+        "segment_num": 0,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg0.wav",
+        "translated_text": "You must have encountered someone of great importance.",
+        "original_text": "の尊い者に出会っているはずです",
+        "start_time": 0.03096875,
+        "end_time": 2.2078437500000003,
+        "duration": 2.1768750000000003,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.94
+      },
+      {
+        "segment_num": 1,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg1.wav",
+        "translated_text": "It's not for anyone else.",
+        "original_text": "誰のためでもない",
+        "start_time": 6.74721875,
+        "end_time": 7.86096875,
+        "duration": 1.1137499999999996,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.94
+      },
+      {
+        "segment_num": 2,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg2.wav",
+        "translated_text": "It's a dream I pursue for my own sake.",
+        "original_text": "自分が自分自身のためになす 夢です",
+        "start_time": 8.704718750000001,
+        "end_time": 11.809718750000002,
+        "duration": 3.1050000000000004,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.38
+      },
+      {
+        "segment_num": 3,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg3.wav",
+        "translated_text": "To dream of dominating the world.",
+        "original_text": "世界の派遣を夢見る",
+        "start_time": 17.00721875,
+        "end_time": 18.59346875,
+        "duration": 1.5862499999999997,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.14
+      },
+      {
+        "segment_num": 4,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg4.wav",
+        "translated_text": "One who dedicates their life to forging a single sword.",
+        "original_text": "ただ一振りの剣を鍛え上げることに一生を捧げるもの",
+        "start_time": 19.89284375,
+        "end_time": 23.84159375,
+        "duration": 3.9487500000000004,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.14
+      },
+      {
+        "segment_num": 5,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg5.wav",
+        "translated_text": "Some dreams are solitary quests, while others devour thousands upon thousands like a storm.",
+        "original_text": "一人で探求する夢もあれば 嵐のように他の何千何万の夢をくらい潰す夢もあります",
+        "start_time": 24.820343750000003,
+        "end_time": 31.43534375,
+        "duration": 6.614999999999998,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 5.94
+      },
+      {
+        "segment_num": 6,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg6.wav",
+        "translated_text": "Sustained by dreams, tormented by dreams, brought to life by dreams, killed by dreams.",
+        "original_text": "夢に支えられ、夢に苦しみ、夢に活かされ、夢に殺される",
+        "start_time": 32.26221875,
+        "end_time": 37.34159375,
+        "duration": 5.079374999999999,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 6.94
+      },
+      {
+        "segment_num": 7,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg7.wav",
+        "translated_text": "And even after being abandoned by a dream, it continues to smolder within.",
+        "original_text": "そして夢に見捨てられた後でも それは心の中でくすぶり続けていく",
+        "start_time": 38.18534375,
+        "end_time": 42.775343750000005,
+        "duration": 4.590000000000003,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 5.18
+      },
+      {
+        "segment_num": 8,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg8.wav",
+        "translated_text": "Any man would imagine such a life at least once. A life as a martyr to the god called Dream.",
+        "original_text": "そんな一生、男なら一度は思い描くはずです。夢という名の神の、順教者としての一生。",
+        "start_time": 44.462843750000005,
+        "end_time": 51.92159375,
+        "duration": 7.458749999999995,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 6.34
+      },
+      {
+        "segment_num": 9,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg9.wav",
+        "translated_text": "Just living because I happened to be born.",
+        "original_text": "生まれてしまったから仕方なくただ生きる",
+        "start_time": 54.790343750000005,
+        "end_time": 57.321593750000005,
+        "duration": 2.53125,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.38
+      },
+      {
+        "segment_num": 10,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg10.wav",
+        "translated_text": "I can't stand living like that.",
+        "original_text": "そんな生き方、俺には耐えられない",
+        "start_time": 58.384718750000005,
+        "end_time": 61.118468750000005,
+        "duration": 2.7337500000000006,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.66
+      },
+      {
+        "segment_num": 11,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg11.wav",
+        "translated_text": "I apologize, I've gotten carried away.",
+        "original_text": "すみません ついしゃべりすぎました",
+        "start_time": 66.85596875,
+        "end_time": 69.25221875,
+        "duration": 2.396249999999995,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.62
+      },
+      {
+        "segment_num": 12,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg12.wav",
+        "translated_text": "That must have been a boring story for a woman.",
+        "original_text": "女性には退屈な話でしたね",
+        "start_time": 70.06221875,
+        "end_time": 72.10409375,
+        "duration": 2.0418750000000045,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.82
+      },
+      {
+        "segment_num": 13,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg13.wav",
+        "translated_text": "They are capable subordinates.",
+        "original_text": "彼らは優秀な部下です",
+        "start_time": 122.47596875,
+        "end_time": 124.34909375000001,
+        "duration": 1.8731250000000017,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.94
+      },
+      {
+        "segment_num": 14,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg14.wav",
+        "translated_text": "Important comrades who entrust their efforts to the dream I envision.",
+        "original_text": "私の思い描く夢のために その実を委ねてくれる大切な仲間",
+        "start_time": 125.15909375000001,
+        "end_time": 129.98534375,
+        "duration": 4.8262499999999875,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.74
+      },
+      {
+        "segment_num": 15,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg15.wav",
+        "translated_text": "But, they aren't friends.",
+        "original_text": "でも、友とは違います",
+        "start_time": 131.57159375,
+        "end_time": 133.71471875,
+        "duration": 2.1431249999999977,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.3
+      },
+      {
+        "segment_num": 16,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg16.wav",
+        "translated_text": "What is a friend to me?",
+        "original_text": "私にとってともとは",
+        "start_time": 135.70596875,
+        "end_time": 137.08971875,
+        "duration": 1.383749999999992,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.54
+      },
+      {
+        "segment_num": 17,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg17.wav",
+        "translated_text": "They never rely on another's dream.",
+        "original_text": "決して人の夢にすがったりはしない",
+        "start_time": 137.91659375,
+        "end_time": 140.49846875,
+        "duration": 2.5818749999999966,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 2.22
+      },
+      {
+        "segment_num": 18,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg18.wav",
+        "translated_text": "Someone who determines their own reason for living without anyone knowing and moves forward.",
+        "original_text": "誰にも知られることなく 自分の生きる理由は自分で定め進んでいくもの",
+        "start_time": 141.34221875,
+        "end_time": 146.69159375,
+        "duration": 5.349375000000009,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 4.26
+      },
+      {
+        "segment_num": 19,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg19.wav",
+        "translated_text": "And if anyone tramples on that dream, they will confront them with their entire being.",
+        "original_text": "そしてその夢を踏みにじるものがあれば全身全霊をかけて立ち向かう",
+        "start_time": 147.82221875000002,
+        "end_time": 153.57659375,
+        "duration": 5.754374999999982,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 4.5
+      },
+      {
+        "segment_num": 20,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg20.wav",
+        "translated_text": "Even if that someone is myself.",
+        "original_text": "たとえそれが私自身であったとしても",
+        "start_time": 154.58909375000002,
+        "end_time": 157.30596875,
+        "duration": 2.7168749999999875,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.82
+      },
+      {
+        "segment_num": 21,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg21.wav",
+        "translated_text": "What is a friend to me?",
+        "original_text": "私にとって友とは",
+        "start_time": 159.04409375,
+        "end_time": 160.32659375,
+        "duration": 1.2824999999999989,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.3
+      },
+      {
+        "segment_num": 22,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_00/SPEAKER_00_translated_seg22.wav",
+        "translated_text": "I believe they are something so valuable.",
+        "original_text": "そんな大当のものだと思っています",
+        "start_time": 161.35596875000002,
+        "end_time": 163.53284375,
+        "duration": 2.1768749999999955,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.22
+      }
+    ],
+    "speaker_id": "SPEAKER_00",
+    "reference_wav": "outputs/voice_samples/SPEAKER_00_voice_sample.wav",
+    "reference_text": "そんな一生、男なら一度は思い描くはずです。夢という名の神の、順教者としての一生。"
+  },
+  "SPEAKER_01": {
+    "segments": [
+      {
+        "segment_num": 0,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg0.wav",
+        "translated_text": "a dream.",
+        "original_text": "夢",
+        "start_time": 13.007843750000003,
+        "end_time": 13.547843750000002,
+        "duration": 0.5399999999999991,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.02
+      },
+      {
+        "segment_num": 1,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg1.wav",
+        "translated_text": "No, not at all",
+        "original_text": "い、いえ?",
+        "start_time": 72.98159375,
+        "end_time": 74.12909375000001,
+        "duration": 1.147500000000008,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.74
+      },
+      {
+        "segment_num": 2,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg2.wav",
+        "translated_text": "This is the first time I've spoken to a man like this.",
+        "original_text": "私、男の方とこんな風にお話しするのは初めてです",
+        "start_time": 76.20471875,
+        "end_time": 80.44034375000001,
+        "duration": 4.235625000000013,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.14
+      },
+      {
+        "segment_num": 3,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg3.wav",
+        "translated_text": "When I first saw you, I thought you were some nobleman out for a hunt.",
+        "original_text": "初めてあなたを見かけした時は 貴族のご出草かと思いましたわ",
+        "start_time": 81.53721875000001,
+        "end_time": 86.31284375,
+        "duration": 4.775624999999991,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 4.22
+      },
+      {
+        "segment_num": 4,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg4.wav",
+        "translated_text": "You carry yourself with such poise for someone so young.",
+        "original_text": "お若いのに堂々としていらして",
+        "start_time": 87.19034375000001,
+        "end_time": 89.46846875,
+        "duration": 2.2781249999999886,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.3
+      },
+      {
+        "segment_num": 5,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg5.wav",
+        "translated_text": "But the way you taught me to play the Calibadixube...",
+        "original_text": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで",
+        "start_time": 90.58221875000001,
+        "end_time": 96.01596875,
+        "duration": 5.433749999999989,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.06
+      },
+      {
+        "segment_num": 6,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg6.wav",
+        "translated_text": "...you were like a child.",
+        "original_text": "子供のようでした",
+        "start_time": 97.50096875000001,
+        "end_time": 98.61471875000001,
+        "duration": 1.113749999999996,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.58
+      },
+      {
+        "segment_num": 7,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg7.wav",
+        "translated_text": "And now you're telling me things that sound like a philosopher.",
+        "original_text": "そして今は哲学者のようなことを 聞かせてくださっている",
+        "start_time": 100.58909375,
+        "end_time": 104.80784375,
+        "duration": 4.21875,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.22
+      },
+      {
+        "segment_num": 8,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg8.wav",
+        "translated_text": "How strange.",
+        "original_text": "不思議なかった",
+        "start_time": 107.28846875,
+        "end_time": 108.26721875000001,
+        "duration": 0.9787500000000051,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 1.14
+      },
+      {
+        "segment_num": 9,
+        "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_01/SPEAKER_01_translated_seg9.wav",
+        "translated_text": "Your friends must be drawn to that charm of yours as well.",
+        "original_text": "あなたのお友達も、そんなあなたの魅力に惹かれたのでしょうね",
+        "start_time": 116.19846875,
+        "end_time": 120.43409375,
+        "duration": 4.235624999999999,
+        "sampling_rate": 32000,
+        "audio_length_seconds": 3.46
+      }
+    ],
+    "speaker_id": "SPEAKER_01",
+    "reference_wav": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
+    "reference_text": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで"
+  }
+}

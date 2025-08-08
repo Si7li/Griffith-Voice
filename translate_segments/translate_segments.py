@@ -13,8 +13,8 @@ class SegmentsTranslator:
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model_name=model)
 
-    def translate_batch(self, texts, source_lang="ja", target_lang="en"):
-        prompt = f"Translate the following sentences from {source_lang} to {target_lang} which is from an character from an anime or a movie putting in my mind that they could say something figuratively.Keep the same length and meaning. Give me only the translation without explanation nor added text in the begining and don't tell me Here are the translations:\n"
+    def _translate_batch(self, texts, source_lang="ja", target_lang="en"):
+        prompt = f"Translate the following sentences from {source_lang} to {target_lang} which is from an character from an anime or a movie putting in my mind that they could say something figuratively.Keep the same length and meaning.Some sentences maybe in japanese maybe wrong so correct given the context of the conversation. Give me only the translation without explanation nor added text in the begining and don't tell me Here are the translations:\n"
         for i, text in enumerate(texts, 1):
             prompt += f"{i}. {text}\n"
 
@@ -47,7 +47,7 @@ class SegmentsTranslator:
         for speaker, segments in transcribed_segments.items():
             texts = [segment["text"] for segment in segments]
 
-            translated_texts = self.translate_batch(texts, source_lang, target_lang)
+            translated_texts = self._translate_batch(texts, source_lang, target_lang)
 
             for segment, translation in zip(segments, translated_texts):
                 segment_copy = segment.copy()

@@ -6,6 +6,8 @@ from transcribe_audio_segments import AudioTranscriber
 from translate_segments import SegmentsTranslator
 from sample_segments import SegmentsSampler
 from synthensize_translations import TranslationsSynthensizer
+from assemble_translations import AudioAssembler
+from apply_video_no_vocals import VideoNoVocalsApplier
 
 def main():
     print("Starting audio extraction...")
@@ -53,6 +55,18 @@ def main():
         read_from_cache=True,
         cache_path="caches/synthesis_results.pkl")
     
+    # Initialize audio assembler
+    audio_assembler = AudioAssembler("inputs/input_video.mp4")
+    # Assemble all translated audio segments into final audio track (conversation only)
+    final_audio = audio_assembler.assemble_audio(
+        synthesis_results=synthesis_results,
+        output_path="outputs/final_translated_audio.wav",
+        read_from_cache=True,
+        cache_path="caches/assembled_audio.pkl")
+    
+    # Initialize Video and No_vocals applier
+    video_no_vocals_applier = VideoNoVocalsApplier(final_translated_audio=final_audio, no_vocals_path=no_vocals, input_video="inputs/input_video.mp4")
+    video_no_vocals_applier.process(mixed_audio_out="outputs/mixed.wav",final_video_out= "outputs/output.mp4")
     
     
 if __name__ == "__main__":

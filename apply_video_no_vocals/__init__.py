@@ -1,0 +1,1 @@
+from .apply_video_no_vocals import VideoNoVocalsApplier

@@ -4,7 +4,7 @@
     "duration": 7.458775510204082,
     "segments_count": 1,
     "transcription": "そんな一生、男なら一度は思い描くはずです。夢という名の神の、順教者としての一生。",
-    "translation": "Any man would imagine such a life at least once. A life as a martyr to the god called Dream.",
+    "translation": "Any man must have imagined such a life at least once. A life as a devoted follower of the god named \"Dream.\"",
     "transcription_file": "outputs/voice_samples/SPEAKER_00_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_00_translation.txt"
   },
@@ -13,7 +13,7 @@
     "duration": 5.433786848072562,
     "segments_count": 1,
     "transcription": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで",
-    "translation": "But the way you taught me to play the Calibadixube...",
+    "translation": "But you, who taught me how to play the Karibadekusabue, were like...",
     "transcription_file": "outputs/voice_samples/SPEAKER_01_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_01_translation.txt"
   }

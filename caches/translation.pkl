@@ -1,336 +1,336 @@
 {
   "SPEAKER_00": [
     {
-      "text": "\u306e\u5c0a\u3044\u8005\u306b\u51fa\u4f1a\u3063\u3066\u3044\u308b\u306f\u305a\u3067\u3059",
+      "text": "の尊い者に出会っているはずです",
       "language": "ja",
       "file": "SPEAKER_00_seg0.wav",
       "segment_num": 0,
       "start": 0.03096875,
-      "end": 2.2078437500000003,
-      "confidence": 0.6703328788280487,
-      "translation": "You must have encountered someone of great importance."
+      "end": 2.19096875,
+      "confidence": 0.6720405519008636,
+      "translation": "You must have encountered something precious."
     },
     {
-      "text": "\u8ab0\u306e\u305f\u3081\u3067\u3082\u306a\u3044",
+      "text": "誰のためでもない",
       "language": "ja",
       "file": "SPEAKER_00_seg1.wav",
       "segment_num": 1,
       "start": 6.74721875,
       "end": 7.86096875,
-      "confidence": 0.6476729512214661,
+      "confidence": 0.6449160277843475,
       "translation": "It's not for anyone else."
     },
     {
-      "text": "\u81ea\u5206\u304c\u81ea\u5206\u81ea\u8eab\u306e\u305f\u3081\u306b\u306a\u3059 \u5922\u3067\u3059",
+      "text": "自分が自分自身のためになす 夢です",
       "language": "ja",
       "file": "SPEAKER_00_seg2.wav",
       "segment_num": 2,
-      "start": 8.704718750000001,
+      "start": 8.687843750000003,
       "end": 11.809718750000002,
-      "confidence": 0.7818396231707405,
-      "translation": "It's a dream I pursue for my own sake."
+      "confidence": 0.7637867366566378,
+      "translation": "It's a dream one creates for oneself."
     },
     {
-      "text": "\u4e16\u754c\u306e\u6d3e\u9063\u3092\u5922\u898b\u308b",
+      "text": "世界の派遣を夢見る",
       "language": "ja",
       "file": "SPEAKER_00_seg3.wav",
       "segment_num": 3,
-      "start": 17.00721875,
+      "start": 16.99034375,
       "end": 18.59346875,
-      "confidence": 0.6970927715301514,
-      "translation": "To dream of dominating the world."
+      "confidence": 0.7223771168635442,
+      "translation": "To dream of world domination."
     },
     {
-      "text": "\u305f\u3060\u4e00\u632f\u308a\u306e\u5263\u3092\u935b\u3048\u4e0a\u3052\u308b\u3053\u3068\u306b\u4e00\u751f\u3092\u6367\u3052\u308b\u3082\u306e",
+      "text": "ただ一振りの剣を鍛え上げることに一生を捧げるもの",
       "language": "ja",
       "file": "SPEAKER_00_seg4.wav",
       "segment_num": 4,
       "start": 19.89284375,
       "end": 23.84159375,
-      "confidence": 0.755815585454305,
+      "confidence": 0.75616348584493,
       "translation": "One who dedicates their life to forging a single sword."
     },
     {
-      "text": "\u4e00\u4eba\u3067\u63a2\u6c42\u3059\u308b\u5922\u3082\u3042\u308c\u3070 \u5d50\u306e\u3088\u3046\u306b\u4ed6\u306e\u4f55\u5343\u4f55\u4e07\u306e\u5922\u3092\u304f\u3089\u3044\u6f70\u3059\u5922\u3082\u3042\u308a\u307e\u3059",
+      "text": "一人で探求する夢もあれば 嵐のように他の何千何万の夢をくらい潰す夢もあります",
       "language": "ja",
       "file": "SPEAKER_00_seg5.wav",
       "segment_num": 5,
       "start": 24.820343750000003,
       "end": 31.43534375,
-      "confidence": 0.7499848634768755,
-      "translation": "Some dreams are solitary quests, while others devour thousands upon thousands like a storm."
+      "confidence": 0.750494761344714,
+      "translation": "There are dreams pursued alone, and there are dreams that, like a storm, crush tens of thousands of others."
     },
     {
-      "text": "\u5922\u306b\u652f\u3048\u3089\u308c\u3001\u5922\u306b\u82e6\u3057\u307f\u3001\u5922\u306b\u6d3b\u304b\u3055\u308c\u3001\u5922\u306b\u6bba\u3055\u308c\u308b",
+      "text": "夢に支えられ 夢に苦しみ 夢に活かされ 夢に殺される",
       "language": "ja",
       "file": "SPEAKER_00_seg6.wav",
       "segment_num": 6,
       "start": 32.26221875,
       "end": 37.34159375,
-      "confidence": 0.7935578312192644,
-      "translation": "Sustained by dreams, tormented by dreams, brought to life by dreams, killed by dreams."
+      "confidence": 0.8275173732212612,
+      "translation": "Supported by dreams, tormented by dreams, given life by dreams, and killed by dreams."
     },
     {
-      "text": "\u305d\u3057\u3066\u5922\u306b\u898b\u6368\u3066\u3089\u308c\u305f\u5f8c\u3067\u3082 \u305d\u308c\u306f\u5fc3\u306e\u4e2d\u3067\u304f\u3059\u3076\u308a\u7d9a\u3051\u3066\u3044\u304f",
+      "text": "そして夢に見捨てられた後でも それは心の中でくすぶり続けていく",
       "language": "ja",
       "file": "SPEAKER_00_seg7.wav",
       "segment_num": 7,
       "start": 38.18534375,
       "end": 42.775343750000005,
-      "confidence": 0.780733691321479,
-      "translation": "And even after being abandoned by a dream, it continues to smolder within."
+      "confidence": 0.7832484421906648,
+      "translation": "And even after being abandoned by dreams, they continue to smolder within one's heart."
     },
     {
-      "text": "\u305d\u3093\u306a\u4e00\u751f\u3001\u7537\u306a\u3089\u4e00\u5ea6\u306f\u601d\u3044\u63cf\u304f\u306f\u305a\u3067\u3059\u3002\u5922\u3068\u3044\u3046\u540d\u306e\u795e\u306e\u3001\u9806\u6559\u8005\u3068\u3057\u3066\u306e\u4e00\u751f\u3002",
+      "text": "そんな一生、男なら一度は思い描くはずです。夢という名の神の、順教者としての一生。",
       "language": "ja",
       "file": "SPEAKER_00_seg8.wav",
       "segment_num": 8,
       "start": 44.462843750000005,
       "end": 51.92159375,
-      "confidence": 0.7376206874847412,
-      "translation": "Any man would imagine such a life at least once. A life as a martyr to the god called Dream."
+      "confidence": 0.7371938705444336,
+      "translation": "Any man must have imagined such a life at least once. A life as a devoted follower of the god named \"Dream.\""
     },
     {
-      "text": "\u751f\u307e\u308c\u3066\u3057\u307e\u3063\u305f\u304b\u3089\u4ed5\u65b9\u306a\u304f\u305f\u3060\u751f\u304d\u308b",
+      "text": "生まれてしまったから仕方なくただ生きる",
       "language": "ja",
       "file": "SPEAKER_00_seg9.wav",
       "segment_num": 9,
       "start": 54.790343750000005,
       "end": 57.321593750000005,
-      "confidence": 0.7848230109495276,
-      "translation": "Just living because I happened to be born."
+      "confidence": 0.782417002846213,
+      "translation": "Just living reluctantly because one was born."
     },
     {
-      "text": "\u305d\u3093\u306a\u751f\u304d\u65b9\u3001\u4ffa\u306b\u306f\u8010\u3048\u3089\u308c\u306a\u3044",
+      "text": "そんな生き方、俺には耐えられない",
       "language": "ja",
       "file": "SPEAKER_00_seg10.wav",
       "segment_num": 10,
       "start": 58.384718750000005,
       "end": 61.118468750000005,
-      "confidence": 0.6722403208414713,
-      "translation": "I can't stand living like that."
+      "confidence": 0.67320982615153,
+      "translation": "I can't bear such a way of life."
     },
     {
-      "text": "\u3059\u307f\u307e\u305b\u3093 \u3064\u3044\u3057\u3083\u3079\u308a\u3059\u304e\u307e\u3057\u305f",
+      "text": "すみません ついしゃべりすぎました",
       "language": "ja",
       "file": "SPEAKER_00_seg11.wav",
       "segment_num": 11,
-      "start": 66.85596875,
+      "start": 66.83909375,
       "end": 69.25221875,
-      "confidence": 0.6047993342081706,
-      "translation": "I apologize, I've gotten carried away."
+      "confidence": 0.6081962585449219,
+      "translation": "Sorry, I ended up talking too much."
     },
     {
-      "text": "\u5973\u6027\u306b\u306f\u9000\u5c48\u306a\u8a71\u3067\u3057\u305f\u306d",
+      "text": "女性には退屈な話でしたね",
       "language": "ja",
       "file": "SPEAKER_00_seg12.wav",
       "segment_num": 12,
       "start": 70.06221875,
       "end": 72.10409375,
-      "confidence": 0.8111946032597468,
-      "translation": "That must have been a boring story for a woman."
+      "confidence": 0.8084135605738714,
+      "translation": "That must have been a boring story for you, ladies."
     },
     {
-      "text": "\u5f7c\u3089\u306f\u512a\u79c0\u306a\u90e8\u4e0b\u3067\u3059",
+      "text": "彼らは優秀な部下です",
       "language": "ja",
       "file": "SPEAKER_00_seg13.wav",
       "segment_num": 13,
       "start": 122.47596875,
       "end": 124.34909375000001,
-      "confidence": 0.8182925383249918,
-      "translation": "They are capable subordinates."
+      "confidence": 0.8197014649709066,
+      "translation": "They are excellent subordinates."
     },
     {
-      "text": "\u79c1\u306e\u601d\u3044\u63cf\u304f\u5922\u306e\u305f\u3081\u306b \u305d\u306e\u5b9f\u3092\u59d4\u306d\u3066\u304f\u308c\u308b\u5927\u5207\u306a\u4ef2\u9593",
+      "text": "私の思い描く夢のために その実を委ねてくれる大切な仲間",
       "language": "ja",
       "file": "SPEAKER_00_seg14.wav",
       "segment_num": 14,
       "start": 125.15909375000001,
       "end": 129.98534375,
-      "confidence": 0.7770739259390995,
-      "translation": "Important comrades who entrust their efforts to the dream I envision."
+      "confidence": 0.7764768107184048,
+      "translation": "Precious comrades who entrust themselves to my envisioned dream."
     },
     {
-      "text": "\u3067\u3082\u3001\u53cb\u3068\u306f\u9055\u3044\u307e\u3059",
+      "text": "でも、友とは違います",
       "language": "ja",
       "file": "SPEAKER_00_seg15.wav",
       "segment_num": 15,
       "start": 131.57159375,
       "end": 133.71471875,
-      "confidence": 0.4942872047424316,
-      "translation": "But, they aren't friends."
+      "confidence": 0.49846515655517576,
+      "translation": "But they are different from friends."
     },
     {
-      "text": "\u79c1\u306b\u3068\u3063\u3066\u3068\u3082\u3068\u306f",
+      "text": "私にとってともとは",
       "language": "ja",
       "file": "SPEAKER_00_seg16.wav",
       "segment_num": 16,
       "start": 135.70596875,
       "end": 137.08971875,
-      "confidence": 0.6000608964399858,
-      "translation": "What is a friend to me?"
+      "confidence": 0.5971424796364524,
+      "translation": "For me, a friend is..."
     },
     {
-      "text": "\u6c7a\u3057\u3066\u4eba\u306e\u5922\u306b\u3059\u304c\u3063\u305f\u308a\u306f\u3057\u306a\u3044",
+      "text": "決して人の夢にすがったりはしない",
       "language": "ja",
       "file": "SPEAKER_00_seg17.wav",
       "segment_num": 17,
       "start": 137.91659375,
       "end": 140.49846875,
-      "confidence": 0.6135219633579254,
-      "translation": "They never rely on another's dream."
+      "confidence": 0.6121104657649994,
+      "translation": "Never one who clings to another's dream."
     },
     {
-      "text": "\u8ab0\u306b\u3082\u77e5\u3089\u308c\u308b\u3053\u3068\u306a\u304f \u81ea\u5206\u306e\u751f\u304d\u308b\u7406\u7531\u306f\u81ea\u5206\u3067\u5b9a\u3081\u9032\u3093\u3067\u3044\u304f\u3082\u306e",
+      "text": "誰にも知られることなく 自分の生きる理由は自分で定め進んでいくもの",
       "language": "ja",
       "file": "SPEAKER_00_seg18.wav",
       "segment_num": 18,
-      "start": 141.34221875,
+      "start": 141.32534375,
       "end": 146.69159375,
-      "confidence": 0.7890091419219971,
-      "translation": "Someone who determines their own reason for living without anyone knowing and moves forward."
+      "confidence": 0.7824773947397867,
+      "translation": "One who determines their own reason for living and moves forward, without anyone else knowing."
     },
     {
-      "text": "\u305d\u3057\u3066\u305d\u306e\u5922\u3092\u8e0f\u307f\u306b\u3058\u308b\u3082\u306e\u304c\u3042\u308c\u3070\u5168\u8eab\u5168\u970a\u3092\u304b\u3051\u3066\u7acb\u3061\u5411\u304b\u3046",
+      "text": "そしてその夢を踏みにじるものがあれば全身全霊をかけて立ち向かう",
       "language": "ja",
       "file": "SPEAKER_00_seg19.wav",
       "segment_num": 19,
       "start": 147.82221875000002,
       "end": 153.57659375,
-      "confidence": 0.6885430812835693,
-      "translation": "And if anyone tramples on that dream, they will confront them with their entire being."
+      "confidence": 0.7133990526199341,
+      "translation": "And if there is anyone who tramples on that dream, they will confront them with all their heart and soul."
     },
     {
-      "text": "\u305f\u3068\u3048\u305d\u308c\u304c\u79c1\u81ea\u8eab\u3067\u3042\u3063\u305f\u3068\u3057\u3066\u3082",
+      "text": "たとえそれが私自身であったとしても",
       "language": "ja",
       "file": "SPEAKER_00_seg20.wav",
       "segment_num": 20,
       "start": 154.58909375000002,
       "end": 157.30596875,
-      "confidence": 0.6998384700101965,
-      "translation": "Even if that someone is myself."
+      "confidence": 0.7002749443054199,
+      "translation": "Even if it were myself."
     },
     {
-      "text": "\u79c1\u306b\u3068\u3063\u3066\u53cb\u3068\u306f",
+      "text": "私にとって友とは",
       "language": "ja",
       "file": "SPEAKER_00_seg21.wav",
       "segment_num": 21,
       "start": 159.04409375,
       "end": 160.32659375,
-      "confidence": 0.5529622077941895,
-      "translation": "What is a friend to me?"
+      "confidence": 0.5550931930541992,
+      "translation": "For me, a friend is..."
     },
     {
-      "text": "\u305d\u3093\u306a\u5927\u5f53\u306e\u3082\u306e\u3060\u3068\u601d\u3063\u3066\u3044\u307e\u3059",
+      "text": "そんな大当のものだと思っています",
       "language": "ja",
       "file": "SPEAKER_00_seg22.wav",
       "segment_num": 22,
       "start": 161.35596875000002,
       "end": 163.53284375,
-      "confidence": 0.5739723046620686,
-      "translation": "I believe they are something so valuable."
+      "confidence": 0.5906587044397991,
+      "translation": "I believe them to be something truly grand."
     }
   ],
   "SPEAKER_01": [
     {
-      "text": "\u5922",
+      "text": "夢",
       "language": "ja",
       "file": "SPEAKER_01_seg0.wav",
       "segment_num": 0,
       "start": 13.007843750000003,
       "end": 13.547843750000002,
-      "confidence": 0.46581828594207764,
-      "translation": "a dream."
+      "confidence": 0.47389382123947144,
+      "translation": "A dream."
     },
     {
-      "text": "\u3044\u3001\u3044\u3048?",
+      "text": "い、いえ?",
       "language": "ja",
       "file": "SPEAKER_01_seg1.wav",
       "segment_num": 1,
       "start": 72.98159375,
       "end": 74.12909375000001,
-      "confidence": 0.11173546314239502,
-      "translation": "No, not at all"
+      "confidence": 0.1070290207862854,
+      "translation": "No?"
     },
     {
-      "text": "\u79c1\u3001\u7537\u306e\u65b9\u3068\u3053\u3093\u306a\u98a8\u306b\u304a\u8a71\u3057\u3059\u308b\u306e\u306f\u521d\u3081\u3066\u3067\u3059",
+      "text": "私、男の方とこんな風にお話しするのは初めてです",
       "language": "ja",
       "file": "SPEAKER_01_seg2.wav",
       "segment_num": 2,
       "start": 76.20471875,
       "end": 80.44034375000001,
-      "confidence": 0.745358943939209,
-      "translation": "This is the first time I've spoken to a man like this."
+      "confidence": 0.746059799194336,
+      "translation": "This is the first time I've spoken to a man in this way."
     },
     {
-      "text": "\u521d\u3081\u3066\u3042\u306a\u305f\u3092\u898b\u304b\u3051\u3057\u305f\u6642\u306f \u8cb4\u65cf\u306e\u3054\u51fa\u8349\u304b\u3068\u601d\u3044\u307e\u3057\u305f\u308f",
+      "text": "初めてあなたを見かけした時は 貴族のご出草かと思いましたわ",
       "language": "ja",
       "file": "SPEAKER_01_seg3.wav",
       "segment_num": 3,
       "start": 81.53721875000001,
       "end": 86.31284375,
-      "confidence": 0.6321915558406285,
-      "translation": "When I first saw you, I thought you were some nobleman out for a hunt."
+      "confidence": 0.636601311819894,
+      "translation": "When I first saw you, I thought you were a noble on an outing."
     },
     {
-      "text": "\u304a\u82e5\u3044\u306e\u306b\u5802\u3005\u3068\u3057\u3066\u3044\u3089\u3057\u3066",
+      "text": "お若いのに堂々としていらして",
       "language": "ja",
       "file": "SPEAKER_01_seg4.wav",
       "segment_num": 4,
       "start": 87.19034375000001,
       "end": 89.46846875,
-      "confidence": 0.7036063811358284,
-      "translation": "You carry yourself with such poise for someone so young."
+      "confidence": 0.7020773887634277,
+      "translation": "Despite your youth, you carried yourself with such dignity."
     },
     {
-      "text": "\u3067\u3082\u3001\u30ab\u30ea\u30d0\u30c7\u30af\u30b5\u30d6\u30a8\u306e\u9cf4\u3089\u3057\u65b9\u3092\u6559\u3048\u3066\u304f\u3060\u3055\u3063\u305f\u3042\u306a\u305f\u306f\u3001\u307e\u308b\u3067",
+      "text": "でも、カリバデクサブエの鳴らし方を教えてくださったあなたは、まるで",
       "language": "ja",
       "file": "SPEAKER_01_seg5.wav",
       "segment_num": 5,
       "start": 90.58221875000001,
       "end": 96.01596875,
-      "confidence": 0.6809480551517371,
-      "translation": "But the way you taught me to play the Calibadixube..."
+      "confidence": 0.6795275139086174,
+      "translation": "But you, who taught me how to play the Karibadekusabue, were like..."
     },
     {
-      "text": "\u5b50\u4f9b\u306e\u3088\u3046\u3067\u3057\u305f",
+      "text": "子供のようでした",
       "language": "ja",
       "file": "SPEAKER_01_seg6.wav",
       "segment_num": 6,
       "start": 97.50096875000001,
-      "end": 98.61471875000001,
-      "confidence": 0.6156779395209419,
-      "translation": "...you were like a child."
+      "end": 98.63159375000001,
+      "confidence": 0.6185845798916287,
+      "translation": "...a child."
     },
     {
-      "text": "\u305d\u3057\u3066\u4eca\u306f\u54f2\u5b66\u8005\u306e\u3088\u3046\u306a\u3053\u3068\u3092 \u805e\u304b\u305b\u3066\u304f\u3060\u3055\u3063\u3066\u3044\u308b",
+      "text": "そして今は哲学者のようなことを 聞かせてくださっている",
       "language": "ja",
       "file": "SPEAKER_01_seg7.wav",
       "segment_num": 7,
       "start": 100.58909375,
       "end": 104.80784375,
-      "confidence": 0.7580097913742065,
-      "translation": "And now you're telling me things that sound like a philosopher."
+      "confidence": 0.7563487490018209,
+      "translation": "And now, you speak to me like a philosopher."
     },
     {
-      "text": "\u4e0d\u601d\u8b70\u306a\u304b\u3063\u305f",
+      "text": "不思議なかった",
       "language": "ja",
       "file": "SPEAKER_01_seg8.wav",
       "segment_num": 8,
       "start": 107.28846875,
       "end": 108.26721875000001,
-      "confidence": 0.6517735421657562,
-      "translation": "How strange."
+      "confidence": 0.6469640135765076,
+      "translation": "No wonder."
     },
     {
-      "text": "\u3042\u306a\u305f\u306e\u304a\u53cb\u9054\u3082\u3001\u305d\u3093\u306a\u3042\u306a\u305f\u306e\u9b45\u529b\u306b\u60f9\u304b\u308c\u305f\u306e\u3067\u3057\u3087\u3046\u306d",
+      "text": "あなたのお友達も、そんなあなたの魅力に惹かれたのでしょうね",
       "language": "ja",
       "file": "SPEAKER_01_seg9.wav",
       "segment_num": 9,
       "start": 116.19846875,
       "end": 120.43409375,
-      "confidence": 0.769848841887254,
-      "translation": "Your friends must be drawn to that charm of yours as well."
+      "confidence": 0.7694682341355543,
+      "translation": "Your friends must have also been drawn to your charm."
     }
   ]
 }

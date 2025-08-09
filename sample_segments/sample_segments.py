@@ -163,7 +163,13 @@ class SegmentsSampler:
 
         return speaker_segments
     
-    def merge(self, transcribed_data=None):
+    def merge(self, transcribed_data=None, read_from_cache=False, cache_path=None):
+        # Try loading from cache first
+        merged_files = read_cache(read_from_cache, cache_path)
+        if merged_files:
+            print(f"Using cached voice samples from: {cache_path}")
+            return merged_files
+        
         speaker_segments = self._group_segments_per_speaker()
         merged_files = {}
         
@@ -241,6 +247,11 @@ class SegmentsSampler:
                 print(f"📝 Full transcription: {' '.join(combined_transcription)}")
             if combined_translation:
                 print(f"🌐 Full translation: {' '.join(combined_translation)}")
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, merged_files)
+            print(f"Voice samples cached to: {cache_path}")
             
         print(f"✓ Voice sampling completed! {len(merged_files)} speakers processed")
         return merged_files

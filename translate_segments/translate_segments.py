@@ -4,7 +4,7 @@ from collections import defaultdict
 from utils import save_cache, read_cache, save_api_key, load_api_key
 
 class SegmentsTranslator:
-    def __init__(self,model="gemini-2.0-flash"):
+    def __init__(self,model="gemini-2.5-flash"):
         api_key = load_api_key()
         # If not found, ask user and save it
         if not api_key:
@@ -14,7 +14,7 @@ class SegmentsTranslator:
         self.model = genai.GenerativeModel(model_name=model)
 
     def _translate_batch(self, texts, source_lang="ja", target_lang="en"):
-        prompt = f"Translate the following sentences from {source_lang} to {target_lang} which is from an character from an anime or a movie putting in my mind that they could say something figuratively.Keep the same length and meaning.Some sentences maybe in japanese maybe wrong so correct given the context of the conversation. Give me only the translation without explanation nor added text in the begining and don't tell me Here are the translations:\n"
+        prompt = f"This is a conversation translate the following sentences from {source_lang} to {target_lang} which are from an anime or a movie character putting in my mind that they could say something figuratively. Remove any stuttering like 'N-no' make it 'No' and any other similar like that keep it simple. Keep the same meaning. Some sentences in japanese maybe wrong so correct given the context of the conversation. Give me only the translation without explanation nor added text in the begining and don't tell me Here are the translations:\n"
         for i, text in enumerate(texts, 1):
             prompt += f"{i}. {text}\n"
 

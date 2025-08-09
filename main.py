@@ -14,18 +14,18 @@ def main():
     # Initialize audio extractor
     audio_extractor = ExtractAudio("inputs/input_video.mp4")
     # Extract audio from video input
-    result_audio = audio_extractor.extract_audio("outputs/output_audio.wav",read_from_cache=True, cache_path="caches/audio_extracted.pkl")
+    result_audio = audio_extractor.extract_audio("outputs/output_audio.wav",read_from_cache=False, cache_path="caches/audio_extracted.pkl")
     print(f"Extraction result: {result_audio}")
     # Initialize audio separator
     audio_separator = SeparateAudio(result_audio)
     # Seperate vocal from non-vocals from extracted video
-    result_audio_separated = audio_separator.separate_audio(read_from_cache=True, cache_path="caches/audio_separated.pkl")
+    result_audio_separated = audio_separator.separate_audio(read_from_cache=False, cache_path="caches/audio_separated.pkl")
     print(f"Extraction result seperated: {result_audio_separated}")
     vocals = result_audio_separated['vocals']
     no_vocals = result_audio_separated['music']
     # Initialize audio diarizer
     audio_diarizer = AudioDiarization(vocals)
-    diarization = audio_diarizer.diarize_audio(read_from_cache=True, cache_path="caches/diarization.pkl")
+    diarization = audio_diarizer.diarize_audio(read_from_cache=False, cache_path="caches/diarization.pkl")
     # Initialize segments extractor - use the vocals audio file, not the video file
     segments_extractor = SegmentExtractor(vocals, diarization)
     # Extract segments
@@ -33,15 +33,15 @@ def main():
     # Initialize audio transcriber
     audio_transcriber = AudioTranscriber("small")
     # Transcribe audio segments
-    transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language=None,read_from_cache=True,cache_path="caches/transcribed_segments.pkl")
+    transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language="ja",read_from_cache=False,cache_path="caches/transcribed_segments.pkl")
     # Initialize audio translator
     segments_translator = SegmentsTranslator()
     # Translate audio segments
-    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=True, cache_path="caches/translation.pkl")
+    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=False, cache_path="caches/translation.pkl")
     # Initialize segments sampler
     segments_sampler = SegmentsSampler("outputs/audio_segments", "outputs/voice_samples")
     # Get a sample per speaker for voice-cloning
-    audio_samples = segments_sampler.merge(transcribed_data=translated_segments, read_from_cache=True, cache_path="caches/voice_samples.pkl")
+    audio_samples = segments_sampler.merge(transcribed_data=translated_segments, read_from_cache=False, cache_path="caches/voice_samples.pkl")
     
     # Initialize translations synthesizer
     translations_synthesizer = TranslationsSynthensizer()
@@ -52,7 +52,7 @@ def main():
         voice_samples_dir="outputs/voice_samples",
         audio_segments_dir="outputs/audio_segments",
         target_language="英文",  # English
-        read_from_cache=True,
+        read_from_cache=False,
         cache_path="caches/synthesis_results.pkl")
     
     # Initialize audio assembler
@@ -61,7 +61,7 @@ def main():
     final_audio = audio_assembler.assemble_audio(
         synthesis_results=synthesis_results,
         output_path="outputs/final_translated_audio.wav",
-        read_from_cache=True,
+        read_from_cache=False,
         cache_path="caches/assembled_audio.pkl")
     
     # Initialize Video and No_vocals applier

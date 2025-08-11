@@ -151,8 +151,154 @@ class TranslationsSynthensizer:
         
         return existing_refs
     
+    def _split_long_text_smartly(self, text, max_length=200):
+        """Smart text splitting that preserves meaning and handles rejoining"""
+        if len(text) <= max_length:
+            return [{'text': text, 'is_split': False}]
+        
+        import re
+        
+        # Try to split by natural sentence boundaries first
+        sentence_endings = r'[.!?]+\s+'
+        sentences = re.split(sentence_endings, text)
+        
+        chunks = []
+        current_chunk = ""
+        
+        for i, sentence in enumerate(sentences):
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+                
+            # Check if adding this sentence exceeds limit
+            test_chunk = current_chunk + (" " if current_chunk else "") + sentence + "."
+            
+            if len(test_chunk) <= max_length:
+                current_chunk = test_chunk
+            else:
+                # Save current chunk if it exists
+                if current_chunk:
+                    chunks.append({
+                        'text': current_chunk,
+                        'is_split': True,
+                        'chunk_index': len(chunks),
+                        'is_continuation': len(chunks) > 0
+                    })
+                
+                # Start new chunk with current sentence
+                current_chunk = sentence + "."
+        
+        # Add final chunk
+        if current_chunk:
+            chunks.append({
+                'text': current_chunk,
+                'is_split': len(chunks) > 0,
+                'chunk_index': len(chunks),
+                'is_continuation': len(chunks) > 0
+            })
+        
+        return chunks
+
+    def _synthesize_text_chunks(self, speaker_id, segment_num, text_chunks, reference_wav, reference_text, inp_refs, target_language, speaker_output_dir, start_time, end_time, original_text):
+        """Synthesize multiple text chunks and combine them"""
+        chunk_audio_files = []
+        combined_audio = None
+        
+        for chunk_info in text_chunks:
+            chunk_text = chunk_info['text']
+            chunk_index = chunk_info.get('chunk_index', 0)
+            is_continuation = chunk_info.get('is_continuation', False)
+            
+            # Adjust synthesis parameters for chunks
+            chunk_filename = f"{speaker_id}_translated_seg{segment_num}"
+            if chunk_info['is_split']:
+                chunk_filename += f"_chunk{chunk_index}"
+            chunk_filename += ".wav"
+            
+            chunk_output_path = os.path.join(speaker_output_dir, chunk_filename)
+            
+            print(f"  Synthesizing chunk {chunk_index + 1}/{len(text_chunks)}: '{chunk_text[:40]}...'")
+            
+            try:
+                # Adjust parameters for continuation chunks
+                synthesis_params = {
+                    'ref_wav_path': reference_wav,
+                    'prompt_text': reference_text,
+                    'prompt_language': self.i18n("日文"),
+                    'text': chunk_text,
+                    'text_language': self.i18n(target_language),
+                    'how_to_cut': self.i18n("不切"),
+                    'top_k': 15,
+                    'top_p': 0.7,
+                    'temperature': 1,
+                    'ref_free': False,
+                    'speed': 1.1,
+                    'if_freeze': False,
+                    'inp_refs': inp_refs,
+                    'sample_steps': 8,
+                    'if_sr': False,
+                    'pause_second': 0.1 if is_continuation else 0.3,  # Shorter pause for continuations
+                }
+                
+                synthesis_result = self.get_tts_wav(**synthesis_params)
+                result_list = list(synthesis_result)
+                
+                if result_list:
+                    sampling_rate, audio_data = result_list[-1]
+                    
+                    # Save individual chunk
+                    sf.write(chunk_output_path, audio_data, sampling_rate)
+                    chunk_audio_files.append(chunk_output_path)
+                    
+                    # Combine audio chunks
+                    if combined_audio is None:
+                        combined_audio = audio_data
+                    else:
+                        # Add small silence between chunks (0.1 seconds)
+                        silence_samples = int(0.1 * sampling_rate)
+                        silence = np.zeros(silence_samples, dtype=audio_data.dtype)
+                        combined_audio = np.concatenate([combined_audio, silence, audio_data])
+                    
+                    print(f"    ✓ Chunk {chunk_index + 1} synthesized")
+                    
+                else:
+                    print(f"    ✗ Failed to synthesize chunk {chunk_index + 1}")
+                    return None
+                    
+            except Exception as e:
+                print(f"    ✗ Error synthesizing chunk {chunk_index + 1}: {str(e)}")
+                return None
+        
+        # Save combined audio file
+        if combined_audio is not None:
+            final_output_path = os.path.join(speaker_output_dir, f"{speaker_id}_translated_seg{segment_num}.wav")
+            sf.write(final_output_path, combined_audio, sampling_rate)
+            
+            # Clean up individual chunk files (optional)
+            for chunk_file in chunk_audio_files:
+                try:
+                    os.remove(chunk_file)
+                except:
+                    pass
+            
+            return {
+                'segment_num': segment_num,
+                'output_file': final_output_path,
+                'translated_text': ' '.join([chunk['text'] for chunk in text_chunks]),
+                'original_text': original_text,
+                'start_time': start_time,
+                'end_time': end_time,
+                'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
+                'sampling_rate': sampling_rate,
+                'audio_length_seconds': len(combined_audio) / sampling_rate,
+                'was_split': len(text_chunks) > 1,
+                'num_chunks': len(text_chunks)
+            }
+        
+        return None
+
     def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, target_language):
-        """Synthesize all segments for a single speaker"""
+        """Synthesize all segments for a single speaker with smart text handling"""
         speaker_results = {
             'segments': [],
             'speaker_id': speaker_id,
@@ -173,69 +319,86 @@ class TranslationsSynthensizer:
         
         for segment in translations:
             segment_num = segment.get('segment_num', 0)
-            translated_text = segment.get('translation', '')  # Changed from 'translated_text' to 'translation'
+            translated_text = segment.get('translation', '')
             start_time = segment.get('start')
             end_time = segment.get('end')
-            original_text = segment.get('text', '')  # Changed from 'original_text' to 'text'
+            original_text = segment.get('text', '')
             
             if not translated_text.strip():
                 print(f"Skipping empty translation for {speaker_id} segment {segment_num}")
                 continue
-                
+            
             print(f"Synthesizing {speaker_id} segment {segment_num}: '{translated_text[:50]}...'")
             
-            try:
-                # Use the webui's get_tts_wav function
-                synthesis_result = self.get_tts_wav(
-                    ref_wav_path=reference_wav,
-                    prompt_text=reference_text,
-                    prompt_language=self.i18n("日文"),  # Japanese reference
-                    text=translated_text,
-                    text_language=self.i18n(target_language),
-                    how_to_cut=self.i18n("不切"),  # Don't cut
-                    top_k=15,
-                    top_p=0.8,
-                    temperature=1,
-                    ref_free=False,
-                    speed=1,
-                    if_freeze=False,
-                    inp_refs=inp_refs,
-                    sample_steps=8,
-                    if_sr=False,
-                    pause_second=0.3,
+            # Smart text splitting
+            text_chunks = self._split_long_text_smartly(translated_text, max_length=180)
+            
+            if len(text_chunks) == 1 and not text_chunks[0]['is_split']:
+                # Single chunk - use original method
+                try:
+                    synthesis_result = self.get_tts_wav(
+                        ref_wav_path=reference_wav,
+                        prompt_text=reference_text,
+                        prompt_language=self.i18n("日文"),
+                        text=translated_text,
+                        text_language=self.i18n(target_language),
+                        how_to_cut=self.i18n("不切"),
+                        top_k=15,
+                        top_p=0.7,
+                        temperature=1,
+                        ref_free=False,
+                        speed=1.1,
+                        if_freeze=False,
+                        inp_refs=inp_refs,
+                        sample_steps=8,
+                        if_sr=False,
+                        pause_second=0.3,
+                    )
+                    
+                    result_list = list(synthesis_result)
+                    if result_list:
+                        sampling_rate, audio_data = result_list[-1]
+                        
+                        output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
+                        output_wav_path = os.path.join(speaker_output_dir, output_filename)
+                        sf.write(output_wav_path, audio_data, sampling_rate)
+                        
+                        segment_result = {
+                            'segment_num': segment_num,
+                            'output_file': output_wav_path,
+                            'translated_text': translated_text,
+                            'original_text': original_text,
+                            'start_time': start_time,
+                            'end_time': end_time,
+                            'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
+                            'sampling_rate': sampling_rate,
+                            'audio_length_seconds': len(audio_data) / sampling_rate,
+                            'was_split': False
+                        }
+                        
+                        speaker_results['segments'].append(segment_result)
+                        print(f"  ✓ Saved to: {output_wav_path}")
+                    else:
+                        print(f"  ✗ No audio generated for segment {segment_num}")
+                        
+                except Exception as e:
+                    print(f"  ✗ Error synthesizing segment {segment_num}: {str(e)}")
+                    continue
+                
+            else:
+                # Multiple chunks - use chunk synthesis and combination
+                print(f"  Text is long ({len(translated_text)} chars), splitting into {len(text_chunks)} chunks")
+                
+                segment_result = self._synthesize_text_chunks(
+                    speaker_id, segment_num, text_chunks, reference_wav, reference_text,
+                    inp_refs, target_language, speaker_output_dir, start_time, end_time, original_text
                 )
                 
-                result_list = list(synthesis_result)
-                if result_list:
-                    sampling_rate, audio_data = result_list[-1]
-                    
-                    # Save the result
-                    output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
-                    output_wav_path = os.path.join(speaker_output_dir, output_filename)
-                    sf.write(output_wav_path, audio_data, sampling_rate)
-                    
-                    # Store segment result with timing information
-                    segment_result = {
-                        'segment_num': segment_num,
-                        'output_file': output_wav_path,
-                        'translated_text': translated_text,
-                        'original_text': original_text,
-                        'start_time': start_time,
-                        'end_time': end_time,
-                        'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
-                        'sampling_rate': sampling_rate,
-                        'audio_length_seconds': len(audio_data) / sampling_rate
-                    }
-                    
+                if segment_result:
                     speaker_results['segments'].append(segment_result)
-                    print(f"  ✓ Saved to: {output_wav_path}")
-                    
+                    print(f"  ✓ Combined audio saved to: {segment_result['output_file']}")
                 else:
-                    print(f"  ✗ No audio generated for segment {segment_num}")
-                    
-            except Exception as e:
-                print(f"  ✗ Error synthesizing segment {segment_num}: {str(e)}")
-                continue
+                    print(f"  ✗ Failed to synthesize long segment {segment_num}")
         
         # Sort segments by segment number
         speaker_results['segments'].sort(key=lambda x: x['segment_num'])

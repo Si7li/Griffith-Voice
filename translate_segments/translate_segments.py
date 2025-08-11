@@ -13,13 +13,31 @@ class SegmentsTranslator:
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model_name=model)
 
-    def _translate_batch(self, texts, source_lang="ja", target_lang="en"):
-        prompt = f"This is a conversation translate the following sentences from {source_lang} to {target_lang} which are from an anime or a movie character putting in my mind that they could say something figuratively. Remove any stuttering like 'N-no' make it 'No' and any other similar like that keep it simple. Keep the same meaning. Some sentences in japanese maybe wrong so correct given the context of the conversation. Give me only the translation without explanation nor added text in the begining and don't tell me Here are the translations:\n"
+    def _translate_batch(self, texts,diarization_essensials ,source_lang="ja", target_lang="en"):
+        prompt = f"""Translate these {len(texts)} sentences from {source_lang} to {target_lang}.
+
+        Context: These are from anime/movie/documentary characters.
+        Instructions:
+        - Remove stuttering (e.g., "N-no" → "No")
+        - Some sentences in {source_lang} may be wrong, so correct and translate them based on the context of the conversation.
+        - Sometimes, {source_lang} words are just the {source_lang} way of saying an {target_lang} word, so keep the same pronunciation.
+        - Keep the original meaning and tone
+        - Provide only translations, no explanations
+        - Maintain the same number order
+
+        Sentences to translate:\n
+        """
         for i, text in enumerate(texts, 1):
             prompt += f"{i}. {text}\n"
 
-        response = self.model.generate_content(prompt)
-        translated = response.text.strip().split('\n')
+        if len(diarization_essensials) == 1:
+            print("One speaker!")
+            response = self.model.generate_content("This is a monologue :\n" + prompt)
+            translated = response.text.strip().split('\n')
+        else:
+            print("Multiple speakers!")
+            response = self.model.generate_content(f"This is a conversation between {len(diarization_essensials)} speakers:\n" + prompt)
+            translated = response.text.strip().split('\n')            
 
         # Optional: remove numbering if present in Gemini's response
         translations = []
@@ -36,7 +54,7 @@ class SegmentsTranslator:
 
         return translations
 
-    def translate_segments(self, transcribed_segments, source_lang="ja", target_lang="en", read_from_cache=False, cache_path=None):
+    def translate_segments(self, transcribed_segments, diarization_essensials, source_lang="ja", target_lang="en", read_from_cache=False, cache_path=None):
         translations = read_cache(read_from_cache, cache_path)
         if translations:
             print(f"Using cached translations from: {cache_path}")
@@ -47,7 +65,7 @@ class SegmentsTranslator:
         for speaker, segments in transcribed_segments.items():
             texts = [segment["text"] for segment in segments]
 
-            translated_texts = self._translate_batch(texts, source_lang, target_lang)
+            translated_texts = self._translate_batch(texts, diarization_essensials ,source_lang, target_lang)
 
             for segment, translation in zip(segments, translated_texts):
                 segment_copy = segment.copy()

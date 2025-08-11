@@ -110,6 +110,15 @@ class AudioTranscriber:
             save_cache(cache_path, dict(transcriptions))
             print(f"Transcriptions cached to: {cache_path}")
         
+        # Unload Whisper model and free GPU memory
+        del self.model
+        import gc
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+        print("🧹 Whisper model unloaded and GPU memory cleared.")
+        
         print(f"✓ Transcription completed! {len(transcriptions)} speakers")
         return dict(transcriptions)
     

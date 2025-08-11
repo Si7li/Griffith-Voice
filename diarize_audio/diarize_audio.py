@@ -67,6 +67,16 @@ class AudioDiarization:
             for turn, _, speaker in diarization.itertracks(yield_label=True):
                 print(f"Speaker {speaker}: {turn.start:.2f}s - {turn.end:.2f}s")
                 diarization_essensials[speaker] += [(turn.start, turn.end)]
+            
+            # Unload pyannote pipeline and free GPU memory
+            del pipeline
+            import gc
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                torch.cuda.synchronize()
+            print("🧹 Pyannote model unloaded and GPU memory cleared.")
+            
             if cache_path:
                 save_cache(cache_path, diarization_essensials)
             return diarization_essensials

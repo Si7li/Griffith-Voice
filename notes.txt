@@ -1,0 +1,1752 @@
+#sample_segments_old.py
+import os
+import ffmpeg
+from glob import glob
+from collections import defaultdict
+import librosa
+import numpy as np
+from pydub import AudioSegment
+from utils import save_cache, read_cache
+
+class SegmentsSampler:
+    def __init__(self, input_folder, output_folder):
+        self.input_folder = input_folder
+        self.output_folder = output_folder
+        self.min_duration = 3.0  # minimum 3 seconds
+        self.max_duration = 10.0  # maximum 10 seconds
+        self.max_segments = 5  # maximum number of segments to combine
+
+    def _get_audio_features(self, filepath):
+        """Extract audio features for quality analysis and smart segment selection"""
+        try:
+            # Use pydub for simpler, more reliable audio analysis
+            audio = AudioSegment.from_wav(filepath)
+            duration = len(audio) / 1000.0  # Convert to seconds
+            
+            if duration < 0.5:  # Skip very short segments
+                return None
+            
+            # Simple but effective quality metrics
+            volume_db = audio.dBFS  # Volume level
+            
+            # Calculate quality score based on duration and volume
+            quality_score = 0
+            
+            # Duration scoring - prefer segments that can contribute to target range
+            if 1.0 <= duration <= 4.0:  # Good individual segment length
+                quality_score += 100
+            elif 0.5 <= duration < 1.0:  # Short but usable
+                quality_score += 70
+            elif 4.0 < duration <= 8.0:  # Longer segments (good for single use)
+                quality_score += 80
+            else:
+                quality_score += 30  # Very short or very long
+            
+            # Volume scoring - prefer clear, audible speech
+            if -25 <= volume_db <= -5:  # Good volume range
+                quality_score += 100
+            elif -35 <= volume_db < -25:  # Decent volume
+                quality_score += 70
+            elif -45 <= volume_db < -35:  # Low but usable
+                quality_score += 40
+            else:  # Too quiet or too loud
+                quality_score += 10
+            
+            # Simple spectral analysis for voice quality
+            try:
+                y, sr = librosa.load(filepath, sr=22050)
+                
+                # Check for silence or noise
+                rms_energy = np.mean(librosa.feature.rms(y=y))
+                if rms_energy > 0.01:  # Has decent energy
+                    quality_score += 50
+                
+                # Check spectral characteristics for voice-like content
+                spectral_centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+                if 500 <= spectral_centroid <= 4000:  # Voice frequency range
+                    quality_score += 30
+                    
+            except Exception:
+                # If librosa fails, just use basic metrics
+                pass
+            
+            features = {
+                'duration': duration,
+                'volume_db': volume_db,
+                'quality_score': quality_score,
+                'is_good_length': 1.0 <= duration <= 4.0,
+                'is_good_volume': -35 <= volume_db <= -5
+            }
+            return features
+        except Exception as e:
+            print(f"⚠️  Error processing {filepath}: {e}")
+            return None
+
+    def _select_diverse_segments(self, files, transcribed_data=None):
+        """Select and combine segments to create optimal 3-10 second voice references"""
+        valid_segments = []
+        
+        # Filter segments and extract features
+        for filepath in files:
+            features = self._get_audio_features(filepath)
+            if features and features['duration'] >= 0.5:
+                filename = os.path.basename(filepath)
+                segment_info = self._parse_segment_filename(filename)
+                
+                segment_data = {
+                    'path': filepath,
+                    'features': features,
+                    'filename': filename,
+                    'speaker_id': segment_info['speaker_id'],
+                    'segment_num': segment_info['segment_num']
+                }
+                
+                # Add transcription and translation if available
+                if transcribed_data and segment_info['speaker_id'] in transcribed_data:
+                    speaker_segments = transcribed_data[segment_info['speaker_id']]
+                    for seg in speaker_segments:
+                        if seg.get('segment_num') == segment_info['segment_num']:
+                            segment_data['transcription'] = seg.get('text', '')
+                            segment_data['translation'] = seg.get('translation', '')
+                            break
+                
+                valid_segments.append(segment_data)
+        
+        if not valid_segments:
+            print(f"⚠️  No valid segments found")
+            return []
+        
+        # Sort by quality score (best first)
+        valid_segments.sort(key=lambda x: x['features']['quality_score'], reverse=True)
+        
+        # Strategy 1: Try to find a single high-quality segment between 3-10 seconds
+        for segment in valid_segments:
+            duration = segment['features']['duration']
+            if self.min_duration <= duration <= self.max_duration:
+                print(f"   🎯 Found perfect single segment: {segment['filename']} ({duration:.1f}s)")
+                return [segment]
+        
+        # Strategy 2: Find best combination of segments to reach 3-10 seconds
+        best_combination = []
+        best_score = 0
+        best_duration = 0
+        
+        # Try different combinations starting with highest quality segments
+        for start_idx in range(min(10, len(valid_segments))):  # Don't check too many combinations
+            current_combination = []
+            current_duration = 0
+            current_score = 0
+            
+            # Start with this segment
+            start_segment = valid_segments[start_idx]
+            current_combination.append(start_segment)
+            current_duration += start_segment['features']['duration']
+            current_score += start_segment['features']['quality_score']
+            
+            # Try to add more segments to reach target duration
+            for segment in valid_segments[start_idx + 1:]:
+                potential_duration = current_duration + segment['features']['duration']
+                
+                # Check if adding this segment would still be within limits
+                if potential_duration <= self.max_duration:
+                    current_combination.append(segment)
+                    current_duration = potential_duration
+                    current_score += segment['features']['quality_score']
+                    
+                    # Stop if we've reached a good duration with quality segments
+                    if current_duration >= self.min_duration and len(current_combination) <= 4:
+                        break
+                elif current_duration >= self.min_duration:
+                    # We can't add more but we have enough duration
+                    break
+            
+            # Evaluate this combination
+            if current_duration >= self.min_duration:
+                # Bonus for being in optimal range
+                if 4.0 <= current_duration <= 7.0:
+                    current_score += 100
+                elif 3.0 <= current_duration <= 9.0:
+                    current_score += 50
+                
+                # Bonus for fewer segments (more natural flow)
+                if len(current_combination) <= 2:
+                    current_score += 50
+                elif len(current_combination) <= 3:
+                    current_score += 20
+                
+                # Penalty for too many segments
+                if len(current_combination) > 4:
+                    current_score -= 50
+                
+                # Check if this is better than our current best
+                if current_score > best_score or (current_score == best_score and current_duration > best_duration):
+                    best_combination = current_combination
+                    best_score = current_score
+                    best_duration = current_duration
+        
+        # Strategy 3: If no good combination found, take the best single segment even if it's outside range
+        if not best_combination:
+            best_segment = valid_segments[0]  # Highest quality
+            duration = best_segment['features']['duration']
+            
+            # Allow some flexibility for very good quality segments
+            if duration >= 2.0 and duration <= 15.0 and best_segment['features']['quality_score'] > 150:
+                print(f"   🎯 Using high-quality segment outside range: {best_segment['filename']} ({duration:.1f}s)")
+                return [best_segment]
+            
+            # Last resort: take multiple short segments to reach minimum
+            short_segments = [s for s in valid_segments[:5] if s['features']['duration'] >= 0.8]
+            if short_segments:
+                combination = []
+                total_dur = 0
+                for seg in short_segments:
+                    if total_dur + seg['features']['duration'] <= self.max_duration:
+                        combination.append(seg)
+                        total_dur += seg['features']['duration']
+                        if total_dur >= self.min_duration:
+                            break
+                
+                if combination and total_dur >= self.min_duration:
+                    print(f"   🎯 Combined {len(combination)} short segments: {total_dur:.1f}s")
+                    return combination
+        
+        if best_combination:
+            segment_files = [s['filename'] for s in best_combination]
+            print(f"   🎯 Selected combination: {segment_files} (total: {best_duration:.1f}s)")
+            return best_combination
+        
+        # Fallback: return the best single segment regardless of duration
+        if valid_segments:
+            print(f"   ⚠️  Fallback to best segment: {valid_segments[0]['filename']}")
+            return [valid_segments[0]]
+        
+        return []
+
+    def _parse_segment_filename(self, filename):
+        """Parse segment filename to extract speaker ID and segment number"""
+        # Expected format: SPEAKER_XX_segY.wav
+        try:
+            parts = filename.replace('.wav', '').split('_')
+            speaker_id = f"{parts[0]}_{parts[1]}"  # SPEAKER_00
+            segment_num = int(parts[2].replace('seg', ''))
+            return {
+                'speaker_id': speaker_id,
+                'segment_num': segment_num
+            }
+        except:
+            return {
+                'speaker_id': 'UNKNOWN',
+                'segment_num': -1
+            }
+
+    def _group_segments_per_speaker(self):
+        os.makedirs(self.output_folder, exist_ok=True)
+        speaker_segments = defaultdict(list)
+
+        for filepath in sorted(glob(os.path.join(self.input_folder, "*.wav"))):
+            filename = os.path.basename(filepath)
+            if filename.startswith("SPEAKER_"):
+                speaker_id = filename.split("_seg")[0]
+                speaker_segments[speaker_id].append(filepath)
+
+        return speaker_segments
+    
+    def merge(self, transcribed_data=None, read_from_cache=False, cache_path=None):
+        # Try loading from cache first
+        merged_files = read_cache(read_from_cache, cache_path)
+        if merged_files:
+            print(f"Using cached voice samples from: {cache_path}")
+            return merged_files
+        
+        speaker_segments = self._group_segments_per_speaker()
+        merged_files = {}
+        
+        for speaker_id, files in speaker_segments.items():
+            print(f"🔍 Processing {speaker_id} with {len(files)} segments...")
+            
+            # Select diverse segments for voice cloning with transcription data
+            selected_segments = self._select_diverse_segments(files, transcribed_data)
+            
+            if not selected_segments:
+                print(f"❌ No suitable segments found for {speaker_id}")
+                continue
+            
+            print(f"✅ Selected {len(selected_segments)} diverse segments for {speaker_id}")
+            
+            # Create concatenated audio from selected segments
+            combined_audio = AudioSegment.empty()
+            total_duration = 0
+            combined_transcription = []
+            combined_translation = []
+            
+            for i, segment in enumerate(selected_segments):
+                audio = AudioSegment.from_wav(segment['path'])
+                combined_audio += audio
+                total_duration += segment['features']['duration']
+                
+                # Add small gap between segments (200ms) for natural flow
+                if i < len(selected_segments) - 1:
+                    gap = AudioSegment.silent(duration=200)  # 200ms gap
+                    combined_audio += gap
+                    total_duration += 0.2  # Add gap time
+                
+                # Collect transcription and translation
+                transcription = segment.get('transcription', '')
+                translation = segment.get('translation', '')
+                
+                print(f"   + {segment['filename']} ({segment['features']['duration']:.1f}s)")
+                if transcription:
+                    print(f"     📝 Text: {transcription}")
+                if translation:
+                    print(f"     🌐 Translation: {translation}")
+                
+                if transcription:
+                    combined_transcription.append(transcription)
+                if translation:
+                    combined_translation.append(translation)
+            
+            # Ensure we're within the max duration limit
+            if total_duration > self.max_duration:
+                max_ms = int(self.max_duration * 1000)
+                combined_audio = combined_audio[:max_ms]
+                total_duration = self.max_duration
+                print(f"   ✂️  Trimmed to {self.max_duration}s to stay within limits")
+            
+            # Export the merged audio
+            output_path = os.path.join(self.output_folder, f"{speaker_id}_voice_sample.wav")
+            combined_audio.export(output_path, format="wav")
+            
+            # Always save transcription and translation files (even if empty)
+            transcription_path = os.path.join(self.output_folder, f"{speaker_id}_transcription.txt")
+            translation_path = os.path.join(self.output_folder, f"{speaker_id}_translation.txt")
+            
+            # Write transcription file
+            with open(transcription_path, 'w', encoding='utf-8') as f:
+                if combined_transcription:
+                    f.write(' '.join(combined_transcription))
+                else:
+                    f.write(f"[No transcription available for {speaker_id}]")
+            
+            # Write translation file 
+            with open(translation_path, 'w', encoding='utf-8') as f:
+                if combined_translation:
+                    f.write(' '.join(combined_translation))
+                else:
+                    f.write(f"[No translation available for {speaker_id}]")
+            
+            merged_files[speaker_id] = {
+                'audio_path': output_path,
+                'duration': total_duration,
+                'segments_count': len(selected_segments),
+                'transcription': ' '.join(combined_transcription) if combined_transcription else '',
+                'translation': ' '.join(combined_translation) if combined_translation else '',
+                'transcription_file': transcription_path,
+                'translation_file': translation_path
+            }
+            
+            print(f"🎵 Created voice sample for {speaker_id} → {output_path} ({total_duration:.1f}s)")
+            print(f"📝 Transcription file: {transcription_path}")
+            print(f"🌐 Translation file: {translation_path}")
+            if combined_transcription:
+                text_preview = ' '.join(combined_transcription)
+                print(f"📄 Full text: {text_preview[:100]}{'...' if len(text_preview) > 100 else ''}")
+            if combined_translation:
+                trans_preview = ' '.join(combined_translation)
+                print(f"🔄 Full translation: {trans_preview[:100]}{'...' if len(trans_preview) > 100 else ''}")
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, merged_files)
+            print(f"Voice samples cached to: {cache_path}")
+            
+        print(f"✓ Voice sampling completed! {len(merged_files)} speakers processed")
+        return merged_files
+
+#sample_segments_new
+import os
+import ffmpeg
+from glob import glob
+from collections import defaultdict
+import librosa
+import numpy as np
+from pydub import AudioSegment
+from utils import save_cache, read_cache
+
+class SegmentsSampler:
+    def __init__(self, input_folder, output_folder):
+        self.input_folder = input_folder
+        self.output_folder = output_folder
+        self.min_duration = 3.0  # minimum 3 seconds
+        self.max_duration = 10.0  # maximum 10 seconds
+        self.max_segments = 5  # maximum number of segments to combine
+
+    def _get_audio_features(self, filepath):
+        """Extract audio features for quality analysis and smart segment selection"""
+        try:
+            # Use pydub for simpler, more reliable audio analysis
+            audio = AudioSegment.from_wav(filepath)
+            duration = len(audio) / 1000.0  # Convert to seconds
+            
+            if duration < 0.5:  # Skip very short segments
+                return None
+            
+            # Simple but effective quality metrics
+            volume_db = audio.dBFS  # Volume level
+            
+            # Calculate quality score based on duration and volume
+            quality_score = 0
+            
+            # Duration scoring - prefer segments that can contribute to target range
+            if 1.0 <= duration <= 4.0:  # Good individual segment length
+                quality_score += 100
+            elif 0.5 <= duration < 1.0:  # Short but usable
+                quality_score += 70
+            elif 4.0 < duration <= 8.0:  # Longer segments (good for single use)
+                quality_score += 80
+            else:
+                quality_score += 30  # Very short or very long
+            
+            # Volume scoring - prefer clear, audible speech
+            if -25 <= volume_db <= -5:  # Good volume range
+                quality_score += 100
+            elif -35 <= volume_db < -25:  # Decent volume
+                quality_score += 70
+            elif -45 <= volume_db < -35:  # Low but usable
+                quality_score += 40
+            else:  # Too quiet or too loud
+                quality_score += 10
+            
+            # Simple spectral analysis for voice quality
+            try:
+                y, sr = librosa.load(filepath, sr=22050)
+                
+                # Check for silence or noise
+                rms_energy = np.mean(librosa.feature.rms(y=y))
+                if rms_energy > 0.01:  # Has decent energy
+                    quality_score += 50
+                
+                # Check spectral characteristics for voice-like content
+                spectral_centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+                if 500 <= spectral_centroid <= 4000:  # Voice frequency range
+                    quality_score += 30
+                    
+            except Exception:
+                # If librosa fails, just use basic metrics
+                pass
+            
+            features = {
+                'duration': duration,
+                'volume_db': volume_db,
+                'quality_score': quality_score,
+                'is_good_length': 1.0 <= duration <= 4.0,
+                'is_good_volume': -35 <= volume_db <= -5
+            }
+            return features
+        except Exception as e:
+            print(f"⚠️  Error processing {filepath}: {e}")
+            return None
+
+    def _select_diverse_segments(self, files, transcribed_data=None):
+        """Select and combine segments to create optimal 3-10 second voice references with maximum variety"""
+        valid_segments = []
+        
+        # Filter segments and extract features
+        for filepath in files:
+            features = self._get_audio_features(filepath)
+            if features and features['duration'] >= 0.5:
+                filename = os.path.basename(filepath)
+                segment_info = self._parse_segment_filename(filename)
+                
+                segment_data = {
+                    'path': filepath,
+                    'features': features,
+                    'filename': filename,
+                    'speaker_id': segment_info['speaker_id'],
+                    'segment_num': segment_info['segment_num']
+                }
+                
+                # Add transcription and translation if available
+                if transcribed_data and segment_info['speaker_id'] in transcribed_data:
+                    speaker_segments = transcribed_data[segment_info['speaker_id']]
+                    for seg in speaker_segments:
+                        if seg.get('segment_num') == segment_info['segment_num']:
+                            segment_data['transcription'] = seg.get('text', '')
+                            segment_data['translation'] = seg.get('translation', '')
+                            break
+                
+                valid_segments.append(segment_data)
+        
+        if not valid_segments:
+            print(f"⚠️  No valid segments found")
+            return []
+        
+        # Sort by quality score (best first)
+        valid_segments.sort(key=lambda x: x['features']['quality_score'], reverse=True)
+        
+        # NEW STRATEGY: Always prioritize VARIETY and MULTIPLE SEGMENTS
+        # Strategy 1: Try to combine multiple diverse segments (PREFERRED)
+        best_combination = []
+        best_score = 0
+        best_duration = 0
+        
+        print(f"   🎯 Prioritizing variety - trying to combine multiple segments...")
+        
+        # Try different combinations starting with highest quality segments
+        for start_idx in range(min(8, len(valid_segments))):  # Check more combinations for variety
+            current_combination = []
+            current_duration = 0
+            current_score = 0
+            used_indices = set()
+            
+            # Start with this segment
+            start_segment = valid_segments[start_idx]
+            current_combination.append(start_segment)
+            current_duration += start_segment['features']['duration']
+            current_score += start_segment['features']['quality_score']
+            used_indices.add(start_idx)
+            
+            # Try to add MORE segments for variety (aim for 3-5 segments)
+            for segment_idx, segment in enumerate(valid_segments):
+                if segment_idx in used_indices:
+                    continue
+                    
+                potential_duration = current_duration + segment['features']['duration'] + 0.2  # Include gap time
+                
+                # Be more aggressive about adding segments for variety
+                if potential_duration <= self.max_duration and len(current_combination) < 5:
+                    current_combination.append(segment)
+                    current_duration = potential_duration
+                    current_score += segment['features']['quality_score']
+                    used_indices.add(segment_idx)
+                    
+                    # Continue adding until we hit limits
+                    if current_duration >= 8.0:  # Don't go too long
+                        break
+            
+            # Evaluate this combination - HEAVILY favor multiple segments
+            if current_duration >= self.min_duration:
+                # BIG BONUS for variety (multiple segments)
+                if len(current_combination) >= 4:
+                    current_score += 200  # Huge bonus for 4+ segments
+                elif len(current_combination) >= 3:
+                    current_score += 150  # Big bonus for 3+ segments  
+                elif len(current_combination) >= 2:
+                    current_score += 100  # Good bonus for 2+ segments
+                else:
+                    current_score -= 50   # Penalty for single segment
+                
+                # Bonus for being in optimal range
+                if 4.0 <= current_duration <= 8.0:
+                    current_score += 100
+                elif 3.0 <= current_duration <= 9.0:
+                    current_score += 50
+                
+                # Extra bonus for more diverse content
+                if len(current_combination) >= 3:
+                    current_score += 75  # Variety bonus
+                
+                # Check if this is better than our current best
+                if current_score > best_score or (current_score == best_score and len(current_combination) > len(best_combination)):
+                    best_combination = current_combination
+                    best_score = current_score
+                    best_duration = current_duration
+        
+        # Strategy 2: Only use single segment if we absolutely can't combine (FALLBACK)
+        if not best_combination or len(best_combination) == 1:
+            print(f"   ⚠️  Couldn't find good combination, trying to force multiple segments...")
+            
+            # Force multiple segments by being more lenient with quality
+            forced_combination = []
+            total_dur = 0
+            
+            # Take top segments and force them together
+            for segment in valid_segments[:6]:  # Try more segments
+                if total_dur + segment['features']['duration'] + 0.2 <= self.max_duration:
+                    forced_combination.append(segment)
+                    total_dur += segment['features']['duration'] + 0.2
+                    
+                    # Stop when we have enough variety and duration
+                    if len(forced_combination) >= 3 and total_dur >= self.min_duration:
+                        break
+            
+            if len(forced_combination) >= 2 and total_dur >= self.min_duration:
+                print(f"   🎯 Forced combination of {len(forced_combination)} segments: {total_dur:.1f}s")
+                return forced_combination
+        
+        # Strategy 3: Single segment only as absolute last resort
+        if not best_combination:
+            # Only if we have a really good single segment and can't combine anything
+            best_segment = valid_segments[0]
+            duration = best_segment['features']['duration']
+            
+            if duration >= self.min_duration and best_segment['features']['quality_score'] > 200:
+                print(f"   ⚠️  LAST RESORT: Using single high-quality segment: {best_segment['filename']} ({duration:.1f}s)")
+                return [best_segment]
+            
+            # Even last resort: combine any segments we can
+            fallback_combo = []
+            fallback_dur = 0
+            for seg in valid_segments[:4]:
+                if fallback_dur + seg['features']['duration'] <= self.max_duration:
+                    fallback_combo.append(seg)
+                    fallback_dur += seg['features']['duration']
+                    if fallback_dur >= self.min_duration and len(fallback_combo) >= 2:
+                        break
+            
+            if fallback_combo and len(fallback_combo) >= 2:
+                print(f"   🎯 Fallback combination: {len(fallback_combo)} segments")
+                return fallback_combo
+        
+        if best_combination:
+            segment_files = [s['filename'] for s in best_combination]
+            print(f"   🎯 Selected diverse combination: {segment_files} (total: {best_duration:.1f}s)")
+            return best_combination
+        
+        # Ultimate fallback
+        if valid_segments:
+            print(f"   ⚠️  Ultimate fallback: {valid_segments[0]['filename']}")
+            return [valid_segments[0]]
+        
+        return []
+
+    def _parse_segment_filename(self, filename):
+        """Parse segment filename to extract speaker ID and segment number"""
+        # Expected format: SPEAKER_XX_segY.wav
+        try:
+            parts = filename.replace('.wav', '').split('_')
+            speaker_id = f"{parts[0]}_{parts[1]}"  # SPEAKER_00
+            segment_num = int(parts[2].replace('seg', ''))
+            return {
+                'speaker_id': speaker_id,
+                'segment_num': segment_num
+            }
+        except:
+            return {
+                'speaker_id': 'UNKNOWN',
+                'segment_num': -1
+            }
+
+    def _group_segments_per_speaker(self):
+        os.makedirs(self.output_folder, exist_ok=True)
+        speaker_segments = defaultdict(list)
+
+        for filepath in sorted(glob(os.path.join(self.input_folder, "*.wav"))):
+            filename = os.path.basename(filepath)
+            if filename.startswith("SPEAKER_"):
+                speaker_id = filename.split("_seg")[0]
+                speaker_segments[speaker_id].append(filepath)
+
+        return speaker_segments
+    
+    def merge(self, transcribed_data=None, read_from_cache=False, cache_path=None):
+        # Try loading from cache first
+        merged_files = read_cache(read_from_cache, cache_path)
+        if merged_files:
+            print(f"Using cached voice samples from: {cache_path}")
+            return merged_files
+        
+        speaker_segments = self._group_segments_per_speaker()
+        merged_files = {}
+        
+        for speaker_id, files in speaker_segments.items():
+            print(f"🔍 Processing {speaker_id} with {len(files)} segments...")
+            
+            # Select diverse segments for voice cloning with transcription data
+            selected_segments = self._select_diverse_segments(files, transcribed_data)
+            
+            if not selected_segments:
+                print(f"❌ No suitable segments found for {speaker_id}")
+                continue
+            
+            print(f"✅ Selected {len(selected_segments)} diverse segments for {speaker_id}")
+            
+            # Create concatenated audio from selected segments with gaps for variety
+            combined_audio = AudioSegment.empty()
+            total_duration = 0
+            combined_transcription = []
+            combined_translation = []
+            segment_details = []
+            
+            for i, segment in enumerate(selected_segments):
+                audio = AudioSegment.from_wav(segment['path'])
+                combined_audio += audio
+                total_duration += segment['features']['duration']
+                
+                # Add small gap between segments (200ms) for natural flow and variety
+                if i < len(selected_segments) - 1:
+                    gap = AudioSegment.silent(duration=200)  # 200ms gap
+                    combined_audio += gap
+                    total_duration += 0.2  # Add gap time
+                
+                # Collect transcription and translation with segment info
+                transcription = segment.get('transcription', '')
+                translation = segment.get('translation', '')
+                segment_num = segment.get('segment_num', i+1)
+                
+                print(f"   + {segment['filename']} ({segment['features']['duration']:.1f}s) [Quality: {segment['features']['quality_score']:.0f}]")
+                if transcription:
+                    print(f"     📝 Text: {transcription}")
+                    combined_transcription.append(f"[Segment {segment_num}] {transcription}")
+                else:
+                    combined_transcription.append(f"[Segment {segment_num}] [No transcription]")
+                
+                if translation:
+                    print(f"     🌐 Translation: {translation}")
+                    combined_translation.append(f"[Segment {segment_num}] {translation}")
+                else:
+                    combined_translation.append(f"[Segment {segment_num}] [No translation]")
+                
+                # Store segment details for organized output
+                segment_details.append({
+                    'segment_num': segment_num,
+                    'filename': segment['filename'],
+                    'duration': segment['features']['duration'],
+                    'transcription': transcription,
+                    'translation': translation,
+                    'quality_score': segment['features']['quality_score']
+                })
+            
+            # Ensure we're within the max duration limit
+            if total_duration > self.max_duration:
+                max_ms = int(self.max_duration * 1000)
+                combined_audio = combined_audio[:max_ms]
+                total_duration = self.max_duration
+                print(f"   ✂️  Trimmed to {self.max_duration}s to stay within limits")
+            
+            # Export the merged audio
+            output_path = os.path.join(self.output_folder, f"{speaker_id}_voice_sample.wav")
+            combined_audio.export(output_path, format="wav")
+            
+            # Always save transcription and translation files with simple clean text
+            transcription_path = os.path.join(self.output_folder, f"{speaker_id}_transcription.txt")
+            translation_path = os.path.join(self.output_folder, f"{speaker_id}_translation.txt")
+            
+            # Write simple transcription file (just the combined text for GPT-SoVITS)
+            with open(transcription_path, 'w', encoding='utf-8') as f:
+                if segment_details and any(seg['transcription'] for seg in segment_details):
+                    # Simple combined text - exactly what GPT-SoVITS needs
+                    continuous_text = " ".join([seg['transcription'] for seg in segment_details if seg['transcription']])
+                    f.write(continuous_text)
+                else:
+                    f.write(f"[No transcription available for {speaker_id}]")
+            
+            # Write simple translation file (just the combined translation)
+            with open(translation_path, 'w', encoding='utf-8') as f:
+                if segment_details and any(seg['translation'] for seg in segment_details):
+                    # Simple combined translation text
+                    continuous_translation = " ".join([seg['translation'] for seg in segment_details if seg['translation']])
+                    f.write(continuous_translation)
+                else:
+                    f.write(f"[No translation available for {speaker_id}]")
+            
+            merged_files[speaker_id] = {
+                'audio_path': output_path,
+                'duration': total_duration,
+                'segments_count': len(selected_segments),
+                'transcription': " ".join([seg['transcription'] for seg in segment_details if seg['transcription']]),
+                'translation': " ".join([seg['translation'] for seg in segment_details if seg['translation']]),
+                'transcription_file': transcription_path,
+                'translation_file': translation_path,
+                'segment_details': segment_details
+            }
+            
+            print(f"🎵 Created diverse voice sample for {speaker_id} → {output_path} ({total_duration:.1f}s)")
+            print(f"📝 Transcription file: {transcription_path}")
+            print(f"🌐 Translation file: {translation_path}")
+            print(f"🎯 Variety achieved: {len(selected_segments)} segments combined")
+            
+            # Show preview of the simple combined content (like the old version)
+            if len(segment_details) > 0:
+                all_text = " ".join([seg['transcription'] for seg in segment_details if seg['transcription']])
+                all_trans = " ".join([seg['translation'] for seg in segment_details if seg['translation']])
+                if all_text:
+                    print(f"📄 Full text: {all_text[:100]}{'...' if len(all_text) > 100 else ''}")
+                if all_trans:
+                    print(f"🔄 Full translation: {all_trans[:100]}{'...' if len(all_trans) > 100 else ''}")
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, merged_files)
+            print(f"Voice samples cached to: {cache_path}")
+            
+        print(f"✓ Voice sampling completed! {len(merged_files)} speakers processed")
+        return merged_files
+
+#syntensize old
+import os
+import sys
+import soundfile as sf
+import numpy as np
+from pathlib import Path
+import json
+import glob
+from utils import save_cache, read_cache
+
+class TranslationsSynthensizer:
+    def __init__(self, gpt_model_path=None, sovits_model_path=None):
+        self.gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
+        self.output_dir = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs"
+        
+        # Default model paths
+        self.gpt_model_path = gpt_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/gsv-v2final-pretrained/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt"
+        self.sovits_model_path = sovits_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth"
+        
+        # Initialize GPT-SoVITS
+        self._setup_gpt_sovits()
+        
+        # Create output directory
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+    def _setup_gpt_sovits(self):
+        """Setup GPT-SoVITS environment and imports"""
+        # Add the GPT-SoVITS directory to Python path
+        sys.path.append(self.gpt_sovits_path)
+
+        # Change to the GPT-SoVITS directory before importing modules
+        self.original_cwd = os.getcwd()
+        os.chdir(self.gpt_sovits_path)
+
+        # Set the correct BERT and CNHubert paths before importing GPT-SoVITS modules
+        os.environ["bert_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
+        os.environ["cnhubert_base_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-hubert-base"
+
+        # Import GPT-SoVITS modules directly
+        from tools.i18n.i18n import I18nAuto
+        from GPT_SoVITS.inference_webui import change_gpt_weights, change_sovits_weights, get_tts_wav
+
+        # Store the imports for later use
+        self.change_gpt_weights = change_gpt_weights
+        self.change_sovits_weights = change_sovits_weights
+        self.get_tts_wav = get_tts_wav
+
+        # Initialize i18n (do this from the GPT-SoVITS directory)
+        self.i18n = I18nAuto()
+        
+        # Change back to original directory
+        os.chdir(self.original_cwd)
+        
+        # Load models once
+        print("Loading GPT-SoVITS models...")
+        self.change_gpt_weights(gpt_path=self.gpt_model_path)
+        self.change_sovits_weights(sovits_path=self.sovits_model_path)
+        print("Models loaded successfully!")
+        
+    def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, target_language="英文", read_from_cache=False, cache_path=None):
+        """
+        Synthesize translated audio for all speakers
+        
+        Args:
+            transcribed_segments: Dict with speaker transcriptions
+            translated_segments: Dict with speaker translations  
+            voice_samples_dir: Directory containing voice samples
+            audio_segments_dir: Directory containing audio segments
+            target_language: Target language for synthesis
+            read_from_cache: Whether to try loading from cache first
+            cache_path: Path to cache file
+            
+        Returns:
+            Dict with synthesis results including timing information
+        """
+        # Try loading from cache first
+        synthesis_results = read_cache(read_from_cache, cache_path)
+        if synthesis_results:
+            print(f"Using cached synthesis results from: {cache_path}")
+            return synthesis_results
+        
+        synthesis_results = {}
+        
+        for speaker_id in transcribed_segments.keys():
+            print(f"\nProcessing speaker: {speaker_id}")
+            
+            # Get voice sample and transcription for this speaker
+            voice_sample_result = self._get_voice_sample_data(speaker_id, voice_samples_dir)
+            if not voice_sample_result:
+                print(f"Skipping {speaker_id} - no voice sample found")
+                continue
+                
+            reference_wav, reference_text = voice_sample_result
+            
+            # Get other reference audio files for this speaker
+            other_references = self._get_other_references(speaker_id, audio_segments_dir)
+            
+            # Get translations for this speaker
+            if speaker_id not in translated_segments:
+                print(f"No translations found for {speaker_id}")
+                continue
+                
+            speaker_translations = translated_segments[speaker_id]
+            
+            # Synthesize each translated segment
+            speaker_results = self._synthesize_speaker_segments(
+                speaker_id=speaker_id,
+                reference_wav=reference_wav,
+                reference_text=reference_text,
+                other_references=other_references,
+                translations=speaker_translations,
+                target_language=target_language
+            )
+            
+            synthesis_results[speaker_id] = speaker_results
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, synthesis_results)
+            print(f"Synthesis results cached to: {cache_path}")
+            
+        return synthesis_results
+    
+    def _get_voice_sample_data(self, speaker_id, voice_samples_dir):
+        """Get the voice sample wav file and its transcription for a speaker"""
+        # Look for voice sample file
+        voice_sample_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_voice_sample.wav")
+        if not os.path.exists(voice_sample_pattern):
+            print(f"Voice sample not found: {voice_sample_pattern}")
+            return None
+            
+        # Look for transcription file
+        transcription_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_transcription.txt")
+        if not os.path.exists(transcription_pattern):
+            print(f"Transcription not found: {transcription_pattern}")
+            return None
+            
+        # Read transcription
+        with open(transcription_pattern, 'r', encoding='utf-8') as f:
+            reference_text = f.read().strip()
+            
+        return voice_sample_pattern, reference_text
+    
+    def _get_other_references(self, speaker_id, audio_segments_dir):
+        """Get other reference audio files for a speaker"""
+        pattern = os.path.join(audio_segments_dir, f"{speaker_id}_seg*.wav")
+        other_refs = glob.glob(pattern)
+        
+        # Filter out existing files
+        existing_refs = [ref for ref in other_refs if os.path.exists(ref)]
+        print(f"Found {len(existing_refs)} additional reference files for {speaker_id}")
+        
+        return existing_refs
+    
+    def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, target_language):
+        """Synthesize all segments for a single speaker"""
+        speaker_results = {
+            'segments': [],
+            'speaker_id': speaker_id,
+            'reference_wav': reference_wav,
+            'reference_text': reference_text
+        }
+        
+        # Create speaker output directory
+        speaker_output_dir = os.path.join(self.output_dir, speaker_id)
+        os.makedirs(speaker_output_dir, exist_ok=True)
+        
+        # Create file objects for other references
+        class FileObject:
+            def __init__(self, file_path):
+                self.name = file_path
+        
+        inp_refs = [FileObject(ref_file) for ref_file in other_references] if other_references else None
+        
+        for segment in translations:
+            segment_num = segment.get('segment_num', 0)
+            translated_text = segment.get('translation', '')  # Changed from 'translated_text' to 'translation'
+            start_time = segment.get('start')
+            end_time = segment.get('end')
+            original_text = segment.get('text', '')  # Changed from 'original_text' to 'text'
+            
+            if not translated_text.strip():
+                print(f"Skipping empty translation for {speaker_id} segment {segment_num}")
+                continue
+                
+            print(f"Synthesizing {speaker_id} segment {segment_num}: '{translated_text[:50]}...'")
+            
+            try:
+                # Use the webui's get_tts_wav function
+                synthesis_result = self.get_tts_wav(
+                    ref_wav_path=reference_wav,
+                    prompt_text=reference_text,
+                    prompt_language=self.i18n("日文"),  # Japanese reference
+                    text=translated_text,
+                    text_language=self.i18n(target_language),
+                    how_to_cut=self.i18n("不切"),  # Don't cut
+                    top_k=15,
+                    top_p=0.7,
+                    temperature=1,
+                    ref_free=False,
+                    speed=1.1,
+                    if_freeze=False,
+                    inp_refs=inp_refs,
+                    sample_steps=8,
+                    if_sr=False,
+                    pause_second=0.3,
+                )
+                
+                result_list = list(synthesis_result)
+                if result_list:
+                    sampling_rate, audio_data = result_list[-1]
+                    
+                    # Save the result
+                    output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
+                    output_wav_path = os.path.join(speaker_output_dir, output_filename)
+                    sf.write(output_wav_path, audio_data, sampling_rate)
+                    
+                    # Store segment result with timing information
+                    segment_result = {
+                        'segment_num': segment_num,
+                        'output_file': output_wav_path,
+                        'translated_text': translated_text,
+                        'original_text': original_text,
+                        'start_time': start_time,
+                        'end_time': end_time,
+                        'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
+                        'sampling_rate': sampling_rate,
+                        'audio_length_seconds': len(audio_data) / sampling_rate
+                    }
+                    
+                    speaker_results['segments'].append(segment_result)
+                    print(f"  ✓ Saved to: {output_wav_path}")
+                    
+                else:
+                    print(f"  ✗ No audio generated for segment {segment_num}")
+                    
+            except Exception as e:
+                print(f"  ✗ Error synthesizing segment {segment_num}: {str(e)}")
+                continue
+        
+        # Sort segments by segment number
+        speaker_results['segments'].sort(key=lambda x: x['segment_num'])
+        
+        # Save segment metadata
+        metadata_file = os.path.join(speaker_output_dir, f"{speaker_id}_synthesis_metadata.json")
+        with open(metadata_file, 'w', encoding='utf-8') as f:
+            json.dump(speaker_results, f, indent=2, ensure_ascii=False)
+        
+        print(f"✓ Completed {speaker_id}: {len(speaker_results['segments'])} segments synthesized")
+        return speaker_results
+
+
+
+
+#diarize.py
+from utils import load_token, save_token
+from pyannote.audio import Pipeline
+from collections import defaultdict
+import torch
+import os
+import yaml
+from utils import save_cache, read_cache
+
+
+class AudioDiarization:
+    def __init__(self, vocal_input):
+        self.vocal_input = vocal_input
+    
+    def diarize_audio(self, read_from_cache=False, cache_path=None, config_path="configs/config.yaml"):
+        diarization = read_cache(read_from_cache, cache_path)
+        if diarization:
+            return diarization
+        
+        if not os.path.exists(self.vocal_input):
+            print(f"Error: Audio file '{self.vocal_input}' not found")
+            return None
+        try:
+            # Load custom parameters from YAML file
+            params = None
+            if config_path and os.path.exists(config_path):
+                try:
+                    with open(config_path, "r") as f:
+                        config = yaml.safe_load(f)
+                        params = config.get("pipeline", {}).get("params")
+                    if params:
+                        print(f"Loaded custom parameters from {config_path}")
+                except yaml.YAMLError as e:
+                    print(f"Error loading YAML file: {e}")
+            
+            # Initialize the speaker diarization pipeline
+            # Try loading token from cache
+            auth_token = load_token()
+            # If not found, ask user and save it
+            if not auth_token:
+                auth_token = input("🔐 Enter your Hugging Face token: ").strip()
+                save_token(auth_token)
+            
+            print("Loading speaker diarization pipeline...")
+            pipeline = Pipeline.from_pretrained(
+                "pyannote/speaker-diarization-3.1",
+                use_auth_token=auth_token
+            )
+
+            if params:
+                pipeline.instantiate(params)
+                print("Applied custom parameters to the pipeline.")
+            
+            print(f"Processing audio file: {self.vocal_input}")
+            
+            # Send tensors to the GPU if available
+            if torch.cuda.is_available():
+                pipeline.to(torch.device("cuda"))
+            else:
+                print("CUDA is not available. Running on CPU.")
+            
+            # Process audio with default parameters
+            diarization = pipeline(self.vocal_input)
+            
+            diarization_essensials = defaultdict(list)
+            print("\nSpeaker Diarization Results:")
+            print("-" * 40)
+            for turn, _, speaker in diarization.itertracks(yield_label=True):
+                print(f"Speaker {speaker}: {turn.start:.2f}s - {turn.end:.2f}s")
+                diarization_essensials[speaker] += [(turn.start, turn.end)]
+            if cache_path:
+                save_cache(cache_path, diarization_essensials)
+            return diarization_essensials
+            
+        except Exception as e:
+            print(f"Error during speaker diarization: {e}")
+            
+            # Provide specific guidance based on the error
+            if "segmentation" in str(e):
+                print("\n🎯 Missing license for segmentation model:")
+                print("   Visit: https://hf.co/pyannote/segmentation-3.0")
+                print("   Click 'Accept' on the license agreement")
+                
+            elif "wespeaker" in str(e) or "embedding" in str(e):
+                print("\n🎯 Missing license for speaker embedding model:")
+                print("   Visit: https://hf.co/pyannote/wespeaker-voxceleb-resnet34-LM")
+                print("   Click 'Accept' on the license agreement")
+                
+            elif "diarization" in str(e):
+                print("\n🎯 Missing license for main diarization model:")
+                print("   Visit: https://hf.co/pyannote/speaker-diarization-3.1")
+                print("   Click 'Accept' on the license agreement")
+                
+            elif "token" in str(e).lower():
+                print("\n🔑 Token issue:")
+                print("   1. Check your token at: https://huggingface.co/settings/tokens")
+                print("   2. Make sure it has 'Read' access")
+                
+            else:
+                print(f"\n❓ Unexpected error. Run 'python check_licenses.py' for help.")
+                
+            print("\n⚠️  Remember: You need to accept licenses for ALL pyannote models!")
+            return None
+
+#transcribe.py
+import whisper
+import os
+import glob
+import torch
+from collections import defaultdict
+from utils import save_cache, read_cache
+
+class AudioTranscriber:
+    def __init__(self, model_size="small"):
+
+        print(f"Loading Whisper model: {model_size}")
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model = whisper.load_model(model_size, device=device)
+        self.model_size = model_size
+    
+    def transcribe_folder(self, segments_folder, diarization_data=None, language=None, read_from_cache=False, cache_path=None):
+        
+        # Try loading from cache first
+        transcriptions = read_cache(read_from_cache, cache_path)
+        if transcriptions:
+            print(f"Using cached transcriptions from: {cache_path}")
+            return transcriptions
+        
+        if not os.path.exists(segments_folder):
+            print(f"Error: Segments folder '{segments_folder}' not found")
+            return None
+        
+        # Find all audio segment files
+        audio_files = glob.glob(os.path.join(segments_folder, "*.wav"))
+        
+        if not audio_files:
+            print(f"No .wav files found in {segments_folder}")
+            return None
+        
+        print(f"Found {len(audio_files)} audio segments to transcribe")
+        
+        # Group files by speaker
+        transcriptions = defaultdict(list)
+        
+        for audio_file in sorted(audio_files):
+            filename = os.path.basename(audio_file)
+            
+            # Parse filename: SPEAKER_XX_segY.wav
+            if not filename.startswith("SPEAKER_"):
+                continue
+                
+            try:
+                # Extract speaker and segment info
+                parts = filename.replace(".wav", "").split("_")
+                speaker_id = f"{parts[0]}_{parts[1]}"  # SPEAKER_00
+                segment_num = int(parts[2].replace("seg", ""))
+                
+                print(f"Transcribing {filename}...")
+                
+                # Transcribe the audio
+                result = self.model.transcribe(
+                    audio_file, 
+                    language=language,
+                    verbose=False,
+                    word_timestamps=False  # Disable word-level timestamps to avoid "word:" output
+                )
+                
+                # Get timing info from diarization data if provided
+                start_time = None
+                end_time = None
+                if diarization_data and speaker_id in diarization_data:
+                    if segment_num < len(diarization_data[speaker_id]):
+                        start_time, end_time = diarization_data[speaker_id][segment_num]
+                
+                # Calculate confidence from segments or use no_speech_prob
+                confidence = None
+                if "segments" in result and result["segments"]:
+                    # Average confidence from all segments
+                    segment_probs = []
+                    for seg in result["segments"]:
+                        if "avg_logprob" in seg:
+                            # Convert log probability to regular probability (0-1)
+                            prob = min(1.0, max(0.0, 1.0 + seg["avg_logprob"]))
+                            segment_probs.append(prob)
+                    if segment_probs:
+                        confidence = sum(segment_probs) / len(segment_probs)
+                elif "no_speech_prob" in result:
+                    # Use inverse of no_speech_prob as confidence
+                    confidence = 1.0 - result["no_speech_prob"]
+                
+                # Store transcription with metadata
+                transcription_data = {
+                    "text": result["text"].strip(),
+                    "language": result.get("language", "unknown"),
+                    "file": filename,
+                    "segment_num": segment_num,
+                    "start": start_time,  # From diarization
+                    "end": end_time,      # From diarization
+                    "confidence": confidence
+                }
+                
+                transcriptions[speaker_id].append(transcription_data)
+                print(f"  → '{result['text'].strip()}'")  # Quote the text to see exact content
+                
+            except Exception as e:
+                print(f"Error transcribing {filename}: {e}")
+                continue
+        
+        # Sort segments by segment number within each speaker
+        for speaker_id in transcriptions:
+            transcriptions[speaker_id].sort(key=lambda x: x["segment_num"])
+        
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, dict(transcriptions))
+            print(f"Transcriptions cached to: {cache_path}")
+        
+        print(f"✓ Transcription completed! {len(transcriptions)} speakers")
+        return dict(transcriptions)
+    
+        
+#syntensize.py
+import os
+import sys
+import soundfile as sf
+import numpy as np
+from pathlib import Path
+import json
+import glob
+from utils import save_cache, read_cache
+
+class TranslationsSynthensizer:
+    def __init__(self, gpt_model_path=None, sovits_model_path=None):
+        self.gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
+        self.output_dir = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs"
+        
+        # Default model paths
+        self.gpt_model_path = gpt_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/gsv-v2final-pretrained/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt"
+        self.sovits_model_path = sovits_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth"
+        
+        # Initialize GPT-SoVITS
+        self._setup_gpt_sovits()
+        
+        # Create output directory
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+    def _setup_gpt_sovits(self):
+        """Setup GPT-SoVITS environment and imports"""
+        # Add the GPT-SoVITS directory to Python path
+        sys.path.append(self.gpt_sovits_path)
+
+        # Change to the GPT-SoVITS directory before importing modules
+        self.original_cwd = os.getcwd()
+        os.chdir(self.gpt_sovits_path)
+
+        # Set the correct BERT and CNHubert paths before importing GPT-SoVITS modules
+        os.environ["bert_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
+        os.environ["cnhubert_base_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-hubert-base"
+
+        # Import GPT-SoVITS modules directly
+        from tools.i18n.i18n import I18nAuto
+        from GPT_SoVITS.inference_webui import change_gpt_weights, change_sovits_weights, get_tts_wav
+
+        # Store the imports for later use
+        self.change_gpt_weights = change_gpt_weights
+        self.change_sovits_weights = change_sovits_weights
+        self.get_tts_wav = get_tts_wav
+
+        # Initialize i18n (do this from the GPT-SoVITS directory)
+        self.i18n = I18nAuto()
+        
+        # Change back to original directory
+        os.chdir(self.original_cwd)
+        
+        # Load models once
+        print("Loading GPT-SoVITS models...")
+        self.change_gpt_weights(gpt_path=self.gpt_model_path)
+        self.change_sovits_weights(sovits_path=self.sovits_model_path)
+        print("Models loaded successfully!")
+        
+    def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, target_language="英文", read_from_cache=False, cache_path=None):
+        """
+        Synthesize translated audio for all speakers
+        
+        Args:
+            transcribed_segments: Dict with speaker transcriptions
+            translated_segments: Dict with speaker translations  
+            voice_samples_dir: Directory containing voice samples
+            audio_segments_dir: Directory containing audio segments
+            target_language: Target language for synthesis
+            read_from_cache: Whether to try loading from cache first
+            cache_path: Path to cache file
+            
+        Returns:
+            Dict with synthesis results including timing information
+        """
+        # Try loading from cache first
+        synthesis_results = read_cache(read_from_cache, cache_path)
+        if synthesis_results:
+            print(f"Using cached synthesis results from: {cache_path}")
+            return synthesis_results
+        
+        synthesis_results = {}
+        
+        for speaker_id in transcribed_segments.keys():
+            print(f"\nProcessing speaker: {speaker_id}")
+            
+            # Get voice sample and transcription for this speaker
+            voice_sample_result = self._get_voice_sample_data(speaker_id, voice_samples_dir)
+            if not voice_sample_result:
+                print(f"Skipping {speaker_id} - no voice sample found")
+                continue
+                
+            reference_wav, reference_text = voice_sample_result
+            
+            # Get other reference audio files for this speaker
+            other_references = self._get_other_references(speaker_id, audio_segments_dir)
+            
+            # Get translations for this speaker
+            if speaker_id not in translated_segments:
+                print(f"No translations found for {speaker_id}")
+                continue
+                
+            speaker_translations = translated_segments[speaker_id]
+            
+            # Synthesize each translated segment
+            speaker_results = self._synthesize_speaker_segments(
+                speaker_id=speaker_id,
+                reference_wav=reference_wav,
+                reference_text=reference_text,
+                other_references=other_references,
+                translations=speaker_translations,
+                target_language=target_language
+            )
+            
+            synthesis_results[speaker_id] = speaker_results
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, synthesis_results)
+            print(f"Synthesis results cached to: {cache_path}")
+            
+        return synthesis_results
+    
+    def _get_voice_sample_data(self, speaker_id, voice_samples_dir):
+        """Get the voice sample wav file and its transcription for a speaker"""
+        # Look for voice sample file
+        voice_sample_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_voice_sample.wav")
+        if not os.path.exists(voice_sample_pattern):
+            print(f"Voice sample not found: {voice_sample_pattern}")
+            return None
+            
+        # Look for transcription file
+        transcription_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_transcription.txt")
+        if not os.path.exists(transcription_pattern):
+            print(f"Transcription not found: {transcription_pattern}")
+            return None
+            
+        # Read transcription
+        with open(transcription_pattern, 'r', encoding='utf-8') as f:
+            reference_text = f.read().strip()
+            
+        return voice_sample_pattern, reference_text
+    
+    def _get_other_references(self, speaker_id, audio_segments_dir):
+        """Get other reference audio files for a speaker"""
+        pattern = os.path.join(audio_segments_dir, f"{speaker_id}_seg*.wav")
+        other_refs = glob.glob(pattern)
+        
+        # Filter out existing files
+        existing_refs = [ref for ref in other_refs if os.path.exists(ref)]
+        print(f"Found {len(existing_refs)} additional reference files for {speaker_id}")
+        
+        return existing_refs
+    
+    def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, target_language):
+        """Synthesize all segments for a single speaker"""
+        speaker_results = {
+            'segments': [],
+            'speaker_id': speaker_id,
+            'reference_wav': reference_wav,
+            'reference_text': reference_text
+        }
+        
+        # Create speaker output directory
+        speaker_output_dir = os.path.join(self.output_dir, speaker_id)
+        os.makedirs(speaker_output_dir, exist_ok=True)
+        
+        # Create file objects for other references
+        class FileObject:
+            def __init__(self, file_path):
+                self.name = file_path
+        
+        inp_refs = [FileObject(ref_file) for ref_file in other_references] if other_references else None
+        
+        for segment in translations:
+            segment_num = segment.get('segment_num', 0)
+            translated_text = segment.get('translation', '')  # Changed from 'translated_text' to 'translation'
+            start_time = segment.get('start')
+            end_time = segment.get('end')
+            original_text = segment.get('text', '')  # Changed from 'original_text' to 'text'
+            
+            if not translated_text.strip():
+                print(f"Skipping empty translation for {speaker_id} segment {segment_num}")
+                continue
+                
+            print(f"Synthesizing {speaker_id} segment {segment_num}: '{translated_text[:50]}...'")
+            
+            try:
+                # Use the webui's get_tts_wav function
+                synthesis_result = self.get_tts_wav(
+                    ref_wav_path=reference_wav,
+                    prompt_text=reference_text,
+                    prompt_language=self.i18n("日文"),  # Japanese reference
+                    text=translated_text,
+                    text_language=self.i18n(target_language),
+                    how_to_cut=self.i18n("不切"),  # Don't cut
+                    top_k=15,
+                    top_p=0.7,
+                    temperature=1,
+                    ref_free=False,
+                    speed=1.1,
+                    if_freeze=False,
+                    inp_refs=inp_refs,
+                    sample_steps=8,
+                    if_sr=False,
+                    pause_second=0.3,
+                )
+                
+                result_list = list(synthesis_result)
+                if result_list:
+                    sampling_rate, audio_data = result_list[-1]
+                    
+                    # Save the result
+                    output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
+                    output_wav_path = os.path.join(speaker_output_dir, output_filename)
+                    sf.write(output_wav_path, audio_data, sampling_rate)
+                    
+                    # Store segment result with timing information
+                    segment_result = {
+                        'segment_num': segment_num,
+                        'output_file': output_wav_path,
+                        'translated_text': translated_text,
+                        'original_text': original_text,
+                        'start_time': start_time,
+                        'end_time': end_time,
+                        'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
+                        'sampling_rate': sampling_rate,
+                        'audio_length_seconds': len(audio_data) / sampling_rate
+                    }
+                    
+                    speaker_results['segments'].append(segment_result)
+                    print(f"  ✓ Saved to: {output_wav_path}")
+                    
+                else:
+                    print(f"  ✗ No audio generated for segment {segment_num}")
+                    
+            except Exception as e:
+                print(f"  ✗ Error synthesizing segment {segment_num}: {str(e)}")
+                continue
+        
+        # Sort segments by segment number
+        speaker_results['segments'].sort(key=lambda x: x['segment_num'])
+        
+        # Save segment metadata
+        metadata_file = os.path.join(speaker_output_dir, f"{speaker_id}_synthesis_metadata.json")
+        with open(metadata_file, 'w', encoding='utf-8') as f:
+            json.dump(speaker_results, f, indent=2, ensure_ascii=False)
+        
+        print(f"✓ Completed {speaker_id}: {len(speaker_results['segments'])} segments synthesized")
+        return speaker_results
+
+#Synthesis
+import os
+import sys
+import soundfile as sf
+import numpy as np
+from pathlib import Path
+import json
+import glob
+from utils import save_cache, read_cache
+
+class TranslationsSynthensizer:
+    def __init__(self, gpt_model_path=None, sovits_model_path=None):
+        self.gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
+        self.output_dir = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs"
+        
+        # Default model paths
+        self.gpt_model_path = gpt_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/gsv-v2final-pretrained/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt"
+        self.sovits_model_path = sovits_model_path or "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth"
+        
+        # Initialize GPT-SoVITS
+        self._setup_gpt_sovits()
+        
+        # Create output directory
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+    def _setup_gpt_sovits(self):
+        """Setup GPT-SoVITS environment and imports"""
+        # Add the GPT-SoVITS directory to Python path
+        sys.path.append(self.gpt_sovits_path)
+
+        # Change to the GPT-SoVITS directory before importing modules
+        self.original_cwd = os.getcwd()
+        os.chdir(self.gpt_sovits_path)
+
+        # Set the correct BERT and CNHubert paths before importing GPT-SoVITS modules
+        os.environ["bert_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
+        os.environ["cnhubert_base_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-hubert-base"
+
+        # Import GPT-SoVITS modules directly
+        from tools.i18n.i18n import I18nAuto
+        from GPT_SoVITS.inference_webui import change_gpt_weights, change_sovits_weights, get_tts_wav
+
+        # Store the imports for later use
+        self.change_gpt_weights = change_gpt_weights
+        self.change_sovits_weights = change_sovits_weights
+        self.get_tts_wav = get_tts_wav
+
+        # Initialize i18n (do this from the GPT-SoVITS directory)
+        self.i18n = I18nAuto()
+        
+        # Change back to original directory
+        os.chdir(self.original_cwd)
+        
+        # Load models once
+        print("Loading GPT-SoVITS models...")
+        self.change_gpt_weights(gpt_path=self.gpt_model_path)
+        self.change_sovits_weights(sovits_path=self.sovits_model_path)
+        print("Models loaded successfully!")
+        
+    def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, target_language="英文", read_from_cache=False, cache_path=None):
+        """
+        Synthesize translated audio for all speakers
+        
+        Args:
+            transcribed_segments: Dict with speaker transcriptions
+            translated_segments: Dict with speaker translations  
+            voice_samples_dir: Directory containing voice samples
+            audio_segments_dir: Directory containing audio segments
+            target_language: Target language for synthesis
+            read_from_cache: Whether to try loading from cache first
+            cache_path: Path to cache file
+            
+        Returns:
+            Dict with synthesis results including timing information
+        """
+        # Try loading from cache first
+        synthesis_results = read_cache(read_from_cache, cache_path)
+        if synthesis_results:
+            print(f"Using cached synthesis results from: {cache_path}")
+            return synthesis_results
+        
+        synthesis_results = {}
+        
+        for speaker_id in transcribed_segments.keys():
+            print(f"\nProcessing speaker: {speaker_id}")
+            
+            # Get voice sample and transcription for this speaker
+            voice_sample_result = self._get_voice_sample_data(speaker_id, voice_samples_dir)
+            if not voice_sample_result:
+                print(f"Skipping {speaker_id} - no voice sample found")
+                continue
+                
+            reference_wav, reference_text = voice_sample_result
+            
+            # Get other reference audio files for this speaker
+            other_references = self._get_other_references(speaker_id, audio_segments_dir)
+            
+            # Get translations for this speaker
+            if speaker_id not in translated_segments:
+                print(f"No translations found for {speaker_id}")
+                continue
+                
+            speaker_translations = translated_segments[speaker_id]
+            
+            # Synthesize each translated segment
+            speaker_results = self._synthesize_speaker_segments(
+                speaker_id=speaker_id,
+                reference_wav=reference_wav,
+                reference_text=reference_text,
+                other_references=other_references,
+                translations=speaker_translations,
+                target_language=target_language
+            )
+            
+            synthesis_results[speaker_id] = speaker_results
+            
+        # Save to cache
+        if cache_path:
+            save_cache(cache_path, synthesis_results)
+            print(f"Synthesis results cached to: {cache_path}")
+            
+        return synthesis_results
+    
+    def _get_voice_sample_data(self, speaker_id, voice_samples_dir):
+        """Get the voice sample wav file and its transcription for a speaker"""
+        # Look for voice sample file
+        voice_sample_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_voice_sample.wav")
+        if not os.path.exists(voice_sample_pattern):
+            print(f"Voice sample not found: {voice_sample_pattern}")
+            return None
+            
+        # Look for transcription file
+        transcription_pattern = os.path.join(voice_samples_dir, f"{speaker_id}_transcription.txt")
+        if not os.path.exists(transcription_pattern):
+            print(f"Transcription not found: {transcription_pattern}")
+            return None
+            
+        # Read transcription
+        with open(transcription_pattern, 'r', encoding='utf-8') as f:
+            reference_text = f.read().strip()
+            
+        return voice_sample_pattern, reference_text
+    
+    def _get_other_references(self, speaker_id, audio_segments_dir):
+        """Get other reference audio files for a speaker"""
+        pattern = os.path.join(audio_segments_dir, f"{speaker_id}_seg*.wav")
+        other_refs = glob.glob(pattern)
+        
+        # Filter out existing files
+        existing_refs = [ref for ref in other_refs if os.path.exists(ref)]
+        print(f"Found {len(existing_refs)} additional reference files for {speaker_id}")
+        
+        return existing_refs
+    
+    def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, target_language):
+        """Synthesize all segments for a single speaker"""
+        speaker_results = {
+            'segments': [],
+            'speaker_id': speaker_id,
+            'reference_wav': reference_wav,
+            'reference_text': reference_text
+        }
+        
+        # Create speaker output directory
+        speaker_output_dir = os.path.join(self.output_dir, speaker_id)
+        os.makedirs(speaker_output_dir, exist_ok=True)
+        
+        # Create file objects for other references
+        class FileObject:
+            def __init__(self, file_path):
+                self.name = file_path
+        
+        inp_refs = [FileObject(ref_file) for ref_file in other_references] if other_references else None
+        
+        for segment in translations:
+            segment_num = segment.get('segment_num', 0)
+            translated_text = segment.get('translation', '')  # Changed from 'translated_text' to 'translation'
+            start_time = segment.get('start')
+            end_time = segment.get('end')
+            original_text = segment.get('text', '')  # Changed from 'original_text' to 'text'
+            
+            if not translated_text.strip():
+                print(f"Skipping empty translation for {speaker_id} segment {segment_num}")
+                continue
+                
+            print(f"Synthesizing {speaker_id} segment {segment_num}: '{translated_text[:50]}...'")
+            
+            try:
+                # Use the webui's get_tts_wav function
+                synthesis_result = self.get_tts_wav(
+                    ref_wav_path=reference_wav,
+                    prompt_text=reference_text,
+                    prompt_language=self.i18n("日文"),  # Japanese reference
+                    text=translated_text,
+                    text_language=self.i18n(target_language),
+                    how_to_cut=self.i18n("不切"),  # Don't cut
+                    top_k=15,
+                    top_p=0.7,
+                    temperature=1,
+                    ref_free=False,
+                    speed=1.1,
+                    if_freeze=False,
+                    inp_refs=inp_refs,
+                    sample_steps=8,
+                    if_sr=False,
+                    pause_second=0.3,
+                )
+                
+                result_list = list(synthesis_result)
+                if result_list:
+                    sampling_rate, audio_data = result_list[-1]
+                    
+                    # Save the result
+                    output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
+                    output_wav_path = os.path.join(speaker_output_dir, output_filename)
+                    sf.write(output_wav_path, audio_data, sampling_rate)
+                    
+                    # Store segment result with timing information
+                    segment_result = {
+                        'segment_num': segment_num,
+                        'output_file': output_wav_path,
+                        'translated_text': translated_text,
+                        'original_text': original_text,
+                        'start_time': start_time,
+                        'end_time': end_time,
+                        'duration': end_time - start_time if (start_time is not None and end_time is not None) else None,
+                        'sampling_rate': sampling_rate,
+                        'audio_length_seconds': len(audio_data) / sampling_rate
+                    }
+                    
+                    speaker_results['segments'].append(segment_result)
+                    print(f"  ✓ Saved to: {output_wav_path}")
+                    
+                else:
+                    print(f"  ✗ No audio generated for segment {segment_num}")
+                    
+            except Exception as e:
+                print(f"  ✗ Error synthesizing segment {segment_num}: {str(e)}")
+                continue
+        
+        # Sort segments by segment number
+        speaker_results['segments'].sort(key=lambda x: x['segment_num'])
+        
+        # Save segment metadata
+        metadata_file = os.path.join(speaker_output_dir, f"{speaker_id}_synthesis_metadata.json")
+        with open(metadata_file, 'w', encoding='utf-8') as f:
+            json.dump(speaker_results, f, indent=2, ensure_ascii=False)
+        
+        print(f"✓ Completed {speaker_id}: {len(speaker_results['segments'])} segments synthesized")
+        return speaker_results
+
+Make it cut the part where there is no english speech

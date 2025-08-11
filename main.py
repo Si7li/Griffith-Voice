@@ -37,7 +37,7 @@ def main():
     # Initialize audio translator
     segments_translator = SegmentsTranslator()
     # Translate audio segments
-    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments, read_from_cache=False, cache_path="caches/translation.pkl")
+    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments,diarization_essensials=diarization ,read_from_cache=False, cache_path="caches/translation.pkl")
     # Initialize segments sampler
     segments_sampler = SegmentsSampler("outputs/audio_segments", "outputs/voice_samples")
     # Get a sample per speaker for voice-cloning

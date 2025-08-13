@@ -1,678 +1,380 @@
 {
-  "SPEAKER_00": [
-    {
-      "text": "お前 気にすることはねんだぜ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg0.wav",
-      "segment_num": 0,
-      "start": 0.52034375,
-      "end": 2.88284375,
-      "confidence": 0.5789787428719657,
-      "translation": "You don't need to worry about it."
-    },
-    {
-      "text": "あれは俺が勝手にやったことだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg1.wav",
-      "segment_num": 1,
-      "start": 4.6715937499999995,
-      "end": 6.40971875,
-      "confidence": 0.747126579284668,
-      "translation": "I did that on my own."
-    },
-    {
-      "text": "別にお前のためってわけじゃねえ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg2.wav",
-      "segment_num": 2,
-      "start": 7.54034375,
-      "end": 9.31221875,
-      "confidence": 0.7013953526814778,
-      "translation": "It's not like it was for your sake."
-    },
-    {
-      "text": "逃げ回ってるより 切り合ってる方が正に合ってるんだよ俺は",
-      "language": "ja",
-      "file": "SPEAKER_00_seg3.wav",
-      "segment_num": 3,
-      "start": 13.21034375,
-      "end": 17.395343750000002,
-      "confidence": 0.6564963531494141,
-      "translation": "I'm more suited to clashing swords than running away."
-    },
-    {
-      "text": "ああ、それだけだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg4.wav",
-      "segment_num": 4,
-      "start": 31.519718750000003,
-      "end": 33.03846875,
-      "confidence": 0.47871965169906616,
-      "translation": "Yeah, that's all."
-    },
-    {
-      "text": "それにあのさんには仮があったしな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg5.wav",
-      "segment_num": 5,
-      "start": 34.979093750000004,
-      "end": 37.32471875,
-      "confidence": 0.5878109614054362,
-      "translation": "Besides, I owed that guy a favor."
-    },
-    {
-      "text": "夢中で剣振り回してたから どうなったかわかんないけど",
-      "language": "ja",
-      "file": "SPEAKER_00_seg6.wav",
-      "segment_num": 6,
-      "start": 38.72534375,
-      "end": 42.21846875,
-      "confidence": 0.722875456015269,
-      "translation": "I was swinging my sword like crazy, so I don't know what happened, but..."
-    },
-    {
-      "text": "んだがよ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg7.wav",
-      "segment_num": 7,
-      "start": 45.39096875,
-      "end": 45.91409375,
-      "confidence": 0.23735300699869788,
-      "translation": "But, you know..."
-    },
-    {
-      "text": "正直言うと、あん時はこう思って…",
-      "language": "ja",
-      "file": "SPEAKER_00_seg8.wav",
-      "segment_num": 8,
-      "start": 46.875968750000006,
-      "end": 49.47471875,
-      "confidence": 0.4671506881713867,
-      "translation": "To be honest, at that time, I thought..."
-    },
-    {
-      "text": "お前がやってることに比べれ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg9.wav",
-      "segment_num": 9,
-      "start": 50.72346875,
-      "end": 52.42784375,
-      "confidence": 0.6474777001601,
-      "translation": "Compared to what you're doing,"
-    },
-    {
-      "text": "俺が100人と蹴り合うなんじゃ どうでもいいことだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg10.wav",
-      "segment_num": 10,
-      "start": 53.59221875,
-      "end": 56.680343750000006,
-      "confidence": 0.6245817911057245,
-      "translation": "Me clashing with a hundred people is nothing."
-    },
-    {
-      "text": "お前だけじゃねぇ グリフィスの操作",
-      "language": "ja",
-      "file": "SPEAKER_00_seg11.wav",
-      "segment_num": 11,
-      "start": 66.97409375000001,
-      "end": 69.60659375,
-      "confidence": 0.7049115233951144,
-      "translation": "It's not just you; Griffith's objective..."
-    },
-    {
-      "text": "生きてることを丸々かけちまうほどのもんを持って",
-      "language": "ja",
-      "file": "SPEAKER_00_seg12.wav",
-      "segment_num": 12,
-      "start": 71.00721875,
-      "end": 73.82534375,
-      "confidence": 0.6379542350769043,
-      "translation": "To have something you'd bet your whole life on,"
-    },
-    {
-      "text": "すげーと思うぜ、そういうの",
-      "language": "ja",
-      "file": "SPEAKER_00_seg13.wav",
-      "segment_num": 13,
-      "start": 75.02346875,
-      "end": 76.82909375,
-      "confidence": 0.5776144908024714,
-      "translation": "I think that's awesome."
-    },
-    {
-      "text": "それに比べる俺が生き当たりばったりで100人と切り合おうが1000人と切り合おうが大したこっちはね",
-      "language": "ja",
-      "file": "SPEAKER_00_seg14.wav",
-      "segment_num": 14,
-      "start": 80.33909375,
-      "end": 87.39284375000001,
-      "confidence": 0.769712159799975,
-      "translation": "Compared to that, whether I haphazardly clash with a hundred or a thousand people, it's no big deal."
-    },
-    {
-      "text": "いい眺めだな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg15.wav",
-      "segment_num": 15,
-      "start": 94.48034375,
-      "end": 95.47596875,
-      "confidence": 0.710065656238132,
-      "translation": "What a view."
-    },
-    {
-      "text": "ガストンは軍隊はガラじゃねえって この戦が終わったら溜め込んだ金をもとでにした手合を始めるんだと",
-      "language": "ja",
-      "file": "SPEAKER_00_seg16.wav",
-      "segment_num": 16,
-      "start": 98.37846875000001,
-      "end": 105.83721875,
-      "confidence": 0.6802265167236328,
-      "translation": "Gaston said the army isn't his style, and that when this war is over, he'll start a business with the money he's saved up."
-    },
-    {
-      "text": "顔に似合わず器用なんだあいつは",
-      "language": "ja",
-      "file": "SPEAKER_00_seg17.wav",
-      "segment_num": 17,
-      "start": 106.78221875000001,
-      "end": 108.72284375000001,
-      "confidence": 0.6824376162360697,
-      "translation": "He's surprisingly skillful for someone with a face like that."
-    },
-    {
-      "text": "ニコールは結婚を申し込んだ女にただの一輩率じゃ嫌だって突っ張ねられて早いところ出世してもう一度申し込むって言いまいてる",
-      "language": "ja",
-      "file": "SPEAKER_00_seg18.wav",
-      "segment_num": 18,
-      "start": 110.52846875,
-      "end": 118.13909375,
-      "confidence": 0.6727469084692782,
-      "translation": "Nicole was rejected by the woman he proposed to, who said she didn't want just a regular soldier, so he's saying he'll get promoted quickly and propose again."
-    },
-    {
-      "text": "戦場じゃ先は知っちまって危ねったらねーよ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg19.wav",
-      "segment_num": 19,
-      "start": 119.40471875,
-      "end": 122.07096875,
-      "confidence": 0.5272782325744629,
-      "translation": "On the battlefield, you never know what's next, and it's terribly dangerous."
-    },
-    {
-      "text": "まあ 敷じる方にみんなかけてるけどな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg20.wav",
-      "segment_num": 20,
-      "start": 123.57284375,
-      "end": 126.59346875000001,
-      "confidence": 0.5238707330491807,
-      "translation": "Well, everyone's betting on getting laid."
-    },
-    {
-      "text": "こうして眺めてると",
-      "language": "ja",
-      "file": "SPEAKER_00_seg21.wav",
-      "segment_num": 21,
-      "start": 131.20034375,
-      "end": 132.34784375,
-      "confidence": 0.6578373432159423,
-      "translation": "As I look at it like this,"
-    },
-    {
-      "text": "なんだかあの明かり一つ一つに 連中のそんなちっぽけな夢とか 思いが宿ってる",
-      "language": "ja",
-      "file": "SPEAKER_00_seg22.wav",
-      "segment_num": 22,
-      "start": 133.98471875,
-      "end": 140.70096875000002,
-      "confidence": 0.6797130528618307,
-      "translation": "Somehow, in each of those lights, those guys' tiny dreams and thoughts seem to dwell."
-    },
-    {
-      "text": "そんな風に見えてくるぜ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg23.wav",
-      "segment_num": 23,
-      "start": 141.89909375000002,
-      "end": 143.11409375,
-      "confidence": 0.643988002430309,
-      "translation": "That's how it appears to me."
-    },
-    {
-      "text": "おう、うまいこと言うね、どっかのお姫さんかと思ったぜ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg24.wav",
-      "segment_num": 24,
-      "start": 152.61471875,
-      "end": 156.15846875,
-      "confidence": 0.6163925390977125,
-      "translation": "Oh, you say some smart things. I thought you were some princess."
-    },
-    {
-      "text": "ああ そして その吹けば飛ぶような小さな日を絶やさないように",
-      "language": "ja",
-      "file": "SPEAKER_00_seg25.wav",
-      "segment_num": 25,
-      "start": 168.46034375000002,
-      "end": 173.74221875,
-      "confidence": 0.6536839449847186,
-      "translation": "Ah, and so that tiny flame, which would vanish if blown, doesn't go out,"
-    },
-    {
-      "text": "一番大きな炎に自分の火を投げ込むんだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg26.wav",
-      "segment_num": 26,
-      "start": 174.75471875000002,
-      "end": 177.48846875,
-      "confidence": 0.8284894336353649,
-      "translation": "We throw our own flames into the biggest fire."
-    },
-    {
-      "text": "グリフィスという、でっかい炎にな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg27.wav",
-      "segment_num": 27,
-      "start": 181.31909375,
-      "end": 184.06971875000002,
-      "confidence": 0.6627741981955135,
-      "translation": "Into the huge fire that is Griffith."
-    },
-    {
-      "text": "でもな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg28.wav",
-      "segment_num": 28,
-      "start": 188.05221875,
-      "end": 188.57534375,
-      "confidence": 0.6988670110702515,
-      "translation": "But, you know."
-    },
-    {
-      "text": "ここに俺の日はね",
-      "language": "ja",
-      "file": "SPEAKER_00_seg29.wav",
-      "segment_num": 29,
-      "start": 189.70596875,
-      "end": 190.93784375,
-      "confidence": 0.6260243654251099,
-      "translation": "My flame isn't here."
-    },
-    {
-      "text": "俺はそのかがりびでちょいと温まっていこうとブラッド立ち寄っただけなのかもしれないな",
-      "language": "ja",
-      "file": "SPEAKER_00_seg30.wav",
-      "segment_num": 30,
-      "start": 194.70096875000002,
-      "end": 200.89409375000002,
-      "confidence": 0.7027448262923803,
-      "translation": "Maybe I just casually stopped by that bonfire to warm up a bit."
-    },
-    {
-      "text": "俺はこいつさえあれば どんな戦でも生き残る自信がある",
-      "language": "ja",
-      "file": "SPEAKER_00_seg31.wav",
-      "segment_num": 31,
-      "start": 207.99846875,
-      "end": 211.93034375000002,
-      "confidence": 0.7480691909790039,
-      "translation": "As long as I have this, I'm confident I can survive any battle."
-    },
-    {
-      "text": "実際今までだってそうだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg32.wav",
-      "segment_num": 32,
-      "start": 213.39846875,
-      "end": 214.95096875000002,
-      "confidence": 0.6848628759384155,
-      "translation": "In fact, it's been like that until now."
-    },
-    {
-      "text": "高野弾に入る前だって",
-      "language": "ja",
-      "file": "SPEAKER_00_seg33.wav",
-      "segment_num": 33,
-      "start": 216.82409375,
-      "end": 218.32596875000002,
-      "confidence": 0.6351486719571627,
-      "translation": "Even before joining the Band of the Hawk,"
-    },
-    {
-      "text": "どんな悲劇な傾き臭でも俺一人は必ず生き残って",
-      "language": "ja",
-      "file": "SPEAKER_00_seg34.wav",
-      "segment_num": 34,
-      "start": 219.11909375000002,
-      "end": 222.61221875,
-      "confidence": 0.4529105219347723,
-      "translation": "No matter how tragic the downfall, I alone would always survive."
-    },
-    {
-      "text": "今回だ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg35.wav",
-      "segment_num": 35,
-      "start": 224.14784375000002,
-      "end": 224.67096875000001,
-      "confidence": 0.6039528131484986,
-      "translation": "This time too."
-    },
-    {
-      "text": "でもよ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg36.wav",
-      "segment_num": 36,
-      "start": 226.59471875000003,
-      "end": 227.13471875000002,
-      "confidence": 0.6998100519180298,
-      "translation": "But, you know."
-    },
-    {
-      "text": "そんなことに対した意味はねぇのさ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg37.wav",
-      "segment_num": 37,
-      "start": 228.18096875,
-      "end": 230.15534375000001,
-      "confidence": 0.7044243471963065,
-      "translation": "That kind of thing doesn't really have any meaning."
-    },
-    {
-      "text": "俺は物心ついた時には戦場にいた",
-      "language": "ja",
-      "file": "SPEAKER_00_seg38.wav",
-      "segment_num": 38,
-      "start": 232.09596875000003,
-      "end": 234.32346875000002,
-      "confidence": 0.5745410323143005,
-      "translation": "I was on the battlefield as far back as I can remember."
-    },
-    {
-      "text": "俺を育ててくれた洋平団のボスは 剣の振り方以外何も教えちゃくれなかった",
-      "language": "ja",
-      "file": "SPEAKER_00_seg39.wav",
-      "segment_num": 39,
-      "start": 235.43721875000003,
-      "end": 240.61784375000002,
-      "confidence": 0.7947344657702324,
-      "translation": "The boss of the mercenary band who raised me taught me nothing but how to swing a sword."
-    },
-    {
-      "text": "俺にはこいつしかなかったんだ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg40.wav",
-      "segment_num": 40,
-      "start": 242.40659375,
-      "end": 244.07721875000001,
-      "confidence": 0.6124140132557262,
-      "translation": "I only had this."
-    },
-    {
-      "text": "死にたかねえさ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg41.wav",
-      "segment_num": 41,
-      "start": 245.49471875,
-      "end": 246.59159375000002,
-      "confidence": 0.5722898483276367,
-      "translation": "I don't want to die."
-    },
-    {
-      "text": "だけど正しいたくねってだけで",
-      "language": "ja",
-      "file": "SPEAKER_00_seg42.wav",
-      "segment_num": 42,
-      "start": 247.70534375000003,
-      "end": 249.76409375000003,
-      "confidence": 0.4080085387596717,
-      "translation": "But just because I didn't want to die,"
-    },
-    {
-      "text": "ただこいつを振り回すことしか知らねってだけで",
-      "language": "ja",
-      "file": "SPEAKER_00_seg43.wav",
-      "segment_num": 43,
-      "start": 250.91159375,
-      "end": 253.30784375000002,
-      "confidence": 0.7542092800140381,
-      "translation": "Just because I only knew how to swing this thing,"
-    },
-    {
-      "text": "俺は戦をやってきた",
-      "language": "ja",
-      "file": "SPEAKER_00_seg44.wav",
-      "segment_num": 44,
-      "start": 254.35409375,
-      "end": 255.88971875000001,
-      "confidence": 0.4675614833831787,
-      "translation": "I've been fighting in wars."
-    },
-    {
-      "text": "そして何より一番肝心な戦う理由ってやつ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg45.wav",
-      "segment_num": 45,
-      "start": 258.89346875,
-      "end": 263.06159375000004,
-      "confidence": 0.7275146529788062,
-      "translation": "And most importantly, the very reason for fighting,"
-    },
-    {
-      "text": "俺は他人に預けようとしてたのかもしれね",
-      "language": "ja",
-      "file": "SPEAKER_00_seg46.wav",
-      "segment_num": 46,
-      "start": 264.27659375,
-      "end": 266.41971875,
-      "confidence": 0.7054144959700734,
-      "translation": "I might have been trying to entrust it to others."
-    },
-    {
-      "text": "なんでこんなことお前なんかに話してもったのかね",
-      "language": "ja",
-      "file": "SPEAKER_00_seg47.wav",
-      "segment_num": 47,
-      "start": 273.05159375,
-      "end": 276.24096875000004,
-      "confidence": 0.5802110036214192,
-      "translation": "Why did I end up talking about something like this to someone like you?"
-    },
-    {
-      "text": "なっさけねぇ",
-      "language": "ja",
-      "file": "SPEAKER_00_seg48.wav",
-      "segment_num": 48,
-      "start": 277.21971875,
-      "end": 277.99596875000003,
-      "confidence": 0.3729112148284912,
-      "translation": "How pathetic."
-    }
-  ],
   "SPEAKER_01": [
     {
-      "text": "それだけで",
+      "text": "何も分かっていなかった",
       "language": "ja",
       "file": "SPEAKER_01_seg0.wav",
       "segment_num": 0,
-      "start": 18.15471875,
-      "end": 18.88034375,
-      "confidence": 0.4950071175893148,
-      "translation": "Just for that."
+      "start": 1.00971875,
+      "end": 2.44409375,
+      "confidence": 0.6327843232588335,
+      "translation": "I didn't understand anything."
     },
     {
-      "text": "称に合ってるというだけで100人近い的と切り合ったというのか",
+      "text": "これが自由の代償だとわかっていたなら",
       "language": "ja",
       "file": "SPEAKER_01_seg1.wav",
       "segment_num": 1,
-      "start": 20.53409375,
-      "end": 25.07346875,
-      "confidence": 0.5601508220036824,
-      "translation": "Are you saying you cut down nearly a hundred enemies just because it suited your reputation?"
+      "start": 3.8953437500000003,
+      "end": 6.122843750000001,
+      "confidence": 0.6412678360939026,
+      "translation": "If only I had known this was the price of freedom."
     },
     {
-      "text": "",
+      "text": "腹はなかった",
       "language": "ja",
       "file": "SPEAKER_01_seg2.wav",
       "segment_num": 2,
-      "start": 96.25221875000001,
-      "end": 96.35346875,
-      "confidence": null,
-      "translation": ""
-    },
-    {
-      "text": "夢の",
-      "language": "ja",
-      "file": "SPEAKER_01_seg3.wav",
-      "segment_num": 3,
-      "start": 148.73346875000001,
-      "end": 149.37471875,
-      "confidence": 0.4592243194580078,
-      "translation": "Of dreams..."
-    },
-    {
-      "text": "かがりびか",
-      "language": "ja",
-      "file": "SPEAKER_01_seg4.wav",
-      "segment_num": 4,
-      "start": 150.40409375000002,
-      "end": 151.48409375,
-      "confidence": 0.4238200783729553,
-      "translation": "A bonfire, is it?"
-    },
-    {
-      "text": "ほっとけ",
-      "language": "ja",
-      "file": "SPEAKER_01_seg5.wav",
-      "segment_num": 5,
-      "start": 156.63096875000002,
-      "end": 157.25534375,
-      "confidence": 0.46591055393218994,
-      "translation": "Drop it."
-    },
-    {
-      "text": "でもそうだな",
-      "language": "ja",
-      "file": "SPEAKER_01_seg6.wav",
-      "segment_num": 6,
-      "start": 159.41534375,
-      "end": 160.73159375,
-      "confidence": 0.429158886273702,
-      "translation": "But, yeah."
-    },
-    {
-      "text": "そうやって一人一人が小さな火を持ち寄ってここに集まっているのかもしれないな",
-      "language": "ja",
-      "file": "SPEAKER_01_seg7.wav",
-      "segment_num": 7,
-      "start": 161.62596875,
-      "end": 167.44784375,
-      "confidence": 0.7075189821647876,
-      "translation": "Perhaps each and every one of us is bringing their own small flame and gathering here like that."
-    },
-    {
-      "text": "ガッツ",
-      "language": "ja",
-      "file": "SPEAKER_01_seg8.wav",
-      "segment_num": 8,
-      "start": 267.92159375,
-      "end": 268.51221875000005,
-      "confidence": 0.5273391008377075,
-      "translation": "Guts."
-    },
-    {
-      "text": "ああ、しまんなよな",
-      "language": "ja",
-      "file": "SPEAKER_01_seg9.wav",
-      "segment_num": 9,
-      "start": 270.35159375,
-      "end": 272.37659375000004,
-      "confidence": 0.3875332938300239,
-      "translation": "Oh, don't get sloppy."
-    },
-    {
-      "text": "お互い様だ",
-      "language": "ja",
-      "file": "SPEAKER_01_seg10.wav",
-      "segment_num": 10,
-      "start": 278.95784375,
-      "end": 279.88596875,
-      "confidence": 0.7444474432203505,
-      "translation": "Same to you."
-    },
-    {
-      "text": "ガッツ お前 まさか",
-      "language": "ja",
-      "file": "SPEAKER_01_seg11.wav",
-      "segment_num": 11,
-      "start": 284.22284375000004,
-      "end": 286.55159375,
-      "confidence": 0.459495024247603,
-      "translation": "Guts, you... no way!"
-    },
-    {
-      "text": "高野弾をやめるつもりじゃ",
-      "language": "ja",
-      "file": "SPEAKER_01_seg12.wav",
-      "segment_num": 12,
-      "start": 296.49096875000004,
-      "end": 298.22909375,
-      "confidence": 0.6534653981526692,
-      "translation": "You're not planning to quit the Takano-dan, are you?!"
+      "start": 6.93284375,
+      "end": 7.709093750000001,
+      "confidence": 0.6155514419078827,
+      "translation": "I wasn't angry."
     }
   ],
   "SPEAKER_02": [
     {
-      "text": "ガッツ",
+      "text": "あって",
       "language": "ja",
       "file": "SPEAKER_02_seg0.wav",
       "segment_num": 0,
-      "start": 88.94534375,
-      "end": 89.43471875,
-      "confidence": 0.5400243997573853,
-      "translation": "Guts"
+      "start": 13.716593750000001,
+      "end": 14.05409375,
+      "confidence": 0.22626724243164065,
+      "translation": "Be!"
     },
     {
-      "text": "ちょっと促して",
+      "text": "戦え!",
       "language": "ja",
       "file": "SPEAKER_02_seg1.wav",
       "segment_num": 1,
-      "start": 96.23534375000001,
-      "end": 96.40409375,
-      "confidence": 0.0,
-      "translation": "Just give them a little push."
+      "start": 15.10034375,
+      "end": 15.707843750000002,
+      "confidence": 0.31086594717843197,
+      "translation": "Fight!"
     },
     {
-      "text": "ガッツ",
+      "text": "エルディアに自由と尊厳を取り戻すために",
       "language": "ja",
       "file": "SPEAKER_02_seg2.wav",
       "segment_num": 2,
-      "start": 201.82221875000002,
-      "end": 202.32846875,
-      "confidence": 0.23882921536763513,
-      "translation": "Guts"
+      "start": 18.25596875,
+      "end": 21.02346875,
+      "confidence": 0.8444123060806938,
+      "translation": "To regain freedom and dignity for Eldia."
     },
     {
-      "text": "",
+      "text": "たて!",
       "language": "ja",
       "file": "SPEAKER_02_seg3.wav",
       "segment_num": 3,
-      "start": 293.28471875,
-      "end": 294.41534375000003,
-      "confidence": null,
-      "translation": ""
+      "start": 21.934718750000002,
+      "end": 22.356593750000002,
+      "confidence": 0.24245079358418786,
+      "translation": "Stand up!"
     },
     {
-      "text": "やめるつもり",
+      "text": "も",
       "language": "ja",
-      "file": "SPEAKER_02_seg4.wav",
-      "segment_num": 4,
-      "start": 296.99721875,
-      "end": 297.97596875,
-      "confidence": 0.3729180230034722,
-      "translation": "Are you quitting?"
+      "file": "SPEAKER_02_seg5.wav",
+      "segment_num": 5,
+      "start": 25.63034375,
+      "end": 26.085968750000003,
+      "confidence": 0.1084631085395813,
+      "translation": "Now!"
+    },
+    {
+      "text": "見ろ お前の家から持ってきた",
+      "language": "ja",
+      "file": "SPEAKER_02_seg6.wav",
+      "segment_num": 6,
+      "start": 29.71409375,
+      "end": 32.21159375,
+      "confidence": 0.5770787092355582,
+      "translation": "Look! I brought this from your house."
+    },
+    {
+      "text": "見られない、立てない、戦えない、弾もないか",
+      "language": "ja",
+      "file": "SPEAKER_02_seg7.wav",
+      "segment_num": 7,
+      "start": 36.53159375,
+      "end": 40.73346875,
+      "confidence": 0.6992032414390927,
+      "translation": "Can't see, can't stand, can't fight, don't even have bullets?"
+    },
+    {
+      "text": "まあれに強制されたか",
+      "language": "ja",
+      "file": "SPEAKER_02_seg8.wav",
+      "segment_num": 8,
+      "start": 41.610968750000005,
+      "end": 43.11284375,
+      "confidence": 0.38023103367198596,
+      "translation": "Well, were you forced by someone?"
+    },
+    {
+      "text": "それで十分だ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg10.wav",
+      "segment_num": 10,
+      "start": 53.946593750000005,
+      "end": 55.313468750000006,
+      "confidence": 0.40507159914289204,
+      "translation": "That's enough."
+    },
+    {
+      "text": "お前を選んだ一番の理由は",
+      "language": "ja",
+      "file": "SPEAKER_02_seg11.wav",
+      "segment_num": 11,
+      "start": 57.25409375,
+      "end": 59.27909375,
+      "confidence": 0.804631301334926,
+      "translation": "The main reason I chose you is..."
+    },
+    {
+      "text": "お前があの日壁の外に出たからだ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg12.wav",
+      "segment_num": 12,
+      "start": 59.88659375,
+      "end": 62.14784375000001,
+      "confidence": 0.7972289253683651,
+      "translation": "...because you went outside the wall that day."
+    },
+    {
+      "text": "あの日、お前が妹を連れて壁の外に出ていなければ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg13.wav",
+      "segment_num": 13,
+      "start": 63.80159375,
+      "end": 67.29471875,
+      "confidence": 0.8200303514798483,
+      "translation": "If you hadn't taken your sister outside the wall that day,"
+    },
+    {
+      "text": "いずれ父親の心療状を継ぎ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg14.wav",
+      "segment_num": 14,
+      "start": 68.23971875000001,
+      "end": 70.33221875000001,
+      "confidence": 0.6381115383572049,
+      "translation": "eventually inheriting your father's practice,"
+    },
+    {
+      "text": "大人になった妹は結婚し",
+      "language": "ja",
+      "file": "SPEAKER_02_seg15.wav",
+      "segment_num": 15,
+      "start": 70.95659375000001,
+      "end": 72.89721875000001,
+      "confidence": 0.7958542750431941,
+      "translation": "your sister, who had become an adult, would have married,"
+    },
+    {
+      "text": "子どもを生んでいたかもしれない",
+      "language": "ja",
+      "file": "SPEAKER_02_seg16.wav",
+      "segment_num": 16,
+      "start": 73.55534375,
+      "end": 75.22596875,
+      "confidence": 0.6346680323282878,
+      "translation": "and might have given birth to children."
+    },
+    {
+      "text": "だがお前は壁の外に出た",
+      "language": "ja",
+      "file": "SPEAKER_02_seg17.wav",
+      "segment_num": 17,
+      "start": 76.08659375,
+      "end": 78.22971875,
+      "confidence": 0.726160208384196,
+      "translation": "But you went outside the wall."
+    },
+    {
+      "text": "俺はここで初めて同法を経落した光",
+      "language": "ja",
+      "file": "SPEAKER_02_seg18.wav",
+      "segment_num": 18,
+      "start": 79.83284375000001,
+      "end": 82.85346875,
+      "confidence": 0.49597891639260683,
+      "translation": "I, for the first time here, saw the light of my compatriots."
+    },
+    {
+      "text": "お前は妹を連れて壁の外に出た日から",
+      "language": "ja",
+      "file": "SPEAKER_02_seg19.wav",
+      "segment_num": 19,
+      "start": 83.78159375,
+      "end": 86.65034375,
+      "confidence": 0.8056894227078086,
+      "translation": "From the day you took your sister and went outside the wall,"
+    },
+    {
+      "text": "その行いが報われる日まで進み続けるんだ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg20.wav",
+      "segment_num": 20,
+      "start": 87.47721875,
+      "end": 90.91971875,
+      "confidence": 0.7548372324775248,
+      "translation": "you must continue to advance until that deed is rewarded."
+    },
+    {
+      "text": "死んでも",
+      "language": "ja",
+      "file": "SPEAKER_02_seg21.wav",
+      "segment_num": 21,
+      "start": 91.86471875000001,
+      "end": 92.50596875000001,
+      "confidence": 0.43590144316355384,
+      "translation": "Even if you die,"
+    },
+    {
+      "text": "死んだあとも",
+      "language": "ja",
+      "file": "SPEAKER_02_seg22.wav",
+      "segment_num": 22,
+      "start": 93.04596875,
+      "end": 94.24409375,
+      "confidence": 0.4299163137163434,
+      "translation": "even after you die,"
+    },
+    {
+      "text": "ここのつの巨人には それぞれ名前がある",
+      "language": "ja",
+      "file": "SPEAKER_02_seg23.wav",
+      "segment_num": 23,
+      "start": 117.43034375,
+      "end": 120.75471875000001,
+      "confidence": 0.6333276960584853,
+      "translation": "Each of the Nine Titans has a name."
+    },
+    {
+      "text": "これからお前へ継承される巨人にもだ",
+      "language": "ja",
+      "file": "SPEAKER_02_seg24.wav",
+      "segment_num": 24,
+      "start": 121.66596875,
+      "end": 124.28159375000001,
+      "confidence": 0.7649589300155639,
+      "translation": "That also applies to the Titan that will be inherited by you from now on."
+    },
+    {
+      "text": "その巨人は",
+      "language": "ja",
+      "file": "SPEAKER_02_seg25.wav",
+      "segment_num": 25,
+      "start": 125.91846875,
+      "end": 126.91409375,
+      "confidence": 0.710873931646347,
+      "translation": "That Titan,"
+    },
+    {
+      "text": "いついかなる時代においても",
+      "language": "ja",
+      "file": "SPEAKER_02_seg26.wav",
+      "segment_num": 26,
+      "start": 127.52159375000001,
+      "end": 129.31034375000002,
+      "confidence": 0.7373653741983267,
+      "translation": "in any era whatsoever,"
+    },
+    {
+      "text": "自由を求めて進み続けた",
+      "language": "ja",
+      "file": "SPEAKER_02_seg27.wav",
+      "segment_num": 27,
+      "start": 130.27221875,
+      "end": 133.03971875000002,
+      "confidence": 0.7068693041801453,
+      "translation": "continued to advance, seeking freedom."
+    },
+    {
+      "text": "自由のために",
+      "language": "ja",
+      "file": "SPEAKER_02_seg28.wav",
+      "segment_num": 28,
+      "start": 134.27159375000002,
+      "end": 135.36846875,
+      "confidence": 0.5837968417576381,
+      "translation": "For freedom,"
+    },
+    {
+      "text": "戦った",
+      "language": "ja",
+      "file": "SPEAKER_02_seg29.wav",
+      "segment_num": 29,
+      "start": 135.90846875,
+      "end": 136.60034375,
+      "confidence": 0.45096222559611,
+      "translation": "it fought."
+    }
+  ],
+  "SPEAKER_03": [
+    {
+      "text": "俺に憎しみを思い出させようとしても無駄だ",
+      "language": "ja",
+      "file": "SPEAKER_03_seg0.wav",
+      "segment_num": 0,
+      "start": 44.00721875,
+      "end": 46.82534375,
+      "confidence": 0.8388981197191321,
+      "translation": "It's useless to try and make me remember hatred."
+    },
+    {
+      "text": "俺に残されたのは",
+      "language": "ja",
+      "file": "SPEAKER_03_seg1.wav",
+      "segment_num": 1,
+      "start": 48.32721875,
+      "end": 49.57596875,
+      "confidence": 0.6450628042221069,
+      "translation": "What was left for me was..."
+    }
+  ],
+  "SPEAKER_04": [
+    {
+      "text": "これは",
+      "language": "ja",
+      "file": "SPEAKER_04_seg0.wav",
+      "segment_num": 0,
+      "start": 99.81284375000001,
+      "end": 100.48784375000001,
+      "confidence": 0.3311924934387207,
+      "translation": "This is"
+    },
+    {
+      "text": "お前が始めた物語だろ",
+      "language": "ja",
+      "file": "SPEAKER_04_seg1.wav",
+      "segment_num": 1,
+      "start": 102.58034375000001,
+      "end": 104.82471875,
+      "confidence": 0.7074146087353046,
+      "translation": "This is the story you started, isn't it?"
+    },
+    {
+      "text": "なわ",
+      "language": "ja",
+      "file": "SPEAKER_04_seg2.wav",
+      "segment_num": 2,
+      "start": 139.31721875,
+      "end": 139.87409375000001,
+      "confidence": 0.4238949298858643,
+      "translation": "Indeed."
+    },
+    {
+      "text": "進撃の巨人",
+      "language": "ja",
+      "file": "SPEAKER_04_seg3.wav",
+      "segment_num": 3,
+      "start": 141.24096875,
+      "end": 142.55721875,
+      "confidence": 0.6052270889282226,
+      "translation": "Attack on Titan"
     }
   ]
 }

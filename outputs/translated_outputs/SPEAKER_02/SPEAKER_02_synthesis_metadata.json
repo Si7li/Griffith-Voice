@@ -1,55 +1,31 @@
 {
   "segments": [
     {
-      "segment_num": 0,
-      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_02/SPEAKER_02_translated_seg0.wav",
-      "translated_text": "Guts",
-      "original_text": "ガッツ",
-      "start_time": 88.94534375,
-      "end_time": 89.43471875,
-      "duration": 0.48937499999999545,
-      "sampling_rate": 32000,
-      "audio_length_seconds": 1.88,
-      "was_split": false
-    },
-    {
       "segment_num": 1,
       "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_02/SPEAKER_02_translated_seg1.wav",
-      "translated_text": "Just give them a little push.",
-      "original_text": "ちょっと促して",
-      "start_time": 96.23534375000001,
-      "end_time": 96.40409375,
-      "duration": 0.16874999999998863,
+      "translated_text": "It's useless to try and make me remember hatred.",
+      "original_text": "俺に憎しみを思い出させようとしても無駄だ",
+      "start_time": 44.00721875,
+      "end_time": 46.82534375,
+      "duration": 2.818125000000002,
       "sampling_rate": 32000,
-      "audio_length_seconds": 2.7,
+      "audio_length_seconds": 2.6,
       "was_split": false
     },
     {
       "segment_num": 2,
       "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_02/SPEAKER_02_translated_seg2.wav",
-      "translated_text": "Guts",
-      "original_text": "ガッツ",
-      "start_time": 201.82221875000002,
-      "end_time": 202.32846875,
-      "duration": 0.5062499999999943,
+      "translated_text": "All that's left for me is...",
+      "original_text": "俺に残されたのは",
+      "start_time": 48.32721875,
+      "end_time": 49.57596875,
+      "duration": 1.2487500000000011,
       "sampling_rate": 32000,
-      "audio_length_seconds": 1.0,
-      "was_split": false
-    },
-    {
-      "segment_num": 4,
-      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_02/SPEAKER_02_translated_seg4.wav",
-      "translated_text": "Are you quitting?",
-      "original_text": "やめるつもり",
-      "start_time": 296.99721875,
-      "end_time": 297.97596875,
-      "duration": 0.9787499999999909,
-      "sampling_rate": 32000,
-      "audio_length_seconds": 2.56,
+      "audio_length_seconds": 2.28,
       "was_split": false
     }
   ],
   "speaker_id": "SPEAKER_02",
-  "reference_wav": "outputs/voice_samples/SPEAKER_02_voice_sample.wav",
-  "reference_text": "ガッツをやめるつもり"
+  "reference_wav": "/tmp/streamlit_translation_lr1_6enq/outputs/voice_samples/SPEAKER_02_voice_sample.wav",
+  "reference_text": "俺に憎しみを思い出させようとしても無駄だ俺に残されたのは罪だけ"
 }

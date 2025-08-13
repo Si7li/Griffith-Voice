@@ -1,44 +1,8 @@
-# Parameters for the speaker diarization pipeline
-# For more details on what each parameter does, refer to the pyannote.audio documentation
-# or the default config.yaml of the models on Hugging Face.
-# https://huggingface.co/pyannote/speaker-diarization-3.1/blob/main/config.yaml
-# ─────────────────────────────────────────────────────────────
-# Clustering method choices:
-#
-# centroid → Best for long clips with consistent voices
-#             - Stable when each speaker has lots of speech data
-#             - Struggles if the same speaker uses very different tones
-#
-# average  → Best for short clips with tone changes
-#             - Adapts better to emotional or fast-paced speech
-#             - Slightly more sensitive to noise than centroid
-#
-# pooling  → Best for very varied voices or extreme tone shifts
-#             - Keeps all embeddings for comparison instead of one average
-#             - More accurate for drastic voice style changes
-#             - Slower and can over-merge if one embedding is misleading
-# ─────────────────────────────────────────────────────────────
-
 pipeline:
   params:
-    # Segmentation model parameters
-    segmentation:
-      # Minimum silence (in seconds) between speech segments
-      # Shorter value helps capture quick back-and-forth dialogue
-      min_duration_off: 0.75 #1.0  # Minimum duration of non-speech to split a speaker's turn (in seconds)
-
-    # Clustering parameters
     clustering:
-      # Clustering method for grouping segments into speakers
-      # "average" is more stable in short clips where each speaker has few segments
-      method: "average"
-      # Minimum number of speech segments required to form a valid speaker cluster
-      # Low value keeps even minor characters (with few lines) as separate speakers
-      #  Even one-off side characters get their own cluster if they have at least min_cluster_size lines.
-      min_cluster_size: 8
-      # Speaker embedding similarity threshold (0–1)
-      # Higher = more strict (risk of splitting same speaker)
-      # Lower = more merging (risk of mixing speakers)
-      # 0.78 is balanced for emotional tone shifts without over-merging
-      threshold: 0.78 # Speaker embedding similarity threshold
-
+      method: centroid
+      min_cluster_size: 3
+      threshold: 0.78
+    segmentation:
+      min_duration_off: 0.5

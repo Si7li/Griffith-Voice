@@ -55,8 +55,24 @@ class TranslationsSynthensizer:
         self.change_gpt_weights(gpt_path=self.gpt_model_path)
         self.change_sovits_weights(sovits_path=self.sovits_model_path)
         print("Models loaded successfully!")
+    
+    def _get_language_name(self, lang_code):
+        """Convert simple language codes to GPT-SoVITS language names"""
+        language_map = {
+            'ja': '日文',
+            'en': '英文', 
+            'zh': '中文',
+            'ko': '韩文',
+            'es': '西班牙文',
+            'fr': '法文',
+            'de': '德文',
+            'it': '意大利文',
+            'pt': '葡萄牙文',
+            'ru': '俄文'
+        }
+        return language_map.get(lang_code.lower(), '英文')  # Default to English if not found
         
-    def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, target_language="英文", read_from_cache=False, cache_path=None):
+    def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, top_k, top_p, temperature, speed, prompt_language="ja", target_language="en", read_from_cache=False, cache_path=None):
         """
         Synthesize translated audio for all speakers
         
@@ -65,13 +81,24 @@ class TranslationsSynthensizer:
             translated_segments: Dict with speaker translations  
             voice_samples_dir: Directory containing voice samples
             audio_segments_dir: Directory containing audio segments
-            target_language: Target language for synthesis
+            top_k: Top-k sampling parameter
+            top_p: Top-p sampling parameter
+            temperature: Temperature for synthesis
+            speed: Speed of synthesis
+            prompt_language: Language of the reference audio ('ja', 'en', 'zh', etc.)
+            target_language: Target language for synthesis ('ja', 'en', 'zh', etc.)
             read_from_cache: Whether to try loading from cache first
             cache_path: Path to cache file
             
         Returns:
             Dict with synthesis results including timing information
         """
+        self.top_k = top_k
+        self.top_p = top_p
+        self.temperature = temperature
+        self.speed = speed
+        self.prompt_language = prompt_language
+        self.target_language = target_language
         # Try loading from cache first
         synthesis_results = read_cache(read_from_cache, cache_path)
         if synthesis_results:
@@ -108,7 +135,8 @@ class TranslationsSynthensizer:
                 reference_text=reference_text,
                 other_references=other_references,
                 translations=speaker_translations,
-                target_language=target_language
+                prompt_language=self.prompt_language,
+                target_language=self.target_language
             )
             
             synthesis_results[speaker_id] = speaker_results
@@ -199,7 +227,7 @@ class TranslationsSynthensizer:
         
         return chunks
 
-    def _synthesize_text_chunks(self, speaker_id, segment_num, text_chunks, reference_wav, reference_text, inp_refs, target_language, speaker_output_dir, start_time, end_time, original_text):
+    def _synthesize_text_chunks(self, speaker_id, segment_num, text_chunks, reference_wav, reference_text, inp_refs, prompt_language, target_language, speaker_output_dir, start_time, end_time, original_text):
         """Synthesize multiple text chunks and combine them"""
         chunk_audio_files = []
         combined_audio = None
@@ -224,15 +252,15 @@ class TranslationsSynthensizer:
                 synthesis_params = {
                     'ref_wav_path': reference_wav,
                     'prompt_text': reference_text,
-                    'prompt_language': self.i18n("日文"),
+                    'prompt_language': self.i18n(self._get_language_name(prompt_language)),
                     'text': chunk_text,
-                    'text_language': self.i18n(target_language),
+                    'text_language': self.i18n(self._get_language_name(target_language)),
                     'how_to_cut': self.i18n("不切"),
-                    'top_k': 15,
-                    'top_p': 0.7,
-                    'temperature': 1,
+                    'top_k': self.top_k,
+                    'top_p': self.top_p,
+                    'temperature': self.temperature,
                     'ref_free': False,
-                    'speed': 1.1,
+                    'speed': self.speed,
                     'if_freeze': False,
                     'inp_refs': inp_refs,
                     'sample_steps': 8,
@@ -297,7 +325,7 @@ class TranslationsSynthensizer:
         
         return None
 
-    def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, target_language):
+    def _synthesize_speaker_segments(self, speaker_id, reference_wav, reference_text, other_references, translations, prompt_language, target_language):
         """Synthesize all segments for a single speaker with smart text handling"""
         speaker_results = {
             'segments': [],
@@ -339,20 +367,20 @@ class TranslationsSynthensizer:
                     synthesis_result = self.get_tts_wav(
                         ref_wav_path=reference_wav,
                         prompt_text=reference_text,
-                        prompt_language=self.i18n("日文"),
+                        prompt_language=self.i18n(self._get_language_name(prompt_language)),
                         text=translated_text,
-                        text_language=self.i18n(target_language),
+                        text_language=self.i18n(self._get_language_name(target_language)),
                         how_to_cut=self.i18n("不切"),
-                        top_k=15,
-                        top_p=0.7,
-                        temperature=1,
+                        top_k=self.top_k,  # 15,
+                        top_p=self.top_p,  # 0.7,
+                        temperature=self.temperature,  # 1,
                         ref_free=False,
-                        speed=1.1,
+                        speed=self.speed,  # 1.1,
                         if_freeze=False,
                         inp_refs=inp_refs,
                         sample_steps=8,
                         if_sr=False,
-                        pause_second=0.3,
+                        pause_second=0.3
                     )
                     
                     result_list = list(synthesis_result)
@@ -391,7 +419,7 @@ class TranslationsSynthensizer:
                 
                 segment_result = self._synthesize_text_chunks(
                     speaker_id, segment_num, text_chunks, reference_wav, reference_text,
-                    inp_refs, target_language, speaker_output_dir, start_time, end_time, original_text
+                    inp_refs, prompt_language, target_language, speaker_output_dir, start_time, end_time, original_text
                 )
                 
                 if segment_result:

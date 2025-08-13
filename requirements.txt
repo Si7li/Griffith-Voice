@@ -18,7 +18,13 @@ faster-whisper
 pyannote.audio
 
 # Google AI
+# Google AI
+google-cloud-translate
 google-generativeai
+
+# Web interface
+streamlit
+streamlit-player
 
 # GPT-SoVITS dependencies
 --no-binary=opencc

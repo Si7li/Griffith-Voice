@@ -1,129 +1,164 @@
 {
-  "SPEAKER_00": {
-    "audio_path": "outputs/voice_samples/SPEAKER_00_voice_sample.wav",
-    "duration": 8.531,
-    "segments_count": 4,
-    "transcription": "実際今までだってそうだ お前だけじゃねぇ グリフィスの操作 すげーと思うぜ、そういうの 顔に似合わず器用なんだあいつは",
-    "translation": "In fact, it's been like that until now. It's not just you; Griffith's objective... I think that's awesome. He's surprisingly skillful for someone with a face like that.",
-    "transcription_file": "outputs/voice_samples/SPEAKER_00_transcription.txt",
-    "translation_file": "outputs/voice_samples/SPEAKER_00_translation.txt",
-    "segment_details": [
-      {
-        "segment_num": 32,
-        "filename": "SPEAKER_00_seg32.wav",
-        "duration": 1.552,
-        "transcription": "実際今までだってそうだ",
-        "translation": "In fact, it's been like that until now.",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 11,
-        "filename": "SPEAKER_00_seg11.wav",
-        "duration": 2.632,
-        "transcription": "お前だけじゃねぇ グリフィスの操作",
-        "translation": "It's not just you; Griffith's objective...",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 13,
-        "filename": "SPEAKER_00_seg13.wav",
-        "duration": 1.806,
-        "transcription": "すげーと思うぜ、そういうの",
-        "translation": "I think that's awesome.",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 17,
-        "filename": "SPEAKER_00_seg17.wav",
-        "duration": 1.941,
-        "transcription": "顔に似合わず器用なんだあいつは",
-        "translation": "He's surprisingly skillful for someone with a face like that.",
-        "quality_score": 280
-      }
-    ]
-  },
   "SPEAKER_01": {
     "audio_path": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
-    "duration": 7.448,
-    "segments_count": 5,
-    "transcription": "夢の 高野弾をやめるつもりじゃ でもそうだな ああ、しまんなよな お互い様だ",
-    "translation": "Of dreams... You're not planning to quit the Takano-dan, are you?! But, yeah. Oh, don't get sloppy. Same to you.",
+    "duration": 4.838,
+    "segments_count": 3,
+    "transcription": "何も分かっていなかった これが自由の代償だとわかっていたなら 腹はなかった",
+    "translation": "I didn't understand anything. If only I had known this was the price of freedom. I wasn't angry.",
     "transcription_file": "outputs/voice_samples/SPEAKER_01_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_01_translation.txt",
     "segment_details": [
       {
-        "segment_num": 3,
-        "filename": "SPEAKER_01_seg3.wav",
-        "duration": 0.641,
-        "transcription": "夢の",
-        "translation": "Of dreams...",
+        "segment_num": 0,
+        "filename": "SPEAKER_01_seg0.wav",
+        "duration": 1.434,
+        "transcription": "何も分かっていなかった",
+        "translation": "I didn't understand anything.",
         "quality_score": 250
       },
       {
-        "segment_num": 12,
-        "filename": "SPEAKER_01_seg12.wav",
-        "duration": 1.738,
-        "transcription": "高野弾をやめるつもりじゃ",
-        "translation": "You're not planning to quit the Takano-dan, are you?!",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 6,
-        "filename": "SPEAKER_01_seg6.wav",
-        "duration": 1.316,
-        "transcription": "でもそうだな",
-        "translation": "But, yeah.",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 9,
-        "filename": "SPEAKER_01_seg9.wav",
-        "duration": 2.025,
-        "transcription": "ああ、しまんなよな",
-        "translation": "Oh, don't get sloppy.",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 10,
-        "filename": "SPEAKER_01_seg10.wav",
-        "duration": 0.928,
-        "transcription": "お互い様だ",
-        "translation": "Same to you.",
+        "segment_num": 1,
+        "filename": "SPEAKER_01_seg1.wav",
+        "duration": 2.228,
+        "transcription": "これが自由の代償だとわかっていたなら",
+        "translation": "If only I had known this was the price of freedom.",
         "quality_score": 250
+      },
+      {
+        "segment_num": 2,
+        "filename": "SPEAKER_01_seg2.wav",
+        "duration": 0.776,
+        "transcription": "腹はなかった",
+        "translation": "I wasn't angry.",
+        "quality_score": 220
       }
     ]
   },
   "SPEAKER_02": {
     "audio_path": "outputs/voice_samples/SPEAKER_02_voice_sample.wav",
-    "duration": 3.016,
-    "segments_count": 3,
-    "transcription": "ガッツ やめるつもり",
-    "translation": "Guts Are you quitting?",
+    "duration": 8.866000000000001,
+    "segments_count": 5,
+    "transcription": "お前は妹を連れて壁の外に出た日から 死んだあとも 戦え! それで十分だ お前を選んだ一番の理由は",
+    "translation": "From the day you took your sister and went outside the wall, even after you die, Fight! That's enough. The main reason I chose you is...",
     "transcription_file": "outputs/voice_samples/SPEAKER_02_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_02_translation.txt",
     "segment_details": [
       {
-        "segment_num": 2,
-        "filename": "SPEAKER_02_seg2.wav",
-        "duration": 0.506,
-        "transcription": "ガッツ",
-        "translation": "Guts",
+        "segment_num": 19,
+        "filename": "SPEAKER_02_seg19.wav",
+        "duration": 2.869,
+        "transcription": "お前は妹を連れて壁の外に出た日から",
+        "translation": "From the day you took your sister and went outside the wall,",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 22,
+        "filename": "SPEAKER_02_seg22.wav",
+        "duration": 1.198,
+        "transcription": "死んだあとも",
+        "translation": "even after you die,",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 1,
+        "filename": "SPEAKER_02_seg1.wav",
+        "duration": 0.607,
+        "transcription": "戦え!",
+        "translation": "Fight!",
         "quality_score": 250
       },
       {
-        "segment_num": 4,
-        "filename": "SPEAKER_02_seg4.wav",
-        "duration": 0.979,
-        "transcription": "やめるつもり",
-        "translation": "Are you quitting?",
+        "segment_num": 10,
+        "filename": "SPEAKER_02_seg10.wav",
+        "duration": 1.367,
+        "transcription": "それで十分だ",
+        "translation": "That's enough.",
         "quality_score": 250
+      },
+      {
+        "segment_num": 11,
+        "filename": "SPEAKER_02_seg11.wav",
+        "duration": 2.025,
+        "transcription": "お前を選んだ一番の理由は",
+        "translation": "The main reason I chose you is...",
+        "quality_score": 250
+      }
+    ]
+  },
+  "SPEAKER_03": {
+    "audio_path": "outputs/voice_samples/SPEAKER_03_voice_sample.wav",
+    "duration": 5.1080000000000005,
+    "segments_count": 3,
+    "transcription": "俺に憎しみを思い出させようとしても無駄だ 俺に残されたのは",
+    "translation": "It's useless to try and make me remember hatred. What was left for me was...",
+    "transcription_file": "outputs/voice_samples/SPEAKER_03_transcription.txt",
+    "translation_file": "outputs/voice_samples/SPEAKER_03_translation.txt",
+    "segment_details": [
+      {
+        "segment_num": 0,
+        "filename": "SPEAKER_03_seg0.wav",
+        "duration": 2.818,
+        "transcription": "俺に憎しみを思い出させようとしても無駄だ",
+        "translation": "It's useless to try and make me remember hatred.",
+        "quality_score": 250
+      },
+      {
+        "segment_num": 1,
+        "filename": "SPEAKER_03_seg1.wav",
+        "duration": 1.249,
+        "transcription": "俺に残されたのは",
+        "translation": "What was left for me was...",
+        "quality_score": 250
+      },
+      {
+        "segment_num": 2,
+        "filename": "SPEAKER_03_seg2.wav",
+        "duration": 0.641,
+        "transcription": "",
+        "translation": "",
+        "quality_score": 190
+      }
+    ]
+  },
+  "SPEAKER_04": {
+    "audio_path": "outputs/voice_samples/SPEAKER_04_voice_sample.wav",
+    "duration": 5.392000000000001,
+    "segments_count": 4,
+    "transcription": "お前が始めた物語だろ 進撃の巨人 これは なわ",
+    "translation": "This is the story you started, isn't it? Attack on Titan This is Indeed.",
+    "transcription_file": "outputs/voice_samples/SPEAKER_04_transcription.txt",
+    "translation_file": "outputs/voice_samples/SPEAKER_04_translation.txt",
+    "segment_details": [
+      {
+        "segment_num": 1,
+        "filename": "SPEAKER_04_seg1.wav",
+        "duration": 2.244,
+        "transcription": "お前が始めた物語だろ",
+        "translation": "This is the story you started, isn't it?",
+        "quality_score": 280
       },
       {
         "segment_num": 3,
-        "filename": "SPEAKER_02_seg3.wav",
-        "duration": 1.131,
-        "transcription": "",
-        "translation": "",
+        "filename": "SPEAKER_04_seg3.wav",
+        "duration": 1.316,
+        "transcription": "進撃の巨人",
+        "translation": "Attack on Titan",
+        "quality_score": 250
+      },
+      {
+        "segment_num": 0,
+        "filename": "SPEAKER_04_seg0.wav",
+        "duration": 0.675,
+        "transcription": "これは",
+        "translation": "This is",
+        "quality_score": 220
+      },
+      {
+        "segment_num": 2,
+        "filename": "SPEAKER_04_seg2.wav",
+        "duration": 0.557,
+        "transcription": "なわ",
+        "translation": "Indeed.",
         "quality_score": 220
       }
     ]

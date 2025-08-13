@@ -6,6 +6,8 @@ import os
 import yaml
 from utils import save_cache, read_cache
 
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
 
 class AudioDiarization:
     def __init__(self, vocal_input):
@@ -45,6 +47,7 @@ class AudioDiarization:
                 "pyannote/speaker-diarization-3.1",
                 use_auth_token=auth_token
             )
+            
 
             if params:
                 pipeline.instantiate(params)

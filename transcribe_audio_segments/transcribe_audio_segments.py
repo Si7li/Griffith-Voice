@@ -83,19 +83,20 @@ class AudioTranscriber:
                     # Use inverse of no_speech_prob as confidence
                     confidence = 1.0 - result["no_speech_prob"]
                 
-                # Store transcription with metadata
-                transcription_data = {
-                    "text": result["text"].strip(),
-                    "language": result.get("language", "unknown"),
-                    "file": filename,
-                    "segment_num": segment_num,
-                    "start": start_time,  # From diarization
-                    "end": end_time,      # From diarization
-                    "confidence": confidence
-                }
-                
-                transcriptions[speaker_id].append(transcription_data)
-                print(f"  → '{result['text'].strip()}'")  # Quote the text to see exact content
+                if confidence > 0.1:
+                    # Store transcription with metadata
+                    transcription_data = {
+                        "text": result["text"].strip(),
+                        "language": result.get("language", "unknown"),
+                        "file": filename,
+                        "segment_num": segment_num,
+                        "start": start_time,  # From diarization
+                        "end": end_time,      # From diarization
+                        "confidence": confidence
+                    }
+                    
+                    transcriptions[speaker_id].append(transcription_data)
+                    print(f"  → '{result['text'].strip()}'")  # Quote the text to see exact content
                 
             except Exception as e:
                 print(f"Error transcribing {filename}: {e}")

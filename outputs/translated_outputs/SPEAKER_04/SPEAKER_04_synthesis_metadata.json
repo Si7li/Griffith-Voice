@@ -1,0 +1,55 @@
+{
+  "segments": [
+    {
+      "segment_num": 0,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_04/SPEAKER_04_translated_seg0.wav",
+      "translated_text": "This is",
+      "original_text": "これは",
+      "start_time": 99.81284375000001,
+      "end_time": 100.48784375000001,
+      "duration": 0.6749999999999972,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 0.92,
+      "was_split": false
+    },
+    {
+      "segment_num": 1,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_04/SPEAKER_04_translated_seg1.wav",
+      "translated_text": "You started this story, didn't you?",
+      "original_text": "お前が始めた物語だろ",
+      "start_time": 102.56346875000001,
+      "end_time": 104.82471875,
+      "duration": 2.2612499999999898,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 2.42,
+      "was_split": false
+    },
+    {
+      "segment_num": 2,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_04/SPEAKER_04_translated_seg2.wav",
+      "translated_text": "Right.",
+      "original_text": "なわ",
+      "start_time": 139.31721875,
+      "end_time": 139.87409375000001,
+      "duration": 0.5568750000000193,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 0.72,
+      "was_split": false
+    },
+    {
+      "segment_num": 3,
+      "output_file": "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs/SPEAKER_04/SPEAKER_04_translated_seg3.wav",
+      "translated_text": "Attack on Titan",
+      "original_text": "進撃の巨人",
+      "start_time": 141.24096875,
+      "end_time": 142.57409375,
+      "duration": 1.3331249999999955,
+      "sampling_rate": 32000,
+      "audio_length_seconds": 1.66,
+      "was_split": false
+    }
+  ],
+  "speaker_id": "SPEAKER_04",
+  "reference_wav": "/tmp/streamlit_translation_lr1_6enq/outputs/voice_samples/SPEAKER_04_voice_sample.wav",
+  "reference_text": "お前が始めた物語だろ進撃の巨人これは…名は…"
+}

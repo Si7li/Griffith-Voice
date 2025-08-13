@@ -37,7 +37,7 @@ def main():
     # Initialize audio translator
     segments_translator = SegmentsTranslator()
     # Translate audio segments
-    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments,diarization_essensials=diarization ,read_from_cache=False, cache_path="caches/translation.pkl")
+    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments,diarization_essensials=diarization , source_lang="ja", target_lang="en", read_from_cache=False, cache_path="caches/translation.pkl")
     # Initialize segments sampler
     segments_sampler = SegmentsSampler("outputs/audio_segments", "outputs/voice_samples")
     # Get a sample per speaker for voice-cloning
@@ -51,7 +51,12 @@ def main():
         translated_segments=translated_segments,
         voice_samples_dir="outputs/voice_samples",
         audio_segments_dir="outputs/audio_segments",
-        target_language="英文",  # English
+        top_k=15,
+        top_p=0.7,
+        temperature=1,
+        speed=1.1,
+        prompt_language="ja",
+        target_language="en",
         read_from_cache=False,
         cache_path="caches/synthesis_results.pkl")
     
@@ -66,7 +71,7 @@ def main():
     
     # Initialize Video and No_vocals applier
     video_no_vocals_applier = VideoNoVocalsApplier(final_translated_audio=final_audio, no_vocals_path=no_vocals, input_video="inputs/input_video.mp4")
-    video_no_vocals_applier.process(mixed_audio_out="outputs/mixed.wav",final_video_out= "outputs/output.mp4")
+    video_no_vocals_applier.process(mixed_audio_out="outputs/mixed.wav",final_video_out= "outputs/output.mp4", voice_volume=1, background_volume=1)
     
     
 if __name__ == "__main__":

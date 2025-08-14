@@ -9,7 +9,7 @@ class VideoNoVocalsApplier:
         self.no_vocals_path = no_vocals_path
         self.input_video = input_video
 
-    def mix_audios(self, output_path, voice_volume=1.0, background_volume=0.3):
+    def mix_audios(self, output_path, voice_volume=1.0, background_volume=0.3, master_volume=1.2):
         """
         Mix final translated audio with background audio, preserving volumes.
         
@@ -17,21 +17,27 @@ class VideoNoVocalsApplier:
             output_path (str): Output path for mixed audio
             voice_volume (float): Volume multiplier for translated voice (1.0 = original)
             background_volume (float): Volume multiplier for background (0.3 = 30% of original)
+            master_volume (float): Overall amplification after mixing (1.2 = 20% boost)
         """
         # Create volume-adjusted inputs
         voice_input = ffmpeg.input(self.final_translated_audio).filter('volume', voice_volume)
         background_input = ffmpeg.input(self.no_vocals_path).filter('volume', background_volume)
         
+        # Mix the audio streams
+        mixed = ffmpeg.filter(
+            [voice_input, background_input],
+            'amix', 
+            inputs=2, 
+            duration='longest',
+            dropout_transition=0,
+            normalize=0  # Prevent automatic volume reduction
+        )
+        
+        # Apply master volume amplification to the mixed result
+        amplified = mixed.filter('volume', master_volume)
+        
         (
-            ffmpeg
-            .filter(
-                [voice_input, background_input],
-                'amix', 
-                inputs=2, 
-                duration='longest',
-                dropout_transition=0,
-                normalize=0  # Prevent automatic volume reduction
-            )
+            amplified
             .output(output_path, acodec='pcm_s16le')  # Keep WAV quality
             .overwrite_output()
             .run()
@@ -54,7 +60,7 @@ class VideoNoVocalsApplier:
             .run()
         )
     
-    def process(self, mixed_audio_out, final_video_out, voice_volume=1.0, background_volume=0.3):
+    def process(self, mixed_audio_out, final_video_out, voice_volume=1.0, background_volume=0.3, master_volume=1.2):
         """
         Full process: mix audios and replace video's audio.
         
@@ -63,6 +69,7 @@ class VideoNoVocalsApplier:
             final_video_out (str): Output path for final video
             voice_volume (float): Volume for translated voice (1.0 = original)
             background_volume (float): Volume for background music (0.3 = 30%)
+            master_volume (float): Overall amplification after mixing (1.2 = 20% boost)
         """
-        mixed_audio = self.mix_audios(mixed_audio_out, voice_volume, background_volume)
+        mixed_audio = self.mix_audios(mixed_audio_out, voice_volume, background_volume, master_volume)
         self.replace_video_audio(mixed_audio, final_video_out)

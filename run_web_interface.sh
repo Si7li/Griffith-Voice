@@ -38,4 +38,4 @@ echo "⏹️  Press Ctrl+C to stop the server"
 echo ""
 
 # Use the clean version with better warning handling
-streamlit run webui.py --server.port 8501 --server.address 0.0.0.0 --logger.level error
+streamlit run streamlit_webui.py --server.port 8501 --server.address 0.0.0.0 --logger.level error

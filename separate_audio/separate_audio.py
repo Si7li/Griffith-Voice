@@ -2,11 +2,29 @@ import subprocess
 import sys
 import os
 import shutil
+import gc
+import torch
 from utils import save_cache, read_cache
 
 class SeparateAudio:
     def __init__(self, input_audio):
         self.input_audio = input_audio
+        
+    def cleanup_models(self):
+        """Clean up any remaining GPU memory after audio separation"""
+        try:
+            # Force garbage collection
+            gc.collect()
+            
+            # Clear GPU cache if available
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                torch.cuda.synchronize()
+                
+            print("🧹 Audio separation cleanup completed")
+        except Exception as e:
+            print(f"Warning: Audio separation cleanup failed: {e}")
+            
     def separate_audio(self,read_from_cache=False, cache_path=None):
         print(f"Separating audio: {self.input_audio}")
         paths = read_cache(read_from_cache, cache_path)
@@ -65,6 +83,9 @@ class SeparateAudio:
             if cache_path:
                 save_cache(cache_path, paths)
 
+            # Clean up GPU memory after separation
+            self.cleanup_models()
+            
             return paths
         
         except Exception as e:

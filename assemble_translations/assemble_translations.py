@@ -2,6 +2,7 @@ import os
 import ffmpeg
 import tempfile
 from utils import save_cache, read_cache
+from utils.audio_normalizer import AudioVolumeNormalizer
 
 
 class AudioAssembler:
@@ -14,6 +15,9 @@ class AudioAssembler:
         """
         self.video_input_path = video_input_path
         self.video_duration = self._get_video_duration()
+        
+        # Initialize audio normalizer for consistent volume
+        self.audio_normalizer = AudioVolumeNormalizer(target_lufs=-18.0, peak_limit=-3.0)
         
     def _get_video_duration(self):
         """Get the duration of the original video file."""
@@ -168,7 +172,13 @@ class AudioAssembler:
                     )
                 
                 print(f"✓ Audio assembled successfully: {output_path}")
-                return output_path
+                
+                # Apply final normalization to the assembled audio
+                print("🔧 Applying final volume normalization...")
+                normalized_path = self.audio_normalizer.normalize_file(output_path)
+                print(f"✓ Audio normalized: {normalized_path}")
+                
+                return normalized_path
                 
         except ffmpeg.Error as e:
             print(f"FFmpeg error during audio assembly: {e}")

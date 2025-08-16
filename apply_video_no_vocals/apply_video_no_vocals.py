@@ -1,6 +1,7 @@
 import ffmpeg
 import tempfile
 import os
+from utils.audio_normalizer import AudioVolumeNormalizer
 
 class VideoNoVocalsApplier:
 
@@ -8,6 +9,9 @@ class VideoNoVocalsApplier:
         self.final_translated_audio = final_translated_audio
         self.no_vocals_path = no_vocals_path
         self.input_video = input_video
+        
+        # Initialize audio normalizer for volume analysis
+        self.audio_normalizer = AudioVolumeNormalizer()
 
     def mix_audios(self, output_path, voice_volume=1.0, background_volume=0.3, master_volume=1.2):
         """
@@ -19,6 +23,8 @@ class VideoNoVocalsApplier:
             background_volume (float): Volume multiplier for background (0.3 = 30% of original)
             master_volume (float): Overall amplification after mixing (1.2 = 20% boost)
         """
+        print(f"🎵 Mixing audio: Voice={voice_volume}x, Background={background_volume}x, Master={master_volume}x")
+        
         # Create volume-adjusted inputs
         voice_input = ffmpeg.input(self.final_translated_audio).filter('volume', voice_volume)
         background_input = ffmpeg.input(self.no_vocals_path).filter('volume', background_volume)
@@ -42,6 +48,12 @@ class VideoNoVocalsApplier:
             .overwrite_output()
             .run()
         )
+        
+        # Apply final volume consistency check and normalization if needed
+        print("🔧 Applying final volume consistency check...")
+        normalized_path = self.audio_normalizer.normalize_file(output_path)
+        print(f"✓ Mixed audio normalized: {normalized_path}")
+        
         return output_path
     
     def replace_video_audio(self, mixed_audio_path, output_video_path):

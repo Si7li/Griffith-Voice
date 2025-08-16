@@ -615,6 +615,12 @@ def main():
     background_volume = st.sidebar.slider("Background Volume", 0.0, 2.0, 0.3, 0.1, help="Volume level for background music/sounds (0.3 = 30% - recommended)")
     master_volume = st.sidebar.slider("Master Volume", 0.5, 3.0, 1.2, 0.1, help="Overall output amplification (1.2 = 20% boost - recommended for better audibility)")
     
+    # Audio normalization parameters
+    st.sidebar.subheader("🔧 Audio Normalization")
+    enable_normalization = st.sidebar.checkbox("Enable Smart Normalization", value=True, help="Apply intelligent volume normalization for consistent audio levels")
+    if enable_normalization:
+        target_lufs = st.sidebar.slider("Target Loudness (LUFS)", -30.0, -10.0, -18.0, 1.0, help="Target loudness level (-18 LUFS is good for voice)")
+        
     # Diarization parameters
     st.sidebar.subheader("👥 Speaker Diarization Parameters")
     min_duration_off = st.sidebar.slider(
@@ -749,6 +755,8 @@ def main():
                 'voice_volume': voice_volume,
                 'background_volume': background_volume,
                 'master_volume': master_volume,
+                'enable_normalization': enable_normalization,
+                'target_lufs': target_lufs if enable_normalization else -18.0,
                 'min_duration_off': min_duration_off,
                 'clustering_method': clustering_method,
                 'min_cluster_size': min_cluster_size,

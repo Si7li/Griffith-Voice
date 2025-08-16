@@ -73,11 +73,11 @@ def main():
     # Initialize audio transcriber
     audio_transcriber = AudioTranscriber("small")
     # Transcribe audio segments
-    transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language="ja",read_from_cache=False,cache_path="caches/transcribed_segments.pkl")
+    transcribed_segments = audio_transcriber.transcribe_folder(segments_folder="outputs/audio_segments",diarization_data=diarization, language="en",read_from_cache=False,cache_path="caches/transcribed_segments.pkl")
     # Initialize audio translator
     segments_translator = SegmentsTranslator()
     # Translate audio segments
-    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments,diarization_essensials=diarization , source_lang="ja", target_lang="en", read_from_cache=False, cache_path="caches/translation.pkl")
+    translated_segments = segments_translator.translate_segments(transcribed_segments=transcribed_segments,diarization_essensials=diarization , source_lang="en", target_lang="ja", read_from_cache=False, cache_path="caches/translation.pkl")
     # Initialize segments sampler
     segments_sampler = SegmentsSampler("outputs/audio_segments", "outputs/voice_samples")
     # Get a sample per speaker for voice-cloning
@@ -95,8 +95,8 @@ def main():
         top_p=0.7,
         temperature=1,
         speed=1.1,
-        prompt_language="ja",
-        target_language="en",
+        prompt_language="en",
+        target_language="ja",
         read_from_cache=False,
         cache_path="caches/synthesis_results.pkl")
     

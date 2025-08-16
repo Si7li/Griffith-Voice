@@ -1,343 +1,168 @@
 {
+  "SPEAKER_00": [
+    {
+      "text": "Here's what's going to happen. I'm going to have to fix you. Manage you to on a more personal scale. A more micro form of management. Jim, what is that called? Micro Jimmett. Boom. Yes. Now Jim is going to be the client. Dwight, you're going to have to sell to him without being aggressive, hostile, or difficult. Let's go. Alright, fine.",
+      "language": "en",
+      "file": "SPEAKER_00_seg0.wav",
+      "segment_num": 0,
+      "start": 0.03096875,
+      "end": 23.672843750000002,
+      "confidence": 0.6215575278342307
+    },
+    {
+      "text": "Prrrring! Prring!",
+      "language": "en",
+      "file": "SPEAKER_00_seg1.wav",
+      "segment_num": 1,
+      "start": 24.820343750000003,
+      "end": 25.934093750000002,
+      "confidence": 0.23426334063212073
+    },
+    {
+      "text": "Hello? Hello, this is Dwight Schrute from the Dundermifflin Paper Company. Well, that's great, because I need paper. Excellent, then you are in luck, because we are having a limited time offer only on everything. Wow, this is my lucky day. Ask him his name. What is your name, sir? I am Bill Butlerger.",
+      "language": "en",
+      "file": "SPEAKER_00_seg2.wav",
+      "segment_num": 2,
+      "start": 27.13221875,
+      "end": 41.79659375,
+      "confidence": 0.6635298780215683
+    },
+    {
+      "text": "Really, that's your real name?",
+      "language": "en",
+      "file": "SPEAKER_00_seg3.wav",
+      "segment_num": 3,
+      "start": 43.517843750000004,
+      "end": 44.54721875,
+      "confidence": 0.5698601115833629
+    },
+    {
+      "text": "dare you",
+      "language": "en",
+      "file": "SPEAKER_00_seg4.wav",
+      "segment_num": 4,
+      "start": 45.69471875,
+      "end": 46.38659375,
+      "confidence": 0.3780713558197022
+    },
+    {
+      "text": "My family built this country, by the way. Be respectful, Dwight, please. Yes, Michael. Could you hold on one second? That's my other one. What? No, but I... Hello?",
+      "language": "en",
+      "file": "SPEAKER_00_seg5.wav",
+      "segment_num": 5,
+      "start": 47.28096875,
+      "end": 54.75659375,
+      "confidence": 0.6514834419625705
+    },
+    {
+      "text": "Yeah. Ha ha. Now I'm just on the phone with this stupid salesman. He's so dumb. Probably just going to keep him on the line forever and not buy anything. Ha ha.",
+      "language": "en",
+      "file": "SPEAKER_00_seg6.wav",
+      "segment_num": 6,
+      "start": 55.60034375,
+      "end": 64.45971875000001,
+      "confidence": 0.5126285212380546
+    },
+    {
+      "text": "Okay. It's up to you to change his mind. Sorry. That was a family emergency. Oh no, what's wrong? You know what? That's private. Boundaries Dwight, come on! I'm sorry, Mr. Butler. As I was saying, we are having a limited to- We are having a limited to- A little bit louder, I'm hard of hearing. He's hard if he's an old man. Okay. As I was saying, right now we are having- Yeah, let's talk louder. Okay. Our prices have never been lower. Son, you have to talk louder. Never been lower! Louder, son! Butler! Our prices have never been lower! Stop, stop, stop!",
+      "language": "en",
+      "file": "SPEAKER_00_seg7.wav",
+      "segment_num": 7,
+      "start": 65.53971875,
+      "end": 93.16409375,
+      "confidence": 0.6923014135921703
+    },
+    {
+      "text": "Never yell at the client. You never yell at the client. Now you listen to me, sir. Here we go. The three words I would describe you as is aggressive, hostile, and definitely difficult. Give me the phone. I'm I rate right now. Give me the phone. Please give me another chance. Give me the phone. Mr. Butlerker. Give me the phone. I have to put you on with my boss. Well, I should hope so. Who is this? Hello, this is Michael Scott, regional manager. Well, this is William M. Butlerker. Hello, Mr. Butlerker. How may we help you?",
+      "language": "en",
+      "file": "SPEAKER_00_seg9.wav",
+      "segment_num": 9,
+      "start": 97.45034375,
+      "end": 121.69971875,
+      "confidence": 0.7021039472307478
+    },
+    {
+      "text": "Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today.",
+      "language": "en",
+      "file": "SPEAKER_00_seg10.wav",
+      "segment_num": 10,
+      "start": 122.54346875,
+      "end": 127.55534375,
+      "confidence": 0.8155478929218493
+    },
+    {
+      "text": "See, that's done. Thank you very much, sir. I don't think you'll regret it. You're the master. There is one condition, Michael. Yes. You have to fire the salesman that treated me so terribly. Don't do it, Michael.",
+      "language": "en",
+      "file": "SPEAKER_00_seg11.wav",
+      "segment_num": 11,
+      "start": 129.83346875,
+      "end": 140.00909375,
+      "confidence": 0.6971827990388217
+    }
+  ],
   "SPEAKER_01": [
     {
-      "text": "何も分かっていなかった",
-      "language": "ja",
-      "file": "SPEAKER_01_seg0.wav",
-      "segment_num": 0,
-      "start": 1.00971875,
-      "end": 2.44409375,
-      "confidence": 0.6327843232588335
-    },
-    {
-      "text": "これが自由の代償だとわかっていたなら",
-      "language": "ja",
+      "text": "We are having a limited-",
+      "language": "en",
       "file": "SPEAKER_01_seg1.wav",
       "segment_num": 1,
-      "start": 3.8953437500000003,
-      "end": 6.122843750000001,
-      "confidence": 0.6412678360939026
+      "start": 77.75721875,
+      "end": 78.78659375000001,
+      "confidence": 0.46492841508653426
     },
     {
-      "text": "腹はなかった",
-      "language": "ja",
+      "text": "Okay.",
+      "language": "en",
       "file": "SPEAKER_01_seg2.wav",
       "segment_num": 2,
-      "start": 6.93284375,
-      "end": 7.709093750000001,
-      "confidence": 0.6155514419078827
-    }
-  ],
-  "SPEAKER_02": [
-    {
-      "text": "あって",
-      "language": "ja",
-      "file": "SPEAKER_02_seg0.wav",
-      "segment_num": 0,
-      "start": 13.716593750000001,
-      "end": 14.05409375,
-      "confidence": 0.22626724243164065
+      "start": 81.58784375,
+      "end": 81.73971875000001,
+      "confidence": 0.4581337451934815
     },
     {
-      "text": "戦え!",
-      "language": "ja",
-      "file": "SPEAKER_02_seg1.wav",
-      "segment_num": 1,
-      "start": 15.10034375,
-      "end": 15.707843750000002,
-      "confidence": 0.31086594717843197
-    },
-    {
-      "text": "エルディアに自由と尊厳を取り戻すために",
-      "language": "ja",
-      "file": "SPEAKER_02_seg2.wav",
-      "segment_num": 2,
-      "start": 18.25596875,
-      "end": 21.02346875,
-      "confidence": 0.8444123060806938
-    },
-    {
-      "text": "たて!",
-      "language": "ja",
-      "file": "SPEAKER_02_seg3.wav",
+      "text": "Now we're having-",
+      "language": "en",
+      "file": "SPEAKER_01_seg3.wav",
       "segment_num": 3,
-      "start": 21.934718750000002,
-      "end": 22.356593750000002,
-      "confidence": 0.24245079358418786
+      "start": 83.30909375,
+      "end": 84.13596875,
+      "confidence": 0.14360177516937256
     },
     {
-      "text": "も",
-      "language": "ja",
-      "file": "SPEAKER_02_seg5.wav",
+      "text": "Louder!",
+      "language": "en",
+      "file": "SPEAKER_01_seg5.wav",
       "segment_num": 5,
-      "start": 25.63034375,
-      "end": 26.085968750000003,
-      "confidence": 0.1084631085395813
+      "start": 88.47284375000001,
+      "end": 89.19846875,
+      "confidence": 0.28220677375793457
     },
     {
-      "text": "見ろ お前の家から持ってきた",
-      "language": "ja",
-      "file": "SPEAKER_02_seg6.wav",
+      "text": "Now you listen to-",
+      "language": "en",
+      "file": "SPEAKER_01_seg6.wav",
       "segment_num": 6,
-      "start": 29.71409375,
-      "end": 32.21159375,
-      "confidence": 0.5770787092355582
+      "start": 98.71596875,
+      "end": 99.42471875000001,
+      "confidence": 0.1323879361152649
     },
     {
-      "text": "見られない、立てない、戦えない、弾もないか",
-      "language": "ja",
-      "file": "SPEAKER_02_seg7.wav",
-      "segment_num": 7,
-      "start": 36.53159375,
-      "end": 40.73346875,
-      "confidence": 0.6992032414390927
-    },
-    {
-      "text": "まあれに強制されたか",
-      "language": "ja",
-      "file": "SPEAKER_02_seg8.wav",
+      "text": "Please, Mr. Pymite rate right now. Give me the phone. Give me the phone.",
+      "language": "en",
+      "file": "SPEAKER_01_seg8.wav",
       "segment_num": 8,
-      "start": 41.610968750000005,
-      "end": 43.11284375,
-      "confidence": 0.38023103367198596
+      "start": 106.59659375000001,
+      "end": 110.59596875000001,
+      "confidence": 0.3844895729651818
     },
     {
-      "text": "それで十分だ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg10.wav",
-      "segment_num": 10,
-      "start": 53.946593750000005,
-      "end": 55.313468750000006,
-      "confidence": 0.40507159914289204
-    },
-    {
-      "text": "お前を選んだ一番の理由は",
-      "language": "ja",
-      "file": "SPEAKER_02_seg11.wav",
-      "segment_num": 11,
-      "start": 57.25409375,
-      "end": 59.27909375,
-      "confidence": 0.804631301334926
-    },
-    {
-      "text": "お前があの日壁の外に出たからだ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg12.wav",
-      "segment_num": 12,
-      "start": 59.88659375,
-      "end": 62.14784375000001,
-      "confidence": 0.7972289253683651
-    },
-    {
-      "text": "あの日、お前が妹を連れて壁の外に出ていなければ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg13.wav",
-      "segment_num": 13,
-      "start": 63.80159375,
-      "end": 67.29471875,
-      "confidence": 0.8200303514798483
-    },
-    {
-      "text": "いずれ父親の心療状を継ぎ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg14.wav",
-      "segment_num": 14,
-      "start": 68.23971875000001,
-      "end": 70.33221875000001,
-      "confidence": 0.6381115383572049
-    },
-    {
-      "text": "大人になった妹は結婚し",
-      "language": "ja",
-      "file": "SPEAKER_02_seg15.wav",
-      "segment_num": 15,
-      "start": 70.95659375000001,
-      "end": 72.89721875000001,
-      "confidence": 0.7958542750431941
-    },
-    {
-      "text": "子どもを生んでいたかもしれない",
-      "language": "ja",
-      "file": "SPEAKER_02_seg16.wav",
-      "segment_num": 16,
-      "start": 73.55534375,
-      "end": 75.22596875,
-      "confidence": 0.6346680323282878
-    },
-    {
-      "text": "だがお前は壁の外に出た",
-      "language": "ja",
-      "file": "SPEAKER_02_seg17.wav",
-      "segment_num": 17,
-      "start": 76.08659375,
-      "end": 78.22971875,
-      "confidence": 0.726160208384196
-    },
-    {
-      "text": "俺はここで初めて同法を経落した光",
-      "language": "ja",
-      "file": "SPEAKER_02_seg18.wav",
-      "segment_num": 18,
-      "start": 79.83284375000001,
-      "end": 82.85346875,
-      "confidence": 0.49597891639260683
-    },
-    {
-      "text": "お前は妹を連れて壁の外に出た日から",
-      "language": "ja",
-      "file": "SPEAKER_02_seg19.wav",
-      "segment_num": 19,
-      "start": 83.78159375,
-      "end": 86.65034375,
-      "confidence": 0.8056894227078086
-    },
-    {
-      "text": "その行いが報われる日まで進み続けるんだ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg20.wav",
-      "segment_num": 20,
-      "start": 87.47721875,
-      "end": 90.91971875,
-      "confidence": 0.7548372324775248
-    },
-    {
-      "text": "死んでも",
-      "language": "ja",
-      "file": "SPEAKER_02_seg21.wav",
-      "segment_num": 21,
-      "start": 91.86471875000001,
-      "end": 92.50596875000001,
-      "confidence": 0.43590144316355384
-    },
-    {
-      "text": "死んだあとも",
-      "language": "ja",
-      "file": "SPEAKER_02_seg22.wav",
-      "segment_num": 22,
-      "start": 93.04596875,
-      "end": 94.24409375,
-      "confidence": 0.4299163137163434
-    },
-    {
-      "text": "ここのつの巨人には それぞれ名前がある",
-      "language": "ja",
-      "file": "SPEAKER_02_seg23.wav",
-      "segment_num": 23,
-      "start": 117.43034375,
-      "end": 120.75471875000001,
-      "confidence": 0.6333276960584853
-    },
-    {
-      "text": "これからお前へ継承される巨人にもだ",
-      "language": "ja",
-      "file": "SPEAKER_02_seg24.wav",
-      "segment_num": 24,
-      "start": 121.66596875,
-      "end": 124.28159375000001,
-      "confidence": 0.7649589300155639
-    },
-    {
-      "text": "その巨人は",
-      "language": "ja",
-      "file": "SPEAKER_02_seg25.wav",
-      "segment_num": 25,
-      "start": 125.91846875,
-      "end": 126.91409375,
-      "confidence": 0.710873931646347
-    },
-    {
-      "text": "いついかなる時代においても",
-      "language": "ja",
-      "file": "SPEAKER_02_seg26.wav",
-      "segment_num": 26,
-      "start": 127.52159375000001,
-      "end": 129.31034375000002,
-      "confidence": 0.7373653741983267
-    },
-    {
-      "text": "自由を求めて進み続けた",
-      "language": "ja",
-      "file": "SPEAKER_02_seg27.wav",
-      "segment_num": 27,
-      "start": 130.27221875,
-      "end": 133.03971875000002,
-      "confidence": 0.7068693041801453
-    },
-    {
-      "text": "自由のために",
-      "language": "ja",
-      "file": "SPEAKER_02_seg28.wav",
-      "segment_num": 28,
-      "start": 134.27159375000002,
-      "end": 135.36846875,
-      "confidence": 0.5837968417576381
-    },
-    {
-      "text": "戦った",
-      "language": "ja",
-      "file": "SPEAKER_02_seg29.wav",
-      "segment_num": 29,
-      "start": 135.90846875,
-      "end": 136.60034375,
-      "confidence": 0.45096222559611
-    }
-  ],
-  "SPEAKER_03": [
-    {
-      "text": "俺に憎しみを思い出させようとしても無駄だ",
-      "language": "ja",
-      "file": "SPEAKER_03_seg0.wav",
-      "segment_num": 0,
-      "start": 44.00721875,
-      "end": 46.82534375,
-      "confidence": 0.8388981197191321
-    },
-    {
-      "text": "俺に残されたのは",
-      "language": "ja",
-      "file": "SPEAKER_03_seg1.wav",
-      "segment_num": 1,
-      "start": 48.32721875,
-      "end": 49.57596875,
-      "confidence": 0.6450628042221069
-    }
-  ],
-  "SPEAKER_04": [
-    {
-      "text": "これは",
-      "language": "ja",
-      "file": "SPEAKER_04_seg0.wav",
-      "segment_num": 0,
-      "start": 99.81284375000001,
-      "end": 100.48784375000001,
-      "confidence": 0.3311924934387207
-    },
-    {
-      "text": "お前が始めた物語だろ",
-      "language": "ja",
-      "file": "SPEAKER_04_seg1.wav",
-      "segment_num": 1,
-      "start": 102.58034375000001,
-      "end": 104.82471875,
-      "confidence": 0.7074146087353046
-    },
-    {
-      "text": "なわ",
-      "language": "ja",
-      "file": "SPEAKER_04_seg2.wav",
-      "segment_num": 2,
-      "start": 139.31721875,
-      "end": 139.87409375000001,
-      "confidence": 0.4238949298858643
-    },
-    {
-      "text": "進撃の巨人",
-      "language": "ja",
-      "file": "SPEAKER_04_seg3.wav",
-      "segment_num": 3,
-      "start": 141.24096875,
-      "end": 142.55721875,
-      "confidence": 0.6052270889282226
+      "text": "You are the master.",
+      "language": "en",
+      "file": "SPEAKER_01_seg9.wav",
+      "segment_num": 9,
+      "start": 134.18721875,
+      "end": 135.35159375,
+      "confidence": 0.2922159433364868
     }
   ]
 }

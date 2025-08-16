@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 import glob
 from utils import save_cache, read_cache, cleanup_gpu_memory
+from utils.audio_normalizer import AudioVolumeNormalizer
 
 def force_cleanup_gpt_sovits():
     """Force cleanup of GPT-SoVITS models - aggressive cleanup for maximum memory savings"""
@@ -75,6 +76,9 @@ class TranslationsSynthensizer:
         # Default model paths (relative to GPT-SoVITS directory)
         self.gpt_model_path = gpt_model_path or "GPT_SoVITS/pretrained_models/s1v3.ckpt"
         self.sovits_model_path = sovits_model_path or "GPT_SoVITS/pretrained_models/v2Pro/s2Gv2ProPlus.pth"
+        
+        # Initialize audio normalizer for consistent volume
+        self.audio_normalizer = AudioVolumeNormalizer(target_lufs=-20.0, peak_limit=-3.0)
         
         # Initialize GPT-SoVITS
         self._setup_gpt_sovits()
@@ -792,6 +796,9 @@ class TranslationsSynthensizer:
                 if result_list:
                     sampling_rate, audio_data = result_list[-1]
                     
+                    # Normalize audio for consistent volume
+                    audio_data = self.audio_normalizer.smart_normalize(audio_data, sampling_rate)
+                    
                     # Save individual chunk
                     sf.write(chunk_output_path, audio_data, sampling_rate)
                     chunk_audio_files.append(chunk_output_path)
@@ -805,7 +812,7 @@ class TranslationsSynthensizer:
                         silence = np.zeros(silence_samples, dtype=audio_data.dtype)
                         combined_audio = np.concatenate([combined_audio, silence, audio_data])
                     
-                    print(f"    ✓ Chunk {chunk_index + 1} synthesized")
+                    print(f"    ✓ Chunk {chunk_index + 1} synthesized and normalized")
                     
                 else:
                     print(f"    ✗ Failed to synthesize chunk {chunk_index + 1}")
@@ -817,6 +824,13 @@ class TranslationsSynthensizer:
         
         # Save combined audio file
         if combined_audio is not None:
+            # Final normalization of combined audio for consistency
+            combined_audio = self.audio_normalizer.smart_normalize(combined_audio, sampling_rate)
+            
+            # Get audio stats for debugging
+            stats = self.audio_normalizer.get_audio_stats(combined_audio, sampling_rate)
+            print(f"    📊 Final audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
+            
             final_output_path = os.path.join(speaker_output_dir, f"{speaker_id}_translated_seg{segment_num}.wav")
             sf.write(final_output_path, combined_audio, sampling_rate)
             
@@ -907,6 +921,13 @@ class TranslationsSynthensizer:
                     result_list = list(synthesis_result)
                     if result_list:
                         sampling_rate, audio_data = result_list[-1]
+                        
+                        # Normalize audio for consistent volume
+                        audio_data = self.audio_normalizer.smart_normalize(audio_data, sampling_rate)
+                        
+                        # Get audio stats for debugging
+                        stats = self.audio_normalizer.get_audio_stats(audio_data, sampling_rate)
+                        print(f"    📊 Audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
                         
                         output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
                         output_wav_path = os.path.join(speaker_output_dir, output_filename)

@@ -1,165 +1,95 @@
 {
-  "SPEAKER_01": {
-    "audio_path": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
-    "duration": 4.838,
-    "segments_count": 3,
-    "transcription": "何も分かっていなかった これが自由の代償だとわかっていたなら 腹はなかった",
-    "translation": "I didn't understand anything. If only I had known this was the price of freedom. I wasn't angry.",
-    "transcription_file": "outputs/voice_samples/SPEAKER_01_transcription.txt",
-    "translation_file": "outputs/voice_samples/SPEAKER_01_translation.txt",
-    "segment_details": [
-      {
-        "segment_num": 0,
-        "filename": "SPEAKER_01_seg0.wav",
-        "duration": 1.434,
-        "transcription": "何も分かっていなかった",
-        "translation": "I didn't understand anything.",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 1,
-        "filename": "SPEAKER_01_seg1.wav",
-        "duration": 2.228,
-        "transcription": "これが自由の代償だとわかっていたなら",
-        "translation": "If only I had known this was the price of freedom.",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 2,
-        "filename": "SPEAKER_01_seg2.wav",
-        "duration": 0.776,
-        "transcription": "腹はなかった",
-        "translation": "I wasn't angry.",
-        "quality_score": 220
-      }
-    ]
-  },
-  "SPEAKER_02": {
-    "audio_path": "outputs/voice_samples/SPEAKER_02_voice_sample.wav",
-    "duration": 8.866000000000001,
-    "segments_count": 5,
-    "transcription": "お前は妹を連れて壁の外に出た日から 死んだあとも 戦え! それで十分だ お前を選んだ一番の理由は",
-    "translation": "From the day you took your sister and went outside the wall, even after you die, Fight! That's enough. The main reason I chose you is...",
-    "transcription_file": "outputs/voice_samples/SPEAKER_02_transcription.txt",
-    "translation_file": "outputs/voice_samples/SPEAKER_02_translation.txt",
-    "segment_details": [
-      {
-        "segment_num": 19,
-        "filename": "SPEAKER_02_seg19.wav",
-        "duration": 2.869,
-        "transcription": "お前は妹を連れて壁の外に出た日から",
-        "translation": "From the day you took your sister and went outside the wall,",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 22,
-        "filename": "SPEAKER_02_seg22.wav",
-        "duration": 1.198,
-        "transcription": "死んだあとも",
-        "translation": "even after you die,",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 1,
-        "filename": "SPEAKER_02_seg1.wav",
-        "duration": 0.607,
-        "transcription": "戦え!",
-        "translation": "Fight!",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 10,
-        "filename": "SPEAKER_02_seg10.wav",
-        "duration": 1.367,
-        "transcription": "それで十分だ",
-        "translation": "That's enough.",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 11,
-        "filename": "SPEAKER_02_seg11.wav",
-        "duration": 2.025,
-        "transcription": "お前を選んだ一番の理由は",
-        "translation": "The main reason I chose you is...",
-        "quality_score": 250
-      }
-    ]
-  },
-  "SPEAKER_03": {
-    "audio_path": "outputs/voice_samples/SPEAKER_03_voice_sample.wav",
-    "duration": 5.1080000000000005,
-    "segments_count": 3,
-    "transcription": "俺に憎しみを思い出させようとしても無駄だ 俺に残されたのは",
-    "translation": "It's useless to try and make me remember hatred. What was left for me was...",
-    "transcription_file": "outputs/voice_samples/SPEAKER_03_transcription.txt",
-    "translation_file": "outputs/voice_samples/SPEAKER_03_translation.txt",
-    "segment_details": [
-      {
-        "segment_num": 0,
-        "filename": "SPEAKER_03_seg0.wav",
-        "duration": 2.818,
-        "transcription": "俺に憎しみを思い出させようとしても無駄だ",
-        "translation": "It's useless to try and make me remember hatred.",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 1,
-        "filename": "SPEAKER_03_seg1.wav",
-        "duration": 1.249,
-        "transcription": "俺に残されたのは",
-        "translation": "What was left for me was...",
-        "quality_score": 250
-      },
-      {
-        "segment_num": 2,
-        "filename": "SPEAKER_03_seg2.wav",
-        "duration": 0.641,
-        "transcription": "",
-        "translation": "",
-        "quality_score": 190
-      }
-    ]
-  },
-  "SPEAKER_04": {
-    "audio_path": "outputs/voice_samples/SPEAKER_04_voice_sample.wav",
-    "duration": 5.392000000000001,
+  "SPEAKER_00": {
+    "audio_path": "outputs/voice_samples/SPEAKER_00_voice_sample.wav",
+    "duration": 8.447,
     "segments_count": 4,
-    "transcription": "お前が始めた物語だろ 進撃の巨人 これは なわ",
-    "translation": "This is the story you started, isn't it? Attack on Titan This is Indeed.",
-    "transcription_file": "outputs/voice_samples/SPEAKER_04_transcription.txt",
-    "translation_file": "outputs/voice_samples/SPEAKER_04_translation.txt",
+    "transcription": "Prrrring! Prring! Really, that's your real name? Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today. dare you",
+    "translation": "プルルルル！プルルル！ 本当に、それが本名ですか？ マイケル、君の声はいい響きだ。何をするか分かるかい？今日、100万ドル分の紙製品を買うよ。 よくも。",
+    "transcription_file": "outputs/voice_samples/SPEAKER_00_transcription.txt",
+    "translation_file": "outputs/voice_samples/SPEAKER_00_translation.txt",
     "segment_details": [
       {
         "segment_num": 1,
-        "filename": "SPEAKER_04_seg1.wav",
-        "duration": 2.244,
-        "transcription": "お前が始めた物語だろ",
-        "translation": "This is the story you started, isn't it?",
+        "filename": "SPEAKER_00_seg1.wav",
+        "duration": 1.114,
+        "transcription": "Prrrring! Prring!",
+        "translation": "プルルルル！プルルル！",
         "quality_score": 280
       },
       {
         "segment_num": 3,
-        "filename": "SPEAKER_04_seg3.wav",
-        "duration": 1.316,
-        "transcription": "進撃の巨人",
-        "translation": "Attack on Titan",
+        "filename": "SPEAKER_00_seg3.wav",
+        "duration": 1.029,
+        "transcription": "Really, that's your real name?",
+        "translation": "本当に、それが本名ですか？",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 10,
+        "filename": "SPEAKER_00_seg10.wav",
+        "duration": 5.012,
+        "transcription": "Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today.",
+        "translation": "マイケル、君の声はいい響きだ。何をするか分かるかい？今日、100万ドル分の紙製品を買うよ。",
+        "quality_score": 260
+      },
+      {
+        "segment_num": 4,
+        "filename": "SPEAKER_00_seg4.wav",
+        "duration": 0.692,
+        "transcription": "dare you",
+        "translation": "よくも。",
+        "quality_score": 250
+      }
+    ]
+  },
+  "SPEAKER_01": {
+    "audio_path": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
+    "duration": 8.612,
+    "segments_count": 5,
+    "transcription": "We are having a limited- Please, Mr. Pymite rate right now. Give me the phone. Give me the phone. You are the master. Now we're having-",
+    "translation": "今、限定で… お願い、パイマイトさん、今すぐ評価して。電話をよこせ。電話をよこせ。 あなたがマスターだ。 今、やっている…",
+    "transcription_file": "outputs/voice_samples/SPEAKER_01_transcription.txt",
+    "translation_file": "outputs/voice_samples/SPEAKER_01_translation.txt",
+    "segment_details": [
+      {
+        "segment_num": 1,
+        "filename": "SPEAKER_01_seg1.wav",
+        "duration": 1.029,
+        "transcription": "We are having a limited-",
+        "translation": "今、限定で…",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 8,
+        "filename": "SPEAKER_01_seg8.wav",
+        "duration": 3.999,
+        "transcription": "Please, Mr. Pymite rate right now. Give me the phone. Give me the phone.",
+        "translation": "お願い、パイマイトさん、今すぐ評価して。電話をよこせ。電話をよこせ。",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 9,
+        "filename": "SPEAKER_01_seg9.wav",
+        "duration": 1.164,
+        "transcription": "You are the master.",
+        "translation": "あなたがマスターだ。",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 3,
+        "filename": "SPEAKER_01_seg3.wav",
+        "duration": 0.827,
+        "transcription": "Now we're having-",
+        "translation": "今、やっている…",
         "quality_score": 250
       },
       {
-        "segment_num": 0,
-        "filename": "SPEAKER_04_seg0.wav",
-        "duration": 0.675,
-        "transcription": "これは",
-        "translation": "This is",
-        "quality_score": 220
-      },
-      {
-        "segment_num": 2,
-        "filename": "SPEAKER_04_seg2.wav",
-        "duration": 0.557,
-        "transcription": "なわ",
-        "translation": "Indeed.",
-        "quality_score": 220
+        "segment_num": 4,
+        "filename": "SPEAKER_01_seg4.wav",
+        "duration": 0.793,
+        "transcription": "",
+        "translation": "",
+        "quality_score": 250
       }
     ]
   }

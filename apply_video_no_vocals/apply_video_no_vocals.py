@@ -23,7 +23,7 @@ class VideoNoVocalsApplier:
             background_volume (float): Volume multiplier for background (0.3 = 30% of original)
             master_volume (float): Overall amplification after mixing (1.2 = 20% boost)
         """
-        print(f"🎵 Mixing audio: Voice={voice_volume}x, Background={background_volume}x, Master={master_volume}x")
+        print(f"Mixing audio: Voice={voice_volume}x, Background={background_volume}x, Master={master_volume}x")
         
         # Create volume-adjusted inputs
         voice_input = ffmpeg.input(self.final_translated_audio).filter('volume', voice_volume)
@@ -50,7 +50,7 @@ class VideoNoVocalsApplier:
         )
         
         # Apply final volume consistency check and normalization if needed
-        print("🔧 Applying final volume consistency check...")
+        print("Applying final volume consistency check...")
         normalized_path = self.audio_normalizer.normalize_file(output_path)
         print(f"✓ Mixed audio normalized: {normalized_path}")
         

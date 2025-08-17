@@ -174,7 +174,7 @@ class AudioAssembler:
                 print(f"✓ Audio assembled successfully: {output_path}")
                 
                 # Apply final normalization to the assembled audio
-                print("🔧 Applying final volume normalization...")
+                print("Applying final volume normalization...")
                 normalized_path = self.audio_normalizer.normalize_file(output_path)
                 print(f"✓ Audio normalized: {normalized_path}")
                 

@@ -2,6 +2,8 @@ import warnings
 import os
 import sys
 
+from utils import clear_output_directories 
+
 # Suppress common ML library warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="streamlit")
 warnings.filterwarnings("ignore", category=UserWarning, message=".*torchaudio.*")
@@ -353,41 +355,6 @@ def cleanup_temp_files():
                 except OSError:
                     pass  # Directory might be in use
 
-def clear_output_directories():
-    """Clear all output directories before processing a new video"""
-    import shutil
-    
-    output_dirs = [
-        "outputs",
-        "outputs/audio_segments", 
-        "outputs/voice_samples",
-        "outputs/translated_outputs"
-    ]
-    
-    print("🧹 Clearing output directories...")
-    
-    for dir_path in output_dirs:
-        if os.path.exists(dir_path):
-            try:
-                # Remove all contents but keep the directory
-                for item in os.listdir(dir_path):
-                    item_path = os.path.join(dir_path, item)
-                    if os.path.isdir(item_path):
-                        shutil.rmtree(item_path)
-                    else:
-                        os.remove(item_path)
-                print(f"  ✅ Cleared: {dir_path}")
-            except Exception as e:
-                print(f"  ⚠️ Could not clear {dir_path}: {e}")
-        else:
-            # Create directory if it doesn't exist
-            try:
-                os.makedirs(dir_path, exist_ok=True)
-                print(f"  📁 Created: {dir_path}")
-            except Exception as e:
-                print(f"  ⚠️ Could not create {dir_path}: {e}")
-    
-    print("🧹 Output directories cleared!")
 
 def main():
     cleanup_temp_files()
@@ -852,9 +819,5 @@ def main():
         Then restart the web interface.
         """)
     
-    # Footer
-#    st.markdown("---")
-#    st.markdown("Built with ❤️ using Streamlit • Powered by Whisper, GPT-SoVITS, and pyannote.audio")
-
 if __name__ == "__main__":
     main()

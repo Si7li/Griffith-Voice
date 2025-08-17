@@ -42,7 +42,7 @@ def force_cleanup_gpt_sovits():
                                     model = model.to('cpu')
                                 del model
                             setattr(inference_webui, var_name, None)
-                            print(f"🧹 Force cleared {var_name}")
+                            print(f"Force cleared {var_name}")
                         except Exception as e:
                             print(f"Warning force clearing {var_name}: {e}")
                             try:
@@ -63,7 +63,7 @@ def force_cleanup_gpt_sovits():
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
                 
-        print("🧹 Aggressive force cleanup of GPT-SoVITS completed")
+        print("Aggressive force cleanup of GPT-SoVITS completed")
         
     except Exception as e:
         print(f"Force cleanup failed: {e}")
@@ -102,12 +102,12 @@ class TranslationsSynthensizer:
         # Import GPT-SoVITS modules directly
         from tools.i18n.i18n import I18nAuto
         
-        print("🔄 Importing GPT-SoVITS inference functions...")
+        print("Importing GPT-SoVITS inference functions...")
         try:
             from GPT_SoVITS.inference_webui import change_gpt_weights, change_sovits_weights, get_tts_wav
-            print("✅ Successfully imported inference functions")
+            print("Successfully imported inference functions")
         except Exception as e:
-            print(f"❌ Failed to import inference functions: {e}")
+            print(f"Failed to import inference functions: {e}")
             raise
 
         # Store the imports for later use
@@ -123,17 +123,17 @@ class TranslationsSynthensizer:
         
         # Load models once
         print("Loading GPT-SoVITS models...")
-        print(f"🔄 GPT model path: {self.gpt_model_path}")
-        print(f"🔄 SoVITS model path: {self.sovits_model_path}")
+        print(f"GPT model path: {self.gpt_model_path}")
+        print(f"SoVITS model path: {self.sovits_model_path}")
         
         # Change back to GPT-SoVITS directory for loading
         os.chdir(self.gpt_sovits_path)
         try:
-            print(f"🔄 Loading GPT model: {self.gpt_model_path}")
+            print(f"Loading GPT model: {self.gpt_model_path}")
             gpt_result = self.change_gpt_weights(gpt_path=self.gpt_model_path)
-            print(f"🔄 Initial GPT load result: {type(gpt_result)}")
+            print(f"Initial GPT load result: {type(gpt_result)}")
             
-            print(f"🔄 Loading SoVITS model: {self.sovits_model_path}")
+            print(f"Loading SoVITS model: {self.sovits_model_path}")
             # SoVITS function is a generator, consume it properly
             sovits_generator = self.change_sovits_weights(
                 sovits_path=self.sovits_model_path,
@@ -145,7 +145,7 @@ class TranslationsSynthensizer:
                 for result in sovits_generator:
                     sovits_results.append(result)
             except Exception as e:
-                print(f"🔄 SoVITS generator completed: {e}")
+                print(f"SoVITS generator completed: {e}")
             
             print("Models loaded successfully!")
         finally:
@@ -155,23 +155,23 @@ class TranslationsSynthensizer:
         """Verify that the model files actually exist on disk"""
         import os
         
-        print("🔍 Verifying model files exist...")
+        print("Verifying model files exist...")
         
         # Convert relative paths to absolute paths from GPT-SoVITS directory
         gpt_full_path = os.path.join(self.gpt_sovits_path, self.gpt_model_path)
         sovits_full_path = os.path.join(self.gpt_sovits_path, self.sovits_model_path)
         
         if not os.path.exists(gpt_full_path):
-            print(f"❌ GPT model file not found: {gpt_full_path}")
+            print(f"GPT model file not found: {gpt_full_path}")
             return False
         else:
-            print(f"✅ GPT model file exists: {gpt_full_path}")
+            print(f"GPT model file exists: {gpt_full_path}")
             
         if not os.path.exists(sovits_full_path):
-            print(f"❌ SoVITS model file not found: {sovits_full_path}")
+            print(f"SoVITS model file not found: {sovits_full_path}")
             return False
         else:
-            print(f"✅ SoVITS model file exists: {sovits_full_path}")
+            print(f"SoVITS model file exists: {sovits_full_path}")
             
         return True
     
@@ -185,7 +185,7 @@ class TranslationsSynthensizer:
             need_ssl = not (hasattr(inference_webui, 'ssl_model') and inference_webui.ssl_model is not None)
             
             if need_bert or need_ssl:
-                print(f"🔄 Manually loading missing models: BERT={need_bert}, SSL={need_ssl}")
+                print(f"Manually loading missing models: BERT={need_bert}, SSL={need_ssl}")
                 
                 # Change to GPT-SoVITS directory for loading
                 original_cwd = os.getcwd()
@@ -204,42 +204,42 @@ class TranslationsSynthensizer:
                     # Load BERT model if needed
                     if need_bert:
                         bert_path = os.environ.get("bert_path", "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large")
-                        print(f"🔄 Loading BERT model from: {bert_path}")
+                        print(f"Loading BERT model from: {bert_path}")
                         
                         if not hasattr(inference_webui, 'tokenizer') or inference_webui.tokenizer is None:
                             inference_webui.tokenizer = AutoTokenizer.from_pretrained(bert_path)
-                            print("✅ Tokenizer loaded")
+                            print("Tokenizer loaded")
                         
                         inference_webui.bert_model = AutoModelForMaskedLM.from_pretrained(bert_path)
                         if is_half:
                             inference_webui.bert_model = inference_webui.bert_model.half().to(device)
                         else:
                             inference_webui.bert_model = inference_webui.bert_model.to(device)
-                        print("✅ BERT model loaded")
+                        print("BERT model loaded")
                     
                     # Load SSL model if needed
                     if need_ssl:
-                        print("🔄 Loading SSL model...")
+                        print("Loading SSL model...")
                         inference_webui.ssl_model = cnhubert.get_model()
                         if is_half:
                             inference_webui.ssl_model = inference_webui.ssl_model.half().to(device)
                         else:
                             inference_webui.ssl_model = inference_webui.ssl_model.to(device)
-                        print("✅ SSL model loaded")
+                        print("SSL model loaded")
                         
                     return True
                     
                 except Exception as e:
-                    print(f"❌ Error manually loading models: {e}")
+                    print(f"Error manually loading models: {e}")
                     return False
                 finally:
                     os.chdir(original_cwd)
             else:
-                print("✅ BERT and SSL models already loaded")
+                print("BERT and SSL models already loaded")
                 return True
                 
         except Exception as e:
-            print(f"❌ Error in manual model loading: {e}")
+            print(f"Error in manual model loading: {e}")
             return False
     
     def ensure_models_loaded(self):
@@ -247,7 +247,7 @@ class TranslationsSynthensizer:
         
         # First verify model files exist
         if not self._verify_model_files_exist():
-            print("❌ Model files missing, cannot reload models")
+            print("Model files missing, cannot reload models")
             return
             
         try:
@@ -267,27 +267,27 @@ class TranslationsSynthensizer:
                     missing_models.append(model_name)
             
             if missing_models:
-                print(f"🔄 Missing models: {', '.join(missing_models)}")
-                print("🔄 Reloading all models...")
+                print(f"Missing models: {', '.join(missing_models)}")
+                print("Reloading all models...")
                 
                 # Debug: Check current working directory and available functions
-                print(f"🔍 Current working directory: {os.getcwd()}")
-                print(f"🔍 GPT-SoVITS path: {self.gpt_sovits_path}")
-                print(f"🔍 Available functions: change_gpt_weights={self.change_gpt_weights}, change_sovits_weights={self.change_sovits_weights}")
+                print(f"Current working directory: {os.getcwd()}")
+                print(f"GPT-SoVITS path: {self.gpt_sovits_path}")
+                print(f"Available functions: change_gpt_weights={self.change_gpt_weights}, change_sovits_weights={self.change_sovits_weights}")
                 
                 # Change to GPT-SoVITS directory for model loading
                 original_cwd = os.getcwd()
                 os.chdir(self.gpt_sovits_path)
-                print(f"🔍 Changed to directory: {os.getcwd()}")
+                print(f"Changed to directory: {os.getcwd()}")
                 
                 try:
                     # Reload both GPT and SoVITS models (this loads all necessary models)
                     # Make sure we're in the right directory context
-                    print(f"🔄 Loading GPT model from: {self.gpt_model_path}")
+                    print(f"Loading GPT model from: {self.gpt_model_path}")
                     gpt_result = self.change_gpt_weights(gpt_path=self.gpt_model_path)
-                    print(f"🔄 GPT model load result: {type(gpt_result)}")
+                    print(f"GPT model load result: {type(gpt_result)}")
                     
-                    print(f"🔄 Loading SoVITS model from: {self.sovits_model_path}")
+                    print(f"Loading SoVITS model from: {self.sovits_model_path}")
                     # The sovits function is a generator, so we need to consume it
                     # Also provide default language parameters to avoid the prompt_text_update error
                     sovits_generator = self.change_sovits_weights(
@@ -299,11 +299,11 @@ class TranslationsSynthensizer:
                     try:
                         for result in sovits_generator:
                             sovits_results.append(result)
-                            print(f"🔄 SoVITS generator yielded: {type(result)}")
+                            print(f"SoVITS generator yielded: {type(result)}")
                     except Exception as gen_e:
-                        print(f"🔄 SoVITS generator completed or error: {gen_e}")
+                        print(f"SoVITS generator completed or error: {gen_e}")
                     
-                    print("✅ Model loading functions called successfully!")
+                    print("Model loading functions called successfully!")
                     
                     # Give models a moment to load
                     import time
@@ -313,21 +313,21 @@ class TranslationsSynthensizer:
                     self._manually_load_bert_ssl_models()
                     
                     # Verify models are actually loaded after reload
-                    print("🔍 Verifying model state after reload...")
+                    print("Verifying model state after reload...")
                     for model_name in critical_models:
                         if hasattr(inference_webui, model_name):
                             model_value = getattr(inference_webui, model_name)
                             if model_value is None:
-                                print(f"⚠️ Warning: {model_name} is None after reload")
+                                print(f" Warning: {model_name} is None after reload")
                             else:
-                                print(f"✅ {model_name} successfully loaded (type: {type(model_value)})")
+                                print(f"{model_name} successfully loaded (type: {type(model_value)})")
                         else:
-                            print(f"⚠️ Warning: {model_name} attribute missing after reload")
+                            print(f" Warning: {model_name} attribute missing after reload")
                     
                 finally:
                     os.chdir(original_cwd)
             else:
-                print("✅ All critical models already loaded")
+                print("All critical models already loaded")
             
         except Exception as e:
             print(f"Warning: Could not check model status: {e}")
@@ -337,11 +337,11 @@ class TranslationsSynthensizer:
                 os.chdir(self.gpt_sovits_path)
                 
                 try:
-                    print(f"🔄 Emergency reload - GPT model: {self.gpt_model_path}")
+                    print(f"Emergency reload - GPT model: {self.gpt_model_path}")
                     gpt_result = self.change_gpt_weights(gpt_path=self.gpt_model_path)
-                    print(f"🔄 Emergency GPT result: {type(gpt_result)}")
+                    print(f"Emergency GPT result: {type(gpt_result)}")
                     
-                    print(f"🔄 Emergency reload - SoVITS model: {self.sovits_model_path}")
+                    print(f"Emergency reload - SoVITS model: {self.sovits_model_path}")
                     # Handle generator properly with default language parameters
                     sovits_generator = self.change_sovits_weights(
                         sovits_path=self.sovits_model_path,
@@ -352,9 +352,9 @@ class TranslationsSynthensizer:
                         for result in sovits_generator:
                             pass  # Just consume the generator
                     except Exception as gen_e:
-                        print(f"🔄 Emergency SoVITS generator: {gen_e}")
+                        print(f"Emergency SoVITS generator: {gen_e}")
                     
-                    print("✅ Emergency models reloaded!")
+                    print("Emergency models reloaded!")
                     
                     # Wait a bit and check again
                     import time
@@ -369,9 +369,9 @@ class TranslationsSynthensizer:
                             if hasattr(inference_webui, model_name):
                                 model_value = getattr(inference_webui, model_name)
                                 if model_value is None:
-                                    print(f"⚠️ Emergency check: {model_name} is still None")
+                                    print(f" Emergency check: {model_name} is still None")
                                 else:
-                                    print(f"✅ Emergency check: {model_name} loaded")
+                                    print(f"Emergency check: {model_name} loaded")
                     except Exception as check_e:
                         print(f"Could not verify emergency reload: {check_e}")
                         
@@ -381,7 +381,7 @@ class TranslationsSynthensizer:
                 print(f"Emergency reload failed: {reload_error}")
                 # Last resort - try to reinitialize everything
                 try:
-                    print("🔄 Attempting full reinitialization...")
+                    print("Attempting full reinitialization...")
                     self._setup_gpt_sovits()
                 except Exception as init_error:
                     print(f"Full reinitialization failed: {init_error}")
@@ -423,7 +423,7 @@ class TranslationsSynthensizer:
                                     model = model.to('cpu')
                                 del model
                             setattr(inference_webui, model_name, None)
-                            print(f"🧹 {model_name} cleared")
+                            print(f"{model_name} cleared")
                         except Exception as e:
                             print(f"Warning clearing {model_name}: {e}")
                             try:
@@ -445,7 +445,7 @@ class TranslationsSynthensizer:
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
                 
-            print("🧹 Conservative model cleanup completed (kept essential models loaded).")
+            print("Conservative model cleanup completed (kept essential models loaded).")
             
         except Exception as e:
             print(f"Warning: Model cleanup failed: {e}")
@@ -579,7 +579,7 @@ class TranslationsSynthensizer:
             import gc
             import torch
             
-            print("🧹 Performing aggressive final memory cleanup...")
+            print("Performing aggressive final memory cleanup...")
             
             # Change to GPT-SoVITS directory to access global variables
             original_cwd = os.getcwd()
@@ -605,9 +605,9 @@ class TranslationsSynthensizer:
                                     model = model.to('cpu')
                                 del model
                             setattr(inference_webui, model_name, None)
-                            print(f"  🧹 Final cleanup: {model_name} cleared")
+                            print(f"  Final cleanup: {model_name} cleared")
                         except Exception as e:
-                            print(f"  ⚠️ Warning clearing {model_name}: {e}")
+                            print(f"  Warning clearing {model_name}: {e}")
                             try:
                                 setattr(inference_webui, model_name, None)
                             except:
@@ -617,7 +617,7 @@ class TranslationsSynthensizer:
                 # 'hps', 'config', 'dict_language', 'tokenizer' - for next video
                         
             except Exception as e:
-                print(f"  ⚠️ Could not access GPT-SoVITS global variables: {e}")
+                print(f"   Could not access GPT-SoVITS global variables: {e}")
             
             # Change back to original directory
             os.chdir(original_cwd)
@@ -631,7 +631,7 @@ class TranslationsSynthensizer:
             for i in range(3):
                 collected = gc.collect()
                 if collected > 0:
-                    print(f"  🧹 GC round {i+1}: Collected {collected} objects")
+                    print(f"  GC round {i+1}: Collected {collected} objects")
             
             # Multiple GPU cache clears
             if torch.cuda.is_available():
@@ -643,7 +643,7 @@ class TranslationsSynthensizer:
                 try:
                     memory_allocated = torch.cuda.memory_allocated() / 1024**3  # GB
                     memory_reserved = torch.cuda.memory_reserved() / 1024**3    # GB
-                    print(f"  📊 GPU Memory: {memory_allocated:.2f}GB allocated, {memory_reserved:.2f}GB reserved")
+                    print(f"  GPU Memory: {memory_allocated:.2f}GB allocated, {memory_reserved:.2f}GB reserved")
                 except:
                     pass
                     
@@ -829,7 +829,7 @@ class TranslationsSynthensizer:
             
             # Get audio stats for debugging
             stats = self.audio_normalizer.get_audio_stats(combined_audio, sampling_rate)
-            print(f"    📊 Final audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
+            print(f"    Final audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
             
             final_output_path = os.path.join(speaker_output_dir, f"{speaker_id}_translated_seg{segment_num}.wav")
             sf.write(final_output_path, combined_audio, sampling_rate)
@@ -927,7 +927,7 @@ class TranslationsSynthensizer:
                         
                         # Get audio stats for debugging
                         stats = self.audio_normalizer.get_audio_stats(audio_data, sampling_rate)
-                        print(f"    📊 Audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
+                        print(f"    Audio stats: Peak={stats['peak_db']}dB, RMS={stats['rms_db']}dB, Duration={stats['duration']:.1f}s")
                         
                         output_filename = f"{speaker_id}_translated_seg{segment_num}.wav"
                         output_wav_path = os.path.join(speaker_output_dir, output_filename)

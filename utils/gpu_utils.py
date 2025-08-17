@@ -17,13 +17,13 @@ def cleanup_gpu_memory():
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
-                print("🧹 GPU memory cache cleared.")
+                print("GPU memory cache cleared.")
             else:
-                print("🧹 GPU not available, skipped CUDA cache clearing.")
+                print("GPU not available, skipped CUDA cache clearing.")
         except ImportError:
-            print("🧹 PyTorch not available, skipped CUDA cache clearing.")
+            print("PyTorch not available, skipped CUDA cache clearing.")
             
-        print("🧹 Memory cleanup completed.")
+        print("Memory cleanup completed.")
         
     except Exception as e:
         print(f"Warning: GPU cleanup failed: {e}")
@@ -38,7 +38,7 @@ def comprehensive_final_cleanup():
         import sys
         import torch
         
-        print("🧹 Starting comprehensive final cleanup...")
+        print("Starting comprehensive final cleanup...")
         
                 # 1. Clear GPT-SoVITS models if they were loaded
         try:
@@ -66,15 +66,15 @@ def comprehensive_final_cleanup():
                                     model = model.to('cpu')
                                 del model
                             setattr(inference_webui, var_name, None)
-                            print(f"  🧹 Cleared {var_name}")
+                            print(f"  Cleared {var_name}")
                         except Exception as e:
-                            print(f"  ⚠️ Warning clearing {var_name}: {e}")
+                            print(f"   Warning clearing {var_name}: {e}")
                             try:
                                 setattr(inference_webui, var_name, None)
                             except:
                                 pass
         except Exception as e:
-            print(f"  ⚠️ GPT-SoVITS cleanup warning: {e}")
+            print(f"  GPT-SoVITS cleanup warning: {e}")
         
         # 2. Clear any remaining PyTorch models from memory
         try:
@@ -91,7 +91,7 @@ def comprehensive_final_cleanup():
             pass
         
         # 3. Multiple rounds of aggressive garbage collection
-        print("  🧹 Performing aggressive garbage collection...")
+        print("  Performing aggressive garbage collection...")
         for i in range(5):
             collected = gc.collect()
             if collected > 0:
@@ -99,7 +99,7 @@ def comprehensive_final_cleanup():
         
         # 4. Clear all GPU caches aggressively
         if torch.cuda.is_available():
-            print("  🧹 Clearing GPU memory caches...")
+            print("  Clearing GPU memory caches...")
             for i in range(3):
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
@@ -110,16 +110,16 @@ def comprehensive_final_cleanup():
             if torch.cuda.is_available():
                 torch.cuda.reset_peak_memory_stats()
                 # Note: We don't call torch.cuda.empty_cache() here as it might reset the context
-                print("  🧹 Reset CUDA memory statistics")
+                print("  Reset CUDA memory statistics")
         except:
             pass
         
-        print("✅ Comprehensive final cleanup completed!")
+        print("Comprehensive final cleanup completed!")
         
         # Show final memory state
         memory_info = get_gpu_memory_info()
         if memory_info:
-            print(f"  📊 Final GPU memory: {memory_info['allocated_gb']:.2f}GB / {memory_info['total_gb']:.2f}GB")
+            print(f"  Final GPU memory: {memory_info['allocated_gb']:.2f}GB / {memory_info['total_gb']:.2f}GB")
         
     except Exception as e:
         print(f"Warning: Comprehensive cleanup failed: {e}")
@@ -141,13 +141,13 @@ def cleanup_gpu_memory():
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
-                print("🧹 GPU memory cache cleared.")
+                print("GPU memory cache cleared.")
             else:
-                print("🧹 GPU not available, skipped CUDA cache clearing.")
+                print("GPU not available, skipped CUDA cache clearing.")
         except ImportError:
-            print("🧹 PyTorch not available, skipped CUDA cache clearing.")
+            print("PyTorch not available, skipped CUDA cache clearing.")
             
-        print("🧹 Memory cleanup completed.")
+        print("Memory cleanup completed.")
         
     except Exception as e:
         print(f"Warning: GPU cleanup failed: {e}")
@@ -184,10 +184,10 @@ def print_gpu_memory_usage():
     info = get_gpu_memory_info()
     
     if info is None:
-        print("💻 GPU memory info not available")
+        print("GPU memory info not available")
         return
     
-    print(f"🎮 GPU Memory Usage:")
+    print(f"   GPU Memory Usage:")
     print(f"   Device: {info['device']}")
     print(f"   Allocated: {info['allocated_gb']:.2f} GB")
     print(f"   Reserved: {info['reserved_gb']:.2f} GB")

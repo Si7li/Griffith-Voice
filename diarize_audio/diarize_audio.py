@@ -85,9 +85,9 @@ class AudioDiarization:
                     diarization_essensials[speaker] += [(turn.start, turn.end)]
                 else:
                     filtered_segments += 1
-                    print(f"🚫 Filtered Speaker {speaker}: {turn.start:.2f}s - {turn.end:.2f}s (duration: {segment_duration:.3f}s - too short)")
+                    print(f"Filtered Speaker {speaker}: {turn.start:.2f}s - {turn.end:.2f}s (duration: {segment_duration:.3f}s - too short)")
             
-            print(f"\n📊 Diarization Summary:")
+            print(f"\nDiarization Summary:")
             print(f"   Total segments detected: {total_segments}")
             print(f"   Meaningful segments kept: {total_segments - filtered_segments}")
             print(f"   Short segments filtered: {filtered_segments}")
@@ -100,7 +100,7 @@ class AudioDiarization:
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
-            print("🧹 Pyannote model unloaded and GPU memory cleared.")
+            print("Pyannote model unloaded and GPU memory cleared.")
             
             if cache_path:
                 save_cache(cache_path, diarization_essensials)
@@ -111,17 +111,17 @@ class AudioDiarization:
             
             # Provide specific guidance based on the error
             if "segmentation" in str(e):
-                print("\n🎯 Missing license for segmentation model:")
+                print("\nMissing license for segmentation model:")
                 print("   Visit: https://hf.co/pyannote/segmentation-3.0")
                 print("   Click 'Accept' on the license agreement")
                 
             elif "wespeaker" in str(e) or "embedding" in str(e):
-                print("\n🎯 Missing license for speaker embedding model:")
+                print("\nMissing license for speaker embedding model:")
                 print("   Visit: https://hf.co/pyannote/wespeaker-voxceleb-resnet34-LM")
                 print("   Click 'Accept' on the license agreement")
                 
             elif "diarization" in str(e):
-                print("\n🎯 Missing license for main diarization model:")
+                print("\nMissing license for main diarization model:")
                 print("   Visit: https://hf.co/pyannote/speaker-diarization-3.1")
                 print("   Click 'Accept' on the license agreement")
                 
@@ -131,7 +131,7 @@ class AudioDiarization:
                 print("   2. Make sure it has 'Read' access")
                 
             else:
-                print(f"\n❓ Unexpected error. Run 'python check_licenses.py' for help.")
+                print(f"\nUnexpected error. Run 'python check_licenses.py' for help.")
                 
-            print("\n⚠️  Remember: You need to accept licenses for ALL pyannote models!")
+            print("\n Remember: You need to accept licenses for ALL pyannote models!")
             return None

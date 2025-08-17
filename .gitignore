@@ -2,5 +2,17 @@ outputs/
 best_outputs/
 .dev/
 md/
+# Byte-compiled / optimized / DLL files
+
 __pycache__/
-*.py[cod]
+apply_video_no_vocals/__pycache__/
+assemble_translations/__pycache__/
+diarize_audio/__pycache__/
+extract_audio/__pycache__/
+extract_segments/__pycache__/
+sample_segments/__pycache__/
+separate_audio/__pycache__/
+synthensize_translations/__pycache__/
+transcribe_audio_segments/__pycache__/
+translate_segments/__pycache__/
+utils/__pycache__/

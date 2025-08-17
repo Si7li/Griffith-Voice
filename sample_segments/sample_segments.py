@@ -360,7 +360,7 @@ class SegmentsSampler:
             translation_path = os.path.join(self.output_folder, f"{speaker_id}_translation.txt")
             
             # Simple transcription using Whisper directly
-            print(f"🎙️  Transcribing voice sample...")
+            print(f"Transcribing voice sample...")
             try:
                 # Use the transcriber's Whisper model directly
                 result = self.transcriber.model.transcribe(output_path)
@@ -421,7 +421,7 @@ class SegmentsSampler:
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             torch.cuda.synchronize()
-        print("🧹 Whisper model unloaded and GPU memory cleared.")
+        print("Whisper model unloaded and GPU memory cleared.")
             
         print(f"✓ Voice sampling completed! {len(merged_files)} speakers processed")
         return merged_files

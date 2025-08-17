@@ -119,7 +119,7 @@ class AudioTranscriber:
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
             torch.cuda.synchronize()
-        print("🧹 Whisper model unloaded and GPU memory cleared.")
+        print("Whisper model unloaded and GPU memory cleared.")
         
         print(f"✓ Transcription completed! {len(transcriptions)} speakers")
         return dict(transcriptions)

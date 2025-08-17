@@ -21,7 +21,7 @@ class SeparateAudio:
                 torch.cuda.empty_cache()
                 torch.cuda.synchronize()
                 
-            print("🧹 Audio separation cleanup completed")
+            print("Audio separation cleanup completed")
         except Exception as e:
             print(f"Warning: Audio separation cleanup failed: {e}")
             

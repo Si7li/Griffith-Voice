@@ -544,16 +544,16 @@ def main():
     # Language selection
     st.sidebar.subheader("🌍 Language Settings")
     languages = {
-        "ja": "Japanese (日本語)",
         "en": "English",
-#        "es": "Spanish (Español)",
-#        "fr": "French (Français)",
-#        "de": "German (Deutsch)",
-#        "it": "Italian (Italiano)",
-#        "pt": "Portuguese (Português)",
-#        "ru": "Russian (Русский)",
+        "ja": "Japanese (日本語)",
         "ko": "Korean (한국어)",
-#        "zh": "Chinese (中文)"
+        "zh": "Chinese (中文)",
+        "es": "Spanish (Español)",
+        "fr": "French (Français)",
+        "de": "German (Deutsch)",
+        "it": "Italian (Italiano)",
+        "pt": "Portuguese (Português)",
+        "ru": "Russian (Русский)",
     }
     
     source_language = st.sidebar.selectbox(

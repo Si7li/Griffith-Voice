@@ -1,5 +1,0 @@
-{
-  "vocals": "outputs/vocals.wav",
-  "music": "outputs/no_vocals.wav",
-  "output_dir": "outputs"
-}

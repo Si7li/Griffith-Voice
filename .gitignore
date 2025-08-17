@@ -4,3 +4,7 @@ best_outputs/
 .dev/
 md/
 __pycache__/
+config_api.json
+config.json
+configs/config_api.json
+configs/config.json

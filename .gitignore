@@ -1,7 +1,5 @@
 outputs/*
 !outputs/.gitignore
-inputs/*
-!inputs/.gitignore
 best_outputs/
 .dev/
 md/

@@ -2,3 +2,5 @@ outputs/
 best_outputs/
 .dev/
 md/
+__pycache__/
+*.py[cod]

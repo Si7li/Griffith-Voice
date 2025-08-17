@@ -3,7 +3,7 @@ pipeline:
   params:
     clustering:
       method: ward
-      min_cluster_size: 9
-      threshold: 0.75
+      min_cluster_size: 8
+      threshold: 0.5
     segmentation:
-      min_duration_off: 0.75
+      min_duration_off: 1.0

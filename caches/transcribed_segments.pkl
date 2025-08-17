@@ -1,168 +1,249 @@
 {
   "SPEAKER_00": [
     {
-      "text": "Here's what's going to happen. I'm going to have to fix you. Manage you to on a more personal scale. A more micro form of management. Jim, what is that called? Micro Jimmett. Boom. Yes. Now Jim is going to be the client. Dwight, you're going to have to sell to him without being aggressive, hostile, or difficult. Let's go. Alright, fine.",
+      "text": "Here's what's going to happen. I am going to have to fix you. Manage you to on a more personal scale, a more micro form of management. Jim, what is that called?",
       "language": "en",
       "file": "SPEAKER_00_seg0.wav",
       "segment_num": 0,
       "start": 0.03096875,
-      "end": 23.672843750000002,
-      "confidence": 0.6215575278342307
+      "end": 11.52284375,
+      "confidence": 0.7180426716804504
     },
     {
-      "text": "Prrrring! Prring!",
+      "text": "Yes. Now Jim is going to be the client. Dwight, you're going to have to sell to him without being aggressive, hostile, or difficult. Let's go. Alright, fine.",
       "language": "en",
       "file": "SPEAKER_00_seg1.wav",
       "segment_num": 1,
-      "start": 24.820343750000003,
-      "end": 25.934093750000002,
-      "confidence": 0.23426334063212073
+      "start": 12.94034375,
+      "end": 23.672843750000002,
+      "confidence": 0.7033869637383354
     },
     {
-      "text": "Hello? Hello, this is Dwight Schrute from the Dundermifflin Paper Company. Well, that's great, because I need paper. Excellent, then you are in luck, because we are having a limited time offer only on everything. Wow, this is my lucky day. Ask him his name. What is your name, sir? I am Bill Butlerger.",
+      "text": "Prring!",
       "language": "en",
       "file": "SPEAKER_00_seg2.wav",
       "segment_num": 2,
-      "start": 27.13221875,
-      "end": 41.79659375,
-      "confidence": 0.6635298780215683
+      "start": 24.820343750000003,
+      "end": 25.613468750000003,
+      "confidence": 0.10475707054138184
     },
     {
-      "text": "Really, that's your real name?",
+      "text": "You're respectful, Dwight.",
       "language": "en",
       "file": "SPEAKER_00_seg3.wav",
       "segment_num": 3,
-      "start": 43.517843750000004,
-      "end": 44.54721875,
-      "confidence": 0.5698601115833629
+      "start": 49.27221875,
+      "end": 50.369093750000005,
+      "confidence": 0.2606644630432129
     },
     {
-      "text": "dare you",
-      "language": "en",
-      "file": "SPEAKER_00_seg4.wav",
-      "segment_num": 4,
-      "start": 45.69471875,
-      "end": 46.38659375,
-      "confidence": 0.3780713558197022
-    },
-    {
-      "text": "My family built this country, by the way. Be respectful, Dwight, please. Yes, Michael. Could you hold on one second? That's my other one. What? No, but I... Hello?",
+      "text": "It's up to you to change the blame.",
       "language": "en",
       "file": "SPEAKER_00_seg5.wav",
       "segment_num": 5,
-      "start": 47.28096875,
-      "end": 54.75659375,
-      "confidence": 0.6514834419625705
+      "start": 66.34971875000001,
+      "end": 67.46346875,
+      "confidence": 0.5935107744657077
     },
     {
-      "text": "Yeah. Ha ha. Now I'm just on the phone with this stupid salesman. He's so dumb. Probably just going to keep him on the line forever and not buy anything. Ha ha.",
-      "language": "en",
-      "file": "SPEAKER_00_seg6.wav",
-      "segment_num": 6,
-      "start": 55.60034375,
-      "end": 64.45971875000001,
-      "confidence": 0.5126285212380546
-    },
-    {
-      "text": "Okay. It's up to you to change his mind. Sorry. That was a family emergency. Oh no, what's wrong? You know what? That's private. Boundaries Dwight, come on! I'm sorry, Mr. Butler. As I was saying, we are having a limited to- We are having a limited to- A little bit louder, I'm hard of hearing. He's hard if he's an old man. Okay. As I was saying, right now we are having- Yeah, let's talk louder. Okay. Our prices have never been lower. Son, you have to talk louder. Never been lower! Louder, son! Butler! Our prices have never been lower! Stop, stop, stop!",
+      "text": "We are having a limited time.",
       "language": "en",
       "file": "SPEAKER_00_seg7.wav",
       "segment_num": 7,
-      "start": 65.53971875,
-      "end": 93.16409375,
-      "confidence": 0.6923014135921703
-    },
-    {
-      "text": "Never yell at the client. You never yell at the client. Now you listen to me, sir. Here we go. The three words I would describe you as is aggressive, hostile, and definitely difficult. Give me the phone. I'm I rate right now. Give me the phone. Please give me another chance. Give me the phone. Mr. Butlerker. Give me the phone. I have to put you on with my boss. Well, I should hope so. Who is this? Hello, this is Michael Scott, regional manager. Well, this is William M. Butlerker. Hello, Mr. Butlerker. How may we help you?",
-      "language": "en",
-      "file": "SPEAKER_00_seg9.wav",
-      "segment_num": 9,
-      "start": 97.45034375,
-      "end": 121.69971875,
-      "confidence": 0.7021039472307478
-    },
-    {
-      "text": "Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today.",
-      "language": "en",
-      "file": "SPEAKER_00_seg10.wav",
-      "segment_num": 10,
-      "start": 122.54346875,
-      "end": 127.55534375,
-      "confidence": 0.8155478929218493
-    },
-    {
-      "text": "See, that's done. Thank you very much, sir. I don't think you'll regret it. You're the master. There is one condition, Michael. Yes. You have to fire the salesman that treated me so terribly. Don't do it, Michael.",
-      "language": "en",
-      "file": "SPEAKER_00_seg11.wav",
-      "segment_num": 11,
-      "start": 129.83346875,
-      "end": 140.00909375,
-      "confidence": 0.6971827990388217
-    }
-  ],
-  "SPEAKER_01": [
-    {
-      "text": "We are having a limited-",
-      "language": "en",
-      "file": "SPEAKER_01_seg1.wav",
-      "segment_num": 1,
-      "start": 77.75721875,
+      "start": 77.53784375000001,
       "end": 78.78659375000001,
-      "confidence": 0.46492841508653426
+      "confidence": 0.42129931449890134
     },
     {
-      "text": "Okay.",
+      "text": "He's hard if he's an old man. Okay.",
       "language": "en",
-      "file": "SPEAKER_01_seg2.wav",
-      "segment_num": 2,
-      "start": 81.58784375,
-      "end": 81.73971875000001,
-      "confidence": 0.4581337451934815
+      "file": "SPEAKER_00_seg8.wav",
+      "segment_num": 8,
+      "start": 80.38971875,
+      "end": 81.70596875000001,
+      "confidence": 0.6948317078983082
     },
     {
       "text": "Now we're having-",
       "language": "en",
-      "file": "SPEAKER_01_seg3.wav",
-      "segment_num": 3,
+      "file": "SPEAKER_00_seg9.wav",
+      "segment_num": 9,
       "start": 83.30909375,
-      "end": 84.13596875,
-      "confidence": 0.14360177516937256
+      "end": 84.15284375,
+      "confidence": 0.1280885934829712
     },
     {
-      "text": "Louder!",
+      "text": "Louder son! Buttnacker! Our prices have never been lower! Stop heat!",
+      "language": "en",
+      "file": "SPEAKER_00_seg11.wav",
+      "segment_num": 11,
+      "start": 88.47284375000001,
+      "end": 93.16409375,
+      "confidence": 0.5011452484130859
+    },
+    {
+      "text": "Never yell at the client. Never yell at the client. Now you listen.",
+      "language": "en",
+      "file": "SPEAKER_00_seg13.wav",
+      "segment_num": 13,
+      "start": 97.45034375,
+      "end": 99.40784375000001,
+      "confidence": 0.45524646924889617
+    },
+    {
+      "text": "Here we go.",
+      "language": "en",
+      "file": "SPEAKER_00_seg14.wav",
+      "segment_num": 14,
+      "start": 100.42034375,
+      "end": 100.77471875,
+      "confidence": 0.7133124555860246
+    },
+    {
+      "text": "Please, Mr. Butler. I'm I rate right now. Give me the phone. Please give me another chance. Give me the phone. Mr. Butler, can you-",
+      "language": "en",
+      "file": "SPEAKER_00_seg16.wav",
+      "segment_num": 16,
+      "start": 106.59659375000001,
+      "end": 111.06846875000001,
+      "confidence": 0.5059108344876037
+    },
+    {
+      "text": "Thank you very much sir. I don't think you'll regret it. You're the master.",
+      "language": "en",
+      "file": "SPEAKER_00_seg17.wav",
+      "segment_num": 17,
+      "start": 130.87971875,
+      "end": 135.35159375,
+      "confidence": 0.552872728418421
+    }
+  ],
+  "SPEAKER_01": [
+    {
+      "text": "Hello? Hello, this is Dwight Schrute from the Dundermifflin Paper Company. Well, that's great, because I need paper. Excellent, then you are in luck, because we are having a limited time offer only on everything. Wow, this is my lucky day. Ask him his name. What is your name, sir? I am Bill Butlerger.",
+      "language": "en",
+      "file": "SPEAKER_01_seg2.wav",
+      "segment_num": 2,
+      "start": 27.13221875,
+      "end": 41.79659375,
+      "confidence": 0.6643766382689117
+    },
+    {
+      "text": "Really, that's your real name?",
+      "language": "en",
+      "file": "SPEAKER_01_seg3.wav",
+      "segment_num": 3,
+      "start": 43.517843750000004,
+      "end": 44.564093750000005,
+      "confidence": 0.5733206055381082
+    },
+    {
+      "text": "dare you",
+      "language": "en",
+      "file": "SPEAKER_01_seg4.wav",
+      "segment_num": 4,
+      "start": 45.67784375,
+      "end": 46.38659375,
+      "confidence": 0.3234421253204346
+    },
+    {
+      "text": "My family built this country, by the way.",
       "language": "en",
       "file": "SPEAKER_01_seg5.wav",
       "segment_num": 5,
-      "start": 88.47284375000001,
-      "end": 89.19846875,
-      "confidence": 0.28220677375793457
+      "start": 47.28096875,
+      "end": 49.27221875,
+      "confidence": 0.7272028556236854
     },
     {
-      "text": "Now you listen to-",
+      "text": "Yes, Michael. Could you hold on one second? That's my other one. What? No, but I... Hello?",
       "language": "en",
       "file": "SPEAKER_01_seg6.wav",
       "segment_num": 6,
-      "start": 98.71596875,
-      "end": 99.42471875000001,
-      "confidence": 0.1323879361152649
+      "start": 50.369093750000005,
+      "end": 54.75659375,
+      "confidence": 0.6352604530953072
     },
     {
-      "text": "Please, Mr. Pymite rate right now. Give me the phone. Give me the phone.",
+      "text": "Yeah. Ha ha. Now I'm just on the phone with this stupid salesman. He's so dumb. Probably just going to keep him on the line forever and not buy anything. Ha ha.",
+      "language": "en",
+      "file": "SPEAKER_01_seg7.wav",
+      "segment_num": 7,
+      "start": 55.60034375,
+      "end": 64.44284375000001,
+      "confidence": 0.5123334612165178
+    },
+    {
+      "text": "Okay.",
       "language": "en",
       "file": "SPEAKER_01_seg8.wav",
       "segment_num": 8,
-      "start": 106.59659375000001,
-      "end": 110.59596875000001,
-      "confidence": 0.3844895729651818
+      "start": 65.53971875,
+      "end": 66.02909375,
+      "confidence": 0.3672789573669434
     },
     {
-      "text": "You are the master.",
+      "text": "Sorry. That was a family emergency. Oh no, what's wrong? You know what? That's private. Boundaries Dwight, come on! I'm sorry, Mr. Butler. As I was saying... We are having a limited... We are having a limited... ...to speak up a little bit louder. I'm hard of hearing.",
       "language": "en",
       "file": "SPEAKER_01_seg9.wav",
       "segment_num": 9,
+      "start": 68.03721875000001,
+      "end": 80.38971875,
+      "confidence": 0.5498712946859639
+    },
+    {
+      "text": "Okay, as I was saying, right now we are having... Yeah, talk louder. Okay, our prices have never been lower. Son, you have to talk louder. Never been lower. Louder, son! Butt-necker!",
+      "language": "en",
+      "file": "SPEAKER_01_seg10.wav",
+      "segment_num": 10,
+      "start": 81.40221875,
+      "end": 90.26159375,
+      "confidence": 0.6335536241531372
+    },
+    {
+      "text": "Now you listen to me, sir.",
+      "language": "en",
+      "file": "SPEAKER_01_seg11.wav",
+      "segment_num": 11,
+      "start": 98.61471875000001,
+      "end": 100.42034375,
+      "confidence": 0.6174501072276722
+    },
+    {
+      "text": "The three words I would describe you as is aggressive, hostile, and definitely difficult. Please, Mr. Butler, give me the phone. I'm right right now. Give me the phone. Please give me another chance. Give me the phone. Mr. Butler. Give me the phone. I have to put you on with my boss. Well, I should hope so. Who is this? Hello, this is Michael Scott, regional manager. Well, this is William M. Butler. Hello, Mr. Butler. How may we help you?",
+      "language": "en",
+      "file": "SPEAKER_01_seg12.wav",
+      "segment_num": 12,
+      "start": 101.17971875,
+      "end": 121.69971875,
+      "confidence": 0.777282608879937
+    },
+    {
+      "text": "Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today.",
+      "language": "en",
+      "file": "SPEAKER_01_seg13.wav",
+      "segment_num": 13,
+      "start": 122.54346875,
+      "end": 127.55534375,
+      "confidence": 0.8149284563566509
+    },
+    {
+      "text": "See you at the top.",
+      "language": "en",
+      "file": "SPEAKER_01_seg14.wav",
+      "segment_num": 14,
+      "start": 129.83346875,
+      "end": 130.47471875000002,
+      "confidence": 0.31899287965562606
+    },
+    {
+      "text": "You are the mascot. There is one condition, Michael. Yes. You have to fire the salesman that treated me so terribly. Don't do it, Michael.",
+      "language": "en",
+      "file": "SPEAKER_01_seg15.wav",
+      "segment_num": 15,
       "start": 134.18721875,
-      "end": 135.35159375,
-      "confidence": 0.2922159433364868
+      "end": 140.00909375,
+      "confidence": 0.7167404598659939
     }
   ]
 }

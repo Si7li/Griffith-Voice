@@ -168,7 +168,10 @@ def process_video_full(video_file, parameters, progress_callback=None):
         
         # Step 3: Diarize audio
         audio_diarizer = AudioDiarization(vocals)
-        diarization = audio_diarizer.diarize_audio(read_from_cache=False)
+        diarization = audio_diarizer.diarize_audio(
+            read_from_cache=False, 
+            min_segment_duration=parameters['min_segment_duration']
+        )
         
         if progress_callback:
             progress_callback(0.4, "Diarization complete, extracting segments...")
@@ -607,19 +610,19 @@ def main():
     top_k = st.sidebar.slider("Top K", 1, 50, 15, help="Controls diversity of voice generation")
     top_p = st.sidebar.slider("Top P", 0.1, 1.0, 0.7, 0.1, help="Controls randomness")
     temperature = st.sidebar.slider("Temperature", 0.1, 2.0, 1.0, 0.1, help="Controls creativity")
-    speed = st.sidebar.slider("Speed", 0.5, 2.0, 1.1, 0.1, help="Speech speed multiplier")
+    speed = st.sidebar.slider("Speed", 0.5, 2.0, 1.1, 0.01, help="Speech speed multiplier")
     
     # Audio mixing parameters
     st.sidebar.subheader("🎵 Audio Mixing Parameters")
     voice_volume = st.sidebar.slider("Voice Volume", 0.0, 2.0, 1.0, 0.1, help="Volume level for translated voice (1.0 = normal)")
-    background_volume = st.sidebar.slider("Background Volume", 0.0, 2.0, 0.3, 0.1, help="Volume level for background music/sounds (0.3 = 30% - recommended)")
-    master_volume = st.sidebar.slider("Master Volume", 0.5, 3.0, 1.2, 0.1, help="Overall output amplification (1.2 = 20% boost - recommended for better audibility)")
+    background_volume = st.sidebar.slider("Background Volume", 0.0, 2.0, 1.0, 0.1, help="Volume level for background music/sounds (0.3 = 30% - recommended)")
+    master_volume = st.sidebar.slider("Master Volume", 0.5, 3.0, 1.0, 0.1, help="Overall output amplification (1.2 = 20% boost - recommended for better audibility)")
     
     # Audio normalization parameters
     st.sidebar.subheader("🔧 Audio Normalization")
     enable_normalization = st.sidebar.checkbox("Enable Smart Normalization", value=True, help="Apply intelligent volume normalization for consistent audio levels")
     if enable_normalization:
-        target_lufs = st.sidebar.slider("Target Loudness (LUFS)", -30.0, -10.0, -18.0, 1.0, help="Target loudness level (-18 LUFS is good for voice)")
+        target_lufs = st.sidebar.slider("Target Loudness (LUFS)", -30.0, -10.0, -10.0, 1.0, help="Target loudness level (-18 LUFS is good for voice)")
         
     # Diarization parameters
     st.sidebar.subheader("👥 Speaker Diarization Parameters")
@@ -629,6 +632,14 @@ def main():
         config['pipeline']['params']['segmentation']['min_duration_off'],
         0.05,
         help="Minimum silence between speech segments (seconds)"
+    )
+    
+    min_segment_duration = st.sidebar.slider(
+        "Min Segment Duration", 
+        0.0, 2.0,
+        0.0,  # Default value, not from config since it's not a pyannote parameter
+        0.1,
+        help="Filter out segments shorter than this (removes noise and artifacts - 0.5s recommended)"
     )
     
     clustering_method = st.sidebar.selectbox(
@@ -758,6 +769,7 @@ def main():
                 'enable_normalization': enable_normalization,
                 'target_lufs': target_lufs if enable_normalization else -18.0,
                 'min_duration_off': min_duration_off,
+                'min_segment_duration': min_segment_duration,
                 'clustering_method': clustering_method,
                 'min_cluster_size': min_cluster_size,
                 'threshold': threshold

@@ -65,7 +65,7 @@ def main():
     no_vocals = result_audio_separated['music']
     # Initialize audio diarizer
     audio_diarizer = AudioDiarization(vocals)
-    diarization = audio_diarizer.diarize_audio(read_from_cache=False, cache_path="caches/diarization.pkl")
+    diarization = audio_diarizer.diarize_audio(read_from_cache=False, cache_path="caches/diarization.pkl",min_segment_duration= 0)
     # Initialize segments extractor - use the vocals audio file, not the video file
     segments_extractor = SegmentExtractor(vocals, diarization)
     # Extract segments

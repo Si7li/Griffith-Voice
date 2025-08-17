@@ -83,7 +83,8 @@ class AudioTranscriber:
                     # Use inverse of no_speech_prob as confidence
                     confidence = 1.0 - result["no_speech_prob"]
                 
-                if confidence > 0.1:
+                if confidence > 0.2:
+                    print(confidence)
                     # Store transcription with metadata
                     transcription_data = {
                         "text": result["text"].strip(),

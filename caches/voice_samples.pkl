@@ -1,95 +1,103 @@
 {
   "SPEAKER_00": {
     "audio_path": "outputs/voice_samples/SPEAKER_00_voice_sample.wav",
-    "duration": 8.447,
-    "segments_count": 4,
-    "transcription": "Prrrring! Prring! Really, that's your real name? Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today. dare you",
-    "translation": "プルルルル！プルルル！ 本当に、それが本名ですか？ マイケル、君の声はいい響きだ。何をするか分かるかい？今日、100万ドル分の紙製品を買うよ。 よくも。",
+    "duration": 6.790000000000001,
+    "segments_count": 5,
+    "transcription": "Never yell at the client. Never yell at the client. Now you listen. We are having a limited time. He's hard if he's an old man. Okay.",
+    "translation": "顧客に決して怒鳴るな。客に怒鳴るな。よく聞け。 残された時間は少ないぞ。 年寄りだと手ごわいな。よし。",
     "transcription_file": "outputs/voice_samples/SPEAKER_00_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_00_translation.txt",
     "segment_details": [
       {
-        "segment_num": 1,
-        "filename": "SPEAKER_00_seg1.wav",
-        "duration": 1.114,
-        "transcription": "Prrrring! Prring!",
-        "translation": "プルルルル！プルルル！",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 3,
-        "filename": "SPEAKER_00_seg3.wav",
-        "duration": 1.029,
-        "transcription": "Really, that's your real name?",
-        "translation": "本当に、それが本名ですか？",
-        "quality_score": 280
-      },
-      {
         "segment_num": 10,
         "filename": "SPEAKER_00_seg10.wav",
-        "duration": 5.012,
-        "transcription": "Michael, I like the sound of your voice. You know what I'm gonna do? I'm gonna buy $1 million worth of paper products today.",
-        "translation": "マイケル、君の声はいい響きだ。何をするか分かるかい？今日、100万ドル分の紙製品を買うよ。",
-        "quality_score": 260
+        "duration": 0.81,
+        "transcription": "",
+        "translation": "",
+        "quality_score": 250
       },
       {
-        "segment_num": 4,
-        "filename": "SPEAKER_00_seg4.wav",
-        "duration": 0.692,
-        "transcription": "dare you",
-        "translation": "よくも。",
+        "segment_num": 13,
+        "filename": "SPEAKER_00_seg13.wav",
+        "duration": 1.957,
+        "transcription": "Never yell at the client. Never yell at the client. Now you listen.",
+        "translation": "顧客に決して怒鳴るな。客に怒鳴るな。よく聞け。",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 7,
+        "filename": "SPEAKER_00_seg7.wav",
+        "duration": 1.249,
+        "transcription": "We are having a limited time.",
+        "translation": "残された時間は少ないぞ。",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 8,
+        "filename": "SPEAKER_00_seg8.wav",
+        "duration": 1.316,
+        "transcription": "He's hard if he's an old man. Okay.",
+        "translation": "年寄りだと手ごわいな。よし。",
+        "quality_score": 280
+      },
+      {
+        "segment_num": 15,
+        "filename": "SPEAKER_00_seg15.wav",
+        "duration": 0.658,
+        "transcription": "",
+        "translation": "",
         "quality_score": 250
       }
     ]
   },
   "SPEAKER_01": {
     "audio_path": "outputs/voice_samples/SPEAKER_01_voice_sample.wav",
-    "duration": 8.612,
+    "duration": 7.989000000000001,
     "segments_count": 5,
-    "transcription": "We are having a limited- Please, Mr. Pymite rate right now. Give me the phone. Give me the phone. You are the master. Now we're having-",
-    "translation": "今、限定で… お願い、パイマイトさん、今すぐ評価して。電話をよこせ。電話をよこせ。 あなたがマスターだ。 今、やっている…",
+    "transcription": "Now you listen to me, sir. Really, that's your real name? My family built this country, by the way.",
+    "translation": "いいですか、あなた。 本当に、それが本名ですか？ ちなみに、私の家族がこの国を築き上げたんです。",
     "transcription_file": "outputs/voice_samples/SPEAKER_01_transcription.txt",
     "translation_file": "outputs/voice_samples/SPEAKER_01_translation.txt",
     "segment_details": [
       {
+        "segment_num": 0,
+        "filename": "SPEAKER_01_seg0.wav",
+        "duration": 1.266,
+        "transcription": "",
+        "translation": "",
+        "quality_score": 280
+      },
+      {
         "segment_num": 1,
         "filename": "SPEAKER_01_seg1.wav",
-        "duration": 1.029,
-        "transcription": "We are having a limited-",
-        "translation": "今、限定で…",
+        "duration": 1.08,
+        "transcription": "",
+        "translation": "",
         "quality_score": 280
       },
       {
-        "segment_num": 8,
-        "filename": "SPEAKER_01_seg8.wav",
-        "duration": 3.999,
-        "transcription": "Please, Mr. Pymite rate right now. Give me the phone. Give me the phone.",
-        "translation": "お願い、パイマイトさん、今すぐ評価して。電話をよこせ。電話をよこせ。",
-        "quality_score": 280
-      },
-      {
-        "segment_num": 9,
-        "filename": "SPEAKER_01_seg9.wav",
-        "duration": 1.164,
-        "transcription": "You are the master.",
-        "translation": "あなたがマスターだ。",
+        "segment_num": 11,
+        "filename": "SPEAKER_01_seg11.wav",
+        "duration": 1.806,
+        "transcription": "Now you listen to me, sir.",
+        "translation": "いいですか、あなた。",
         "quality_score": 280
       },
       {
         "segment_num": 3,
         "filename": "SPEAKER_01_seg3.wav",
-        "duration": 0.827,
-        "transcription": "Now we're having-",
-        "translation": "今、やっている…",
-        "quality_score": 250
+        "duration": 1.046,
+        "transcription": "Really, that's your real name?",
+        "translation": "本当に、それが本名ですか？",
+        "quality_score": 280
       },
       {
-        "segment_num": 4,
-        "filename": "SPEAKER_01_seg4.wav",
-        "duration": 0.793,
-        "transcription": "",
-        "translation": "",
-        "quality_score": 250
+        "segment_num": 5,
+        "filename": "SPEAKER_01_seg5.wav",
+        "duration": 1.991,
+        "transcription": "My family built this country, by the way.",
+        "translation": "ちなみに、私の家族がこの国を築き上げたんです。",
+        "quality_score": 280
       }
     ]
   }

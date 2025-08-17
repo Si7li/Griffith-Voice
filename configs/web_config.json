@@ -16,7 +16,8 @@
       "clustering_method": "ward",
       "min_cluster_size": 8,
       "threshold": 0.6,
-      "min_duration_off": 0.75
+      "min_duration_off": 0.75,
+      "min_segment_duration": 0.5
     },
     "cleanup_temp_files": true,
     "temp_dir_prefix": "streamlit_translation_"

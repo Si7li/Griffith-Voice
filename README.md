@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="/docs/logo.png" alt="Griffith Voice Logo" height="140">
+<img src="/docs/logo.png" alt="Griffith Voice Logo" height="200" width="200">
 
 # Griffith Voice — AI Voice Cloner & Dubber
 

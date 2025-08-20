@@ -24,39 +24,129 @@ Difference from similar projects: **Focus on real-time processing and high-quali
 
 ## 🎥 Demo
 
+### Real-time Translation and Dubbing
+
+Explore Griffith Voice's capabilities in real-time translation and dubbing for multiple languages. Each demo showcases:
+- Accurate transcription of speech.
+- Seamless translation into multiple languages.
+- High-quality voice synthesis for natural-sounding output.
+
 <table>
 <tr>
-<td width="33%">
+<td width="25%">
 
-### English
----
-[Demo coming soon]
-
-</td>
-<td width="33%">
-
-### Japanese
----
-[Demo coming soon]
+#### English
+<video controls width="300" height="200">
+  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 </td>
-<td width="33%">
+<td width="25%">
 
-### Korean
----
-[Demo coming soon]
+#### Japanese
+<video controls width="300" height="200">
+  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 </td>
-<td width="33%">
+<td width="25%">
 
-### Chineese
----
-[Demo coming soon]
+#### Korean
+<video controls width="300" height="200">
+  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+#### Chinese
+<video controls width="300" height="200">
+  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 </td>
 </tr>
 </table>
 
+<table>
+<tr>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+<td width="25%">
+
+<video controls width="300" height="200">
+  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+</td>
+</tr>
+</table>
+
+> **Note:** If any video does not play, ensure the corresponding file exists in the `inputs/videos/` directory or replace it with a valid YouTube link.
 
 
 ### Language Support

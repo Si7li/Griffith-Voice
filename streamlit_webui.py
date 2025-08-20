@@ -22,8 +22,7 @@ from pathlib import Path
 
 # Set up page config first
 st.set_page_config(
-    page_title="VidDub",
-    page_icon="💮",
+    page_title="Griffith Voice",
     layout="wide"
 )
 
@@ -368,7 +367,7 @@ def main():
         else:
             st.info("🧪 Demo Mode Active")
     
-    st.title("💮 VidDub")
+    st.title("Griffith Voice")
     st.markdown("Upload a video, adjust parameters, and get a translated version with voice cloning!")
     
     # Custom CSS for Professional Dark Mode
@@ -397,18 +396,18 @@ def main():
         color: #fafafa !important;
     }
     .stMarkdown strong {
-        color: #ff99b7 !important;
+        color: #fafafa !important;
         font-weight: 600;
     }
     
     /* Headers - Bright colors for hierarchy */
     h1 {
-        color: #ff99b7 !important;
+        color: #fafafa !important;
         text-align: center;
         margin-bottom: 1rem;
     }
     h2, h3, h4, h5, h6 {
-        color: #81c784 !important;
+        color: #fafafa !important;
     }
     
     /* Sidebar Dark Mode */
@@ -488,7 +487,7 @@ def main():
     
     /* Progress Bar */
     .stProgress .st-bp {
-        background-color: #ff99b7;
+        background-color: #fafafa;
     }
     
     /* Buttons - Red gradient for action */
@@ -515,7 +514,7 @@ def main():
         color: #fafafa !important;
     }
     .element-container .stMarkdown strong {
-        color: #ff99b7 !important;
+        color: #fafafa !important;
     }
     
     /* Hide warnings */

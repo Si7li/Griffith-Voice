@@ -151,9 +151,13 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 ### Language Support
 
-**Input Language Support:**
+**Input and Output Languages Support:**
 
 🇺🇸 English | 🇯🇵 Japanese | 🇰🇷 Korean | 🇨🇳 Chinese
+
+**Input and Output Languages Support Comming Soon:**
+
+🇪🇭 عربي | 🇫🇷 French | 🇷🇺 Russian | 🇩🇪 German
 
 **Translation supports all languages, while synthesis depends on the chosen TTS model.**
 
@@ -209,7 +213,7 @@ This project is licensed under the Apache 2.0 License.
 ## 📬 Contact Me
 
 - Submit [Issues](https://github.com/Si7li/Griffith-Voice/issues) or [Pull Requests](https://github.com/Si7li/Griffith-Voice/pulls) on GitHub
-- Email: team@griffith.io
+- Email: mohamedkhalil.sahli@enicar.ucar.tn
 
 ---
 

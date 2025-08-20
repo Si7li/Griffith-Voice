@@ -56,13 +56,29 @@ def predict(session, onnx_input: Dict[str, Any], labels: List[str]) -> Tuple[Lis
 
 
 def download_and_decompress(model_dir: str = "G2PWModel/"):
-    if not os.path.exists(model_dir):
-        parent_directory = os.path.dirname(model_dir)
-        zip_dir = os.path.join(parent_directory, "G2PWModel_1.1.zip")
-        extract_dir = os.path.join(parent_directory, "G2PWModel_1.1")
-        extract_dir_new = os.path.join(parent_directory, "G2PWModel")
+    # Always resolve relative to the package 'text' directory (parent of g2pw)
+    if not os.path.isabs(model_dir):
+        text_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        # Remove "GPT_SoVITS/text/" prefix if present (use replace, not lstrip to avoid removing G from G2PWModel)
+        if model_dir.startswith("GPT_SoVITS/text/"):
+            model_dir = model_dir[len("GPT_SoVITS/text/"):]
+        model_dir = os.path.join(text_dir, model_dir)
+
+    # If already present, return immediately
+    if os.path.exists(model_dir):
+        return model_dir
+
+    parent_directory = os.path.dirname(model_dir)
+    zip_dir = os.path.join(parent_directory, "G2PWModel_1.1.zip")
+    extract_dir = os.path.join(parent_directory, "G2PWModel_1.1")
+    extract_dir_new = os.path.join(parent_directory, "G2PWModel")
+
+    os.makedirs(parent_directory, exist_ok=True)
+
+    # Download only if zip is not present
+    if not os.path.exists(zip_dir):
         print("Downloading g2pw model...")
-        modelscope_url = "https://www.modelscope.cn/models/kamiorinn/g2pw/resolve/master/G2PWModel_1.1.zip"  # "https://paddlespeech.cdn.bcebos.com/Parakeet/released_models/g2p/G2PWModel_1.1.zip"
+        modelscope_url = "https://www.modelscope.cn/models/kamiorinn/g2pw/resolve/master/G2PWModel_1.1.zip"
         with requests.get(modelscope_url, stream=True) as r:
             r.raise_for_status()
             with open(zip_dir, "wb") as f:
@@ -70,11 +86,15 @@ def download_and_decompress(model_dir: str = "G2PWModel/"):
                     if chunk:
                         f.write(chunk)
 
+    # Extract if needed
+    if not os.path.exists(extract_dir_new):
         print("Extracting g2pw model...")
         with zipfile.ZipFile(zip_dir, "r") as zip_ref:
             zip_ref.extractall(parent_directory)
-
-        os.rename(extract_dir, extract_dir_new)
+        
+        # Rename extracted folder to G2PWModel if needed
+        if os.path.exists(extract_dir):
+            os.rename(extract_dir, extract_dir_new)
 
     return model_dir
 
@@ -174,6 +194,54 @@ class G2PWOnnxConverter:
 
         if self.enable_opencc:
             self.cc = OpenCC("s2tw")
+
+    def cleanup(self):
+        """Clean up ONNX session and models to free GPU memory"""
+        try:
+            if hasattr(self, 'session_g2pW') and self.session_g2pW is not None:
+                del self.session_g2pW
+                self.session_g2pW = None
+                print("G2PW ONNX session cleaned up")
+            
+            if hasattr(self, 'tokenizer') and self.tokenizer is not None:
+                del self.tokenizer
+                self.tokenizer = None
+                print("G2PW tokenizer cleaned up")
+            
+            if hasattr(self, 'cc') and self.cc is not None:
+                del self.cc
+                self.cc = None
+                print("OpenCC converter cleaned up")
+            
+            # Force garbage collection multiple times
+            import gc
+            for i in range(5):
+                collected = gc.collect()
+                if collected > 0:
+                    print(f"  G2PW GC round {i+1}: Collected {collected} objects")
+            
+            # Aggressive CUDA cache clearing
+            if torch.cuda.is_available():
+                for _ in range(10):  # More aggressive clearing
+                    torch.cuda.empty_cache()
+                    torch.cuda.synchronize()
+                
+                # Try to trigger more aggressive memory release
+                try:
+                    torch.cuda.ipc_collect()
+                except:
+                    pass
+                    
+                
+        except Exception as e:
+            print(f"Warning during G2PW cleanup: {e}")
+
+    def __del__(self):
+        """Destructor to ensure cleanup on object deletion"""
+        try:
+            self.cleanup()
+        except:
+            pass
 
     def _convert_bopomofo_to_pinyin(self, bopomofo: str) -> str:
         tone = bopomofo[-1]

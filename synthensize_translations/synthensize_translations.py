@@ -98,6 +98,9 @@ class TranslationsSynthensizer:
         # Set the correct BERT and CNHubert paths before importing GPT-SoVITS modules
         os.environ["bert_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
         os.environ["cnhubert_base_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-hubert-base"
+        
+        # Set CUDA memory allocation configuration to help with fragmentation
+        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
         # Import GPT-SoVITS modules directly
         from tools.i18n.i18n import I18nAuto
@@ -482,6 +485,55 @@ class TranslationsSynthensizer:
             'ru': '俄文'
         }
         return language_map.get(lang_code.lower(), '英文')  # Default to English if not found
+    
+    def _cleanup_chinese_models(self):
+        """Clean up Chinese-specific models (G2PW) to free GPU memory"""
+        try:
+            # Change to GPT-SoVITS directory to access the chinese2 module
+            original_cwd = os.getcwd()
+            os.chdir(self.gpt_sovits_path)
+            
+            try:
+                # Import and call the Chinese cleanup function
+                import sys
+                if 'GPT_SoVITS.text.chinese2' in sys.modules:
+                    chinese2_module = sys.modules['GPT_SoVITS.text.chinese2']
+                    if hasattr(chinese2_module, 'cleanup_g2pw'):
+                        chinese2_module.cleanup_g2pw()
+                elif 'text.chinese2' in sys.modules:
+                    chinese2_module = sys.modules['text.chinese2']
+                    if hasattr(chinese2_module, 'cleanup_g2pw'):
+                        chinese2_module.cleanup_g2pw()
+                
+                # Force aggressive garbage collection and GPU cleanup
+                import gc
+                import torch
+                
+                # Multiple rounds of garbage collection
+                for i in range(3):
+                    collected = gc.collect()
+                    if collected > 0:
+                        print(f"  GC round {i+1}: Collected {collected} objects")
+                
+                # Aggressive GPU memory cleanup
+                if torch.cuda.is_available():
+                    for _ in range(5):
+                        torch.cuda.empty_cache()
+                        torch.cuda.synchronize()
+                    
+                    try:
+                        memory_allocated = torch.cuda.memory_allocated() / 1024**3
+                        memory_reserved = torch.cuda.memory_reserved() / 1024**3
+                    except:
+                        pass
+                        
+            except Exception as e:
+                print(f"Warning during Chinese model cleanup: {e}")
+            finally:
+                os.chdir(original_cwd)
+                
+        except Exception as e:
+            print(f"Error in Chinese model cleanup: {e}")
         
     def synthesize_translations(self, transcribed_segments, translated_segments, voice_samples_dir, audio_segments_dir, top_k, top_p, temperature, speed, prompt_language="ja", target_language="en", read_from_cache=False, cache_path=None):
         """
@@ -557,6 +609,10 @@ class TranslationsSynthensizer:
             
             synthesis_results[speaker_id] = speaker_results
             
+            # Clean up Chinese models if target language is Chinese
+            if self.target_language.lower() == 'zh' or self.target_language == '中文':
+                self._cleanup_chinese_models()
+            
             # Light memory cleanup between speakers (non-disruptive)
             self._intermediate_cleanup()
             
@@ -615,6 +671,9 @@ class TranslationsSynthensizer:
                 
                 # Keep only essential lightweight configuration:
                 # 'hps', 'config', 'dict_language', 'tokenizer' - for next video
+                
+                # Also clean up Chinese models in final cleanup
+                self._cleanup_chinese_models()
                         
             except Exception as e:
                 print(f"   Could not access GPT-SoVITS global variables: {e}")
@@ -651,18 +710,28 @@ class TranslationsSynthensizer:
             print(f"Final cleanup warning: {e}")
     
     def _intermediate_cleanup(self):
-        """Very lightweight cleanup between speakers - only cache clearing"""
+        """More aggressive intermediate cleanup between speakers to prevent OOM"""
         try:
             import gc
             import torch
             
-            # Only do minimal cleanup that won't interfere with loaded models
-            # Light garbage collection
-            gc.collect()
+            # More aggressive garbage collection for intermediate cleanup
+            for i in range(3):
+                collected = gc.collect()
+                if collected > 0:
+                    print(f"  Intermediate GC round {i+1}: Collected {collected} objects")
             
-            # Clear GPU cache once (safe)
+            # Multiple GPU cache clears
             if torch.cuda.is_available():
-                torch.cuda.empty_cache()
+                for _ in range(3):
+                    torch.cuda.empty_cache()
+                    torch.cuda.synchronize()
+                
+                try:
+                    memory_allocated = torch.cuda.memory_allocated() / 1024**3
+                    print(f"  Intermediate cleanup - GPU memory: {memory_allocated:.2f}GB allocated")
+                except:
+                    pass
                 
         except Exception as e:
             print(f"Intermediate cleanup warning: {e}")
@@ -890,6 +959,10 @@ class TranslationsSynthensizer:
             
             print(f"Synthesizing {speaker_id} segment {segment_num}: '{translated_text[:50]}...'")
             
+            # Pre-cleanup Chinese models before synthesis if target language is Chinese
+            if target_language.lower() == 'zh' or target_language == '中文':
+                self._cleanup_chinese_models()
+            
             # Smart text splitting
             text_chunks = self._split_long_text_smartly(translated_text, max_length=180)
             
@@ -917,6 +990,10 @@ class TranslationsSynthensizer:
                         if_sr=False,
                         pause_second=0.3
                     )
+                    
+                    # Immediately clean up Chinese models after synthesis call if target language is Chinese
+                    if target_language.lower() == 'zh' or target_language == '中文':
+                        self._cleanup_chinese_models()
                     
                     result_list = list(synthesis_result)
                     if result_list:
@@ -948,6 +1025,11 @@ class TranslationsSynthensizer:
                         
                         speaker_results['segments'].append(segment_result)
                         print(f"  ✓ Saved to: {output_wav_path}")
+                        
+                        # Clean up Chinese models after each segment if target language is Chinese
+                        if target_language.lower() == 'zh' or target_language == '中文':
+                            self._cleanup_chinese_models()
+                            
                     else:
                         print(f"  ✗ No audio generated for segment {segment_num}")
                         
@@ -967,6 +1049,11 @@ class TranslationsSynthensizer:
                 if segment_result:
                     speaker_results['segments'].append(segment_result)
                     print(f"  ✓ Combined audio saved to: {segment_result['output_file']}")
+                    
+                    # Clean up Chinese models after each segment if target language is Chinese
+                    if target_language.lower() == 'zh' or target_language == '中文':
+                        self._cleanup_chinese_models()
+                        
                 else:
                     print(f"  ✗ Failed to synthesize long segment {segment_num}")
         

@@ -31,12 +31,34 @@ if is_g2pw:
     from text.g2pw import G2PWPinyin, correct_pronunciation
 
     parent_directory = os.path.dirname(current_file_path)
-    g2pw = G2PWPinyin(
-        model_dir="GPT_SoVITS/text/G2PWModel",
-        model_source=os.environ.get("bert_path", "GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"),
-        v_to_u=False,
-        neutral_tone_with_five=True,
-    )
+    
+    # Global variable to hold the g2pw instance (lazy-loaded)
+    g2pw = None
+    
+    def get_g2pw_instance():
+        """Get or create G2PW instance (lazy loading)"""
+        global g2pw
+        if g2pw is None:
+            g2pw = G2PWPinyin(
+                model_dir="GPT_SoVITS/text/G2PWModel",
+                model_source=os.environ.get("bert_path", "GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"),
+                v_to_u=False,
+                neutral_tone_with_five=True,
+            )
+        return g2pw
+    
+    def cleanup_g2pw():
+        """Clean up G2PW instance to free GPU memory"""
+        global g2pw
+        if g2pw is not None:
+            try:
+                if hasattr(g2pw, '_g2pw') and g2pw._g2pw is not None:
+                    g2pw._g2pw.cleanup()
+                del g2pw
+                g2pw = None
+            except Exception as e:
+                print(f"Warning during Chinese G2PW cleanup: {e}")
+                g2pw = None
 
 rep_map = {
     "：": ",",
@@ -205,7 +227,8 @@ def _g2p(segments):
             print("pypinyin结果", initials, finals)
         else:
             # g2pw采用整句推理
-            pinyins = g2pw.lazy_pinyin(seg, neutral_tone_with_five=True, style=Style.TONE3)
+            g2pw_instance = get_g2pw_instance()
+            pinyins = g2pw_instance.lazy_pinyin(seg, neutral_tone_with_five=True, style=Style.TONE3)
 
             pre_word_length = 0
             for word, pos in seg_cut:

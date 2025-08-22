@@ -59,6 +59,39 @@ https://github.com/user-attachments/assets/9d65ace4-115d-4e9b-b6f4-b96ae6ee6e0b
 </tr>
 </table>
 
+<table>
+<tr>
+<td width="50%">
+  
+#### 英语
+https://github.com/user-attachments/assets/3174b03a-fa29-4933-93e0-2fbeed349ab9
+
+</td>
+<td width="50%">
+
+#### 日语
+
+https://github.com/user-attachments/assets/8e009645-5ea8-4060-abf9-b2aa40375b7b
+
+
+</td>
+<td width="50%">
+
+#### 韩语
+
+https://github.com/user-attachments/assets/5c926032-1917-4767-8242-e1012cc33ea0
+
+</td>
+<td width="50%">
+
+#### 中文
+
+https://github.com/user-attachments/assets/12cf313e-7535-49b6-aee2-c2e70cab877c
+
+</td>
+</tr>
+</table>
+
 ### 语言支持
 
 **支持的输入和输出语言：**

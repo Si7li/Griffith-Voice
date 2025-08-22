@@ -7,6 +7,9 @@
 
 [**English**](/README.md)｜[**简体中文**](/translations/README.zh.md)｜[**日本語**](/translations/README.ja.md)
 
+
+
+
 </div>
 
 ## 🌟 Overview
@@ -36,37 +39,26 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 <td width="25%">
 
 #### English
-<video controls width="300" height="200">
-  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream-eng .mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
+  https://github.com/user-attachments/assets/68ccfa11-ed76-4f0e-8a33-bb8dcea31007
+  
 </td>
 <td width="25%">
 
 #### Japanese
-<video controls width="300" height="200">
-  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream -ja.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/46e88ebb-a52f-4922-8391-cf1d2b2dc751
 
 </td>
 <td width="25%">
 
 #### Korean
-<video controls width="300" height="200">
-  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream-kr .mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/60194f04-7296-40d0-8501-eaa291e94793
 
 </td>
 <td width="25%">
 
 #### Chinese
-<video controls width="300" height="200">
-  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream -ch.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/9d65ace4-115d-4e9b-b6f4-b96ae6ee6e0b
 
 </td>
 </tr>
@@ -74,79 +66,37 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 <table>
 <tr>
-<td width="25%">
-
-<video controls width="300" height="200">
-  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<td width="50%">
+  
+#### English
+https://github.com/user-attachments/assets/3174b03a-fa29-4933-93e0-2fbeed349ab9
 
 </td>
-<td width="25%">
+<td width="50%">
 
-<video controls width="300" height="200">
-  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+#### Japanese
 
-</td>
-<td width="25%">
+https://github.com/user-attachments/assets/8e009645-5ea8-4060-abf9-b2aa40375b7b
 
-<video controls width="300" height="200">
-  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 </td>
-<td width="25%">
+<td width="50%">
 
-<video controls width="300" height="200">
-  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+#### Korean
+
+https://github.com/user-attachments/assets/5c926032-1917-4767-8242-e1012cc33ea0
+
+</td>
+<td width="50%">
+
+#### Chinese
+
+https://github.com/user-attachments/assets/12cf313e-7535-49b6-aee2-c2e70cab877c
 
 </td>
 </tr>
 </table>
 
-<table>
-<tr>
-<td width="25%">
-
-<video controls width="300" height="200">
-  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-</td>
-<td width="25%">
-
-<video controls width="300" height="200">
-  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-</td>
-<td width="25%">
-
-<video controls width="300" height="200">
-  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-</td>
-<td width="25%">
-
-<video controls width="300" height="200">
-  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-</td>
-</tr>
-</table>
-
-> **Note:** If any video does not play, ensure the corresponding file exists in the `inputs/videos/` directory or replace it with a valid YouTube link.
 
 
 ### Language Support

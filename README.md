@@ -37,7 +37,7 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 #### English
 <video controls width="300" height="200">
-  <source src="inputs/videos/english_demo.mp4" type="video/mp4">
+  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream-eng .mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -46,7 +46,7 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 #### Japanese
 <video controls width="300" height="200">
-  <source src="inputs/videos/japanese_demo.mp4" type="video/mp4">
+  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream -ja.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -55,7 +55,7 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 #### Korean
 <video controls width="300" height="200">
-  <source src="inputs/videos/korean_demo.mp4" type="video/mp4">
+  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream-kr .mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -64,7 +64,7 @@ Explore Griffith Voice's capabilities in real-time translation and dubbing for m
 
 #### Chinese
 <video controls width="300" height="200">
-  <source src="inputs/videos/chinese_demo.mp4" type="video/mp4">
+  <source src="demo/translated_Berserk Anime - Epic Guts s speech. Do you have a dream -ch.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 

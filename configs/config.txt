@@ -42,3 +42,5 @@ pipeline:
       # 0.78 is balanced for emotional tone shifts without over-merging
       threshold: 0.78 # Speaker embedding similarity threshold
 
+      #0.5/8
+

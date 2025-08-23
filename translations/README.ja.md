@@ -84,7 +84,8 @@ https://github.com/user-attachments/assets/5c926032-1917-4767-8242-e1012cc33ea0
 </td>
 <td width="50%">
 
-#### 中国語
+#### 中国語#### Chinese
+
 https://github.com/user-attachments/assets/12cf313e-7535-49b6-aee2-c2e70cab877c
 
 </td>

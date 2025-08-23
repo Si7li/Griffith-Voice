@@ -163,6 +163,7 @@ This project is licensed under the Apache 2.0 License.
 ## 📬 Contact Me
 
 - Submit [Issues](https://github.com/Si7li/Griffith-Voice/issues) or [Pull Requests](https://github.com/Si7li/Griffith-Voice/pulls) on GitHub
+- Support me at [Buymeacoffee](https://buymeacoffee.com/si7li)
 - Email: mohamedkhalil.sahli@enicar.ucar.tn
 
 ---

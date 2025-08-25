@@ -14,9 +14,13 @@ def force_cleanup_gpt_sovits():
         import gc
         import torch
         import sys
+        import os
         
         # Try to access the GPT-SoVITS module if it's been imported
-        gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
+        # Get the project root directory (parent of synthensize_translations directory)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir)
+        gpt_sovits_path = os.path.join(project_root, "GPT-SoVITS")
         
         if gpt_sovits_path in sys.path:
             try:
@@ -70,8 +74,11 @@ def force_cleanup_gpt_sovits():
 
 class TranslationsSynthensizer:
     def __init__(self, gpt_model_path=None, sovits_model_path=None):
-        self.gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
-        self.output_dir = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/outputs/translated_outputs"
+        # Get the project root directory (parent of synthensize_translations directory)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir)
+        self.gpt_sovits_path = os.path.join(project_root, "GPT-SoVITS")
+        self.output_dir = os.path.join(project_root, "outputs", "translated_outputs")
         
         # Default model paths (relative to GPT-SoVITS directory)
         self.gpt_model_path = gpt_model_path or "GPT_SoVITS/pretrained_models/s1v3.ckpt"
@@ -96,8 +103,8 @@ class TranslationsSynthensizer:
         os.chdir(self.gpt_sovits_path)
 
         # Set the correct BERT and CNHubert paths before importing GPT-SoVITS modules
-        os.environ["bert_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
-        os.environ["cnhubert_base_path"] = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-hubert-base"
+        os.environ["bert_path"] = os.path.join(self.gpt_sovits_path, "GPT_SoVITS", "pretrained_models", "chinese-roberta-wwm-ext-large")
+        os.environ["cnhubert_base_path"] = os.path.join(self.gpt_sovits_path, "GPT_SoVITS", "pretrained_models", "chinese-hubert-base")
         
         # Set CUDA memory allocation configuration to help with fragmentation
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -206,7 +213,7 @@ class TranslationsSynthensizer:
                     
                     # Load BERT model if needed
                     if need_bert:
-                        bert_path = os.environ.get("bert_path", "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS/GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large")
+                        bert_path = os.environ.get("bert_path", os.path.join(self.gpt_sovits_path, "GPT_SoVITS", "pretrained_models", "chinese-roberta-wwm-ext-large"))
                         print(f"Loading BERT model from: {bert_path}")
                         
                         if not hasattr(inference_webui, 'tokenizer') or inference_webui.tokenizer is None:

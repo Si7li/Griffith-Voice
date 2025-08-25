@@ -42,7 +42,11 @@ def comprehensive_final_cleanup():
         
                 # 1. Clear GPT-SoVITS models if they were loaded
         try:
-            gpt_sovits_path = "/home/khalils/Desktop/Projects/Real-time_Voice_Translation/GPT-SoVITS"
+            import os
+            # Get the project root directory (parent of utils directory)
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(current_dir)
+            gpt_sovits_path = os.path.join(project_root, "GPT-SoVITS")
             if gpt_sovits_path in sys.path:
                 import GPT_SoVITS.inference_webui as inference_webui
                 

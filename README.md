@@ -144,7 +144,7 @@ python streamlit_webui.py
 ## APIs
 Griffith Voice supports:
 - Transcription: Whisper
-- Translation: GPT models
+- Translation: Google GPT models
 - Voice Synthesis: GPT-SoVITS
 
 ## Why Choose Griffith Voice?

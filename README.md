@@ -138,7 +138,7 @@ pip install -r requirements.txt
 4. Start the application
 
 ```bash
-python streamlit_webui.py
+ run_web_interface.sh
 ```
 
 ## APIs

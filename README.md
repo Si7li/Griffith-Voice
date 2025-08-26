@@ -156,6 +156,9 @@ Griffith Voice supports:
 
 These features make Griffith Voice a versatile and efficient solution for real-time communication and content creation.
 
+## Next Update
+- [ ] Add Docker implementation
+
 ## 📄 License
 
 This project is licensed under the Apache 2.0 License.

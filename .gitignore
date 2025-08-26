@@ -6,4 +6,4 @@ md/
 __pycache__/
 configs/config_api.json
 configs/config.json
-.directory/
+.directory

@@ -158,6 +158,7 @@ These features make Griffith Voice a versatile and efficient solution for real-t
 
 ## Next Update
 - [ ] Add Docker implementation
+- [ ] Add Subtitles that can be exported as .srt/.vtt file
 
 ## 📄 License
 

@@ -6,15 +6,6 @@
 echo "🗣️ Starting Real-time Voice Translation Web Interface..."
 echo "======================================================"
 
-# Check if virtual environment exists
-if [ ! -d "env" ]; then
-    echo "❌ Virtual environment not found. Please create one first:"
-    echo "   python -m venv env"
-    echo "   source env/bin/activate"
-    echo "   pip install -r requirements.txt"
-    exit 1
-fi
-
 # Activate virtual environment
 echo "🔧 Activating virtual environment..."
 source env/bin/activate

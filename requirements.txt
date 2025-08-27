@@ -69,4 +69,4 @@ av>=11
 pathlib
 glob2
 #collections
-audioop-lts; python_version > "3.13"
+audioop-lts
